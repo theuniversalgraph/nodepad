@@ -1,0 +1,1 @@
+/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Commands/java -classpath ./lib/nodepad.jar enclosing.application.node.Main  

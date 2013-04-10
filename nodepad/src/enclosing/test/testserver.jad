@@ -1,0 +1,39 @@
+// Decompiled by Jad v1.5.7d. Copyright 2000 Pavel Kouznetsov.
+// Jad home page: http://www.geocities.com/SiliconValley/Bridge/8617/jad.html
+// Decompiler options: packimports(3) 
+// Source File Name:   testserver.java
+
+package enclosing.test;
+
+import java.io.ObjectInputStream;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class testserver
+{
+
+    public testserver()
+    {
+    }
+
+    public static void main(String args[])
+    {
+        try
+        {
+            ServerSocket sock = new ServerSocket(3000);
+            ObjectInputStream in = null;
+            Socket incomingsock = sock.accept();
+            in = new ObjectInputStream(incomingsock.getInputStream());
+            String temp = (String)in.readObject();
+            System.out.println(temp);
+            in.close();
+            incomingsock.close();
+            sock.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+}

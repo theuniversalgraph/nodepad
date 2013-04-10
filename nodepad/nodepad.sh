@@ -1,0 +1,1 @@
+/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Commands/java -classpath ./lib/nodepad.jar:./lib/commons-httpclient-3.0.1.jar:./lib/commons-lang-2.1.jar  enclosing.application.node.Main $1 $2 $3 $4 
