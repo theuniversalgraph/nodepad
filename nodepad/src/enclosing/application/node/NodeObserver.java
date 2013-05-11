@@ -392,8 +392,15 @@ public class NodeObserver extends Panel implements FlatDialogListener
         	File dir = ndfile.getParentFile();
 
         	if(mac){
-            	String filename = dir.getAbsolutePath() +"/"+wikiname+".nd";
-        		openFromFileWithNewWindow(filename,net);
+    			try {
+    				System.err.println("aaaaa");
+    				Process process = Runtime.getRuntime().exec("tv.sh " + wikiname );
+    			}catch(Exception exception){
+    				exception.printStackTrace();
+    			}
+
+//            	String filename = dir.getAbsolutePath() +"/"+wikiname+".nd";
+//        		openFromFileWithNewWindow(filename,net);
         		
         	}else{
             	String filename = "\"" +dir.getAbsolutePath() +"/"+wikiname+".nd\"";
