@@ -645,9 +645,13 @@ public class NodeComponent extends Container implements Serializable , KeyListen
         nc.setText("&museigenbox");
     }
     public NodeComponent createNewParent(){
-        int xRandom = (int)(Math.random() * 250);
-        int yRandom = (int)(Math.random() * 100);
-        NodeComponent nc = this.getObserver().makeNewNornalNodeAt(this.getX() -55 + xRandom,this.getY() - 30 - yRandom);
+    	int xRandom = ((int)(Math.random() * 250));
+        int yRandom = (int)(Math.random() * 30);
+		int yoffset = 20;
+        int xoffset = 55;
+        
+		int xToBeAdded =     	this.getNodeinterface().getParents().size()==0?0:xRandom-xoffset;
+		NodeComponent nc = this.getObserver().makeNewNornalNodeAt(this.getX()+xToBeAdded,this.getY() - yoffset - yRandom);
         nc.makeConnection(this);
         this.getObserver().setMode("normal",null);
         nc.requestFocusInWindow();

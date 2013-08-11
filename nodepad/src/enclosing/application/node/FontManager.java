@@ -16,7 +16,7 @@ import java.util.Enumeration;
 public class FontManager {
 	
 	NodeObserver nodeObserver = null;
-	private int size = 11;
+	private int size = 10;
 	private int margin = 14;
 	public FontManager(NodeObserver nodeObserver){
 		this.nodeObserver = nodeObserver;
