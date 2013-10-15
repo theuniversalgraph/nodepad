@@ -77,7 +77,7 @@ public class PrintingSkin implements NodepadSkin {
 
 	private Color auxLineColor = new  Color(0,0,70,20);
 	
-	private Color lineColor = new Color(200,200,200,20);
+	private Color lineColor = new Color(200,200,200,50);
 //	private Color lineColor = new Color(0,200,50,70);
 //	pinky line
 //	private Color lineColor = new Color(0,0,0,200);

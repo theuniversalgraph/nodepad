@@ -393,24 +393,26 @@ public class NodeComponent extends Container implements Serializable , KeyListen
         	}
         }
         if(this.isSpecial()){
-            g.setFont(new Font("Dialog",0,15));
+            g.setFont(new Font("Dialog",0,17));
         }
         // xxxxxxxxxxxxxxxxxxxxxxxx colored node
-//        if(StringUtils.isNotBlank(this.getNodeinterface().getContent()) && this.contentBufBuf[0]!=null && this.contentBufBuf[0].startsWith("#")){
-//        	Pattern pattern = Pattern.compile("#[0-9a-f]{6}.*");
-//        	Matcher matcher =pattern.matcher(this.contentBufBuf[0]);
-//        	if(matcher.matches()){
-//        		Color color = this.getColorFromCssColor(this.contentBuf[0].substring(0,7));
-//        		g.setColor(color);
-//  
-//        		
-////        		int rvalue = 16 *  Integer.parseInt(this.contentBuf[0].substring(1,2))  + Integer.parseInt(this.contentBufBuf[0].substring(2,3));
-////        		int gvalue = 16 *  Integer.parseInt(this.contentBuf[0].substring(3,4))  + Integer.parseInt(this.contentBufBuf[0].substring(4,5));
-////        		int bvalue = 16 *  Integer.parseInt(this.contentBuf[0].substring(5,6))  + Integer.parseInt(this.contentBufBuf[0].substring(6,7));
-////        		g.setColor(new Color(rvalue,gvalue,bvalue));
-////        		System.err.println("-----------" + rvalue + " -- " + gvalue + " -- -- " + bvalue); 
-//        	}
-//        }
+        if(isColored()){
+        	Pattern pattern = Pattern.compile("#[0-9a-f]{6}.*");
+        	Matcher matcher =pattern.matcher(this.contentBufBuf[0]);
+        	if(matcher.matches()){
+        		Color color = this.getColorFromCssColor(this.contentBuf[0].substring(0,7));
+        		g.setColor(color);
+  
+        		String colorExpression = this.contentBuf[0];
+        		int rvalue = getColorFromHex(colorExpression.substring(1,3)); 
+//        				16 *  Integer.parseInt()  + Integer.parseInt(this.contentBufBuf[0].substring(2,3));
+        		int gvalue = getColorFromHex(colorExpression.substring(3,5));
+        		int bvalue = getColorFromHex(colorExpression.substring(5,7));
+        		
+        		g.setColor(new Color(rvalue,gvalue,bvalue));
+        		System.err.println("-----------" + rvalue + " -- " + gvalue + " -- -- " + bvalue); 
+        	}
+        }
         if(this.isSpecial()){
         	g.fillRoundRect(0, 0, getPreferredSize().width - 4, getPreferredSize().height -4  ,25,25	);
         	
@@ -448,7 +450,9 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 //        }
         if(this.contentBufBuf != null){
             for(int i = 0;i < this.contentBufBuf.length;i++){
-            	final String contextBufBufString = contentBufBuf[i].replaceAll("\\*", "");
+            	String contextBufBufString = contentBufBuf[i].replaceAll("\\*", "");
+            	if(isColored())
+            		contextBufBufString = contextBufBufString.replaceAll("\\#[0-9a-f]{6}", "");
             	System.err.println(contextBufBufString);
 				this.paintLineWithBracketName(contextBufBufString,g, 11, i*this.getFm().getHeight()+this.getObserver().getFontManager().getMargin());
       	    }
@@ -473,7 +477,18 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 //        this.paintComponents(g);
         super.paint(g);
     }
-    private boolean isSpecial() {
+
+	private boolean isColored() {
+		return StringUtils.isNotBlank(this.getNodeinterface().getContent()) && this.contentBufBuf[0]!=null && this.contentBufBuf[0].startsWith("#");
+	}
+    private int getColorFromHex(String colorExpression) {
+    	
+    	int iHex = Integer.decode( "0x" + colorExpression );
+    	
+    	return iHex;
+	}
+
+	private boolean isSpecial() {
     	return this.contentBufBuf!=null && this.contentBufBuf[0]!=null && this.contentBufBuf[0].startsWith("*");
 	}
 

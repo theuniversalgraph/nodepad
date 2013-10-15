@@ -34,8 +34,8 @@ public class TagHash {
 		hash1.put(new Integer(KeyEvent.VK_H),"@home");
 		hash2.put("@home",new Integer(KeyEvent.VK_H));
 
-		hash1.put(new Integer(KeyEvent.VK_M),"@mail");
-		hash2.put("@mail",new Integer(KeyEvent.VK_M));
+		hash1.put(new Integer(KeyEvent.VK_M),"@mece");
+		hash2.put("@mece",new Integer(KeyEvent.VK_M));
 
 		hash1.put(new Integer(KeyEvent.VK_N),"@Noding");
 		hash2.put("@Noding",new Integer(KeyEvent.VK_N));

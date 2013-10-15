@@ -487,16 +487,31 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		}
 		Hashtable nchash = new Hashtable();
 		
+		if(hash.size()==0){
+			String nodefieldname = getWikiNameFromFile(this.filename); 
+			Node node = new Node("1",nodefieldname,Node.class.getName());
+			node.setX(((int)(Math.random()*100)));
+			node.setY(((int)(Math.random()*100)));
+			hash.put("1",node);
+			
+		}
 		//create NodeComponents for the nodes
 		for(Enumeration en = hash.elements();en.hasMoreElements();){
 			Node node = (Node)en.nextElement();
-			node.setX(node.getX() + x);
-			node.setY(node.getY() + y);
+//			node.setX(200);
+//			node.setY(100);
 			//put in the nc hash of this
 			nchash.put(node.getId(),new NodeComponent(this,node));
 		}
 		this.addNodeComponentHash(nchash,resize);
+		
 	}
+	private String getWikiNameFromFile(String filename) {
+		String returned = filename.replaceAll(".nd", "");
+		returned = returned.substring(filename.lastIndexOf("/")+1, returned.length());
+		return returned;
+	}
+
 	public void openFromObject(Object obj){
 		this.selectAllNodes();
 		this.setMode("delete",null);
