@@ -329,7 +329,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 					/////////////////////////////////////////////// ctrl + alt
 					if(ke.getKeyCode() == KeyEvent.VK_A){
 						AutoExpandOneStepForNodeComponents autoExpandOneStepForNodeComponents
-						 =new AutoExpandOneStepForNodeComponents(this.getObserver().getSelected().elements());
+						 =new AutoExpandOneStepForNodeComponents(this.getObserver().getSelected().elements(),this.getObserver().getNode_components());
 					}else if(ke.getKeyCode() == KeyEvent.VK_S){
 						if(!this.isSeekingNext()){
 							this.setSeekingNext(true);

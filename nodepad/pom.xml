@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>nodepad</groupId>
+  <artifactId>nodepad</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source/>
+          <target/>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>commons-beanutils</groupId>
+  		<artifactId>commons-beanutils</artifactId>
+  		<version>1.7.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>commons-codec</groupId>
+  		<artifactId>commons-codec</artifactId>
+  		<version>1.6</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>commons-collections</groupId>
+  		<artifactId>commons-collections</artifactId>
+  		<version>3.2.1</version>
+  	</dependency>
+<dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-digester3</artifactId>
+	<version>3.2</version>
+</dependency>
+
+  	<dependency>
+	<groupId>commons-discovery</groupId>
+	<artifactId>commons-discovery</artifactId>
+	<version>0.2</version>
+</dependency>
+
+
+<dependency>
+	<groupId>commons-fileupload</groupId>
+	<artifactId>commons-fileupload</artifactId>
+	<version>1.0</version>
+</dependency>
+
+<dependency>
+	<groupId>commons-logging</groupId>
+	<artifactId>commons-logging</artifactId>
+	<version>1.0.4</version>
+</dependency>
+<dependency>
+	<groupId>commons-validator</groupId>
+	<artifactId>commons-validator</artifactId>
+	<version>1.1.4</version>
+</dependency>
+<dependency>
+	<groupId>dom4j</groupId>
+	<artifactId>dom4j</artifactId>
+	<version>1.6.1</version>
+</dependency>
+<dependency>
+	<groupId>com.sun.mail</groupId>
+	<artifactId>javax.mail</artifactId>
+	<version>1.5.2</version>
+</dependency>
+
+<dependency>
+	<groupId>com.google.guava</groupId>
+	<artifactId>guava</artifactId>
+	<version>18.0</version>
+</dependency>
+
+<dependency>
+	<groupId>com.google.api-client</groupId>
+	<artifactId>google-api-client</artifactId>
+	<version>1.19.0</version>
+</dependency>
+
+
+
+
+
+
+
+<dependency>
+	<groupId>commons-httpclient</groupId>
+	<artifactId>commons-httpclient</artifactId>
+	<version>3.0.1</version>
+</dependency>
+
+<dependency>
+	<groupId>commons-lang</groupId>
+	<artifactId>commons-lang</artifactId>
+	<version>2.1</version>
+</dependency>
+
+
+
+
+
+  	
+  </dependencies>
+</project>

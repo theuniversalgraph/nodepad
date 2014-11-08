@@ -7,10 +7,11 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class AutoExpandOneStep {
-	public AutoExpandOneStep(String wikistring,NodeComponent  expandedNodeComponent){
+	public AutoExpandOneStep(String wikistring,NodeComponent  expandedNodeComponent,Hashtable existingNodeComponents){
 
         try
         {
+        	
         	File ndfile = new File(expandedNodeComponent.getObserver().getFilename());
         	File dir = ndfile.getParentFile();
         	String filename = null;
@@ -37,12 +38,28 @@ public class AutoExpandOneStep {
 				}
 			}
             
+            
             if(theNodeWithTheSameNameAsWikiString!=null){
             	Enumeration childs = theNodeWithTheSameNameAsWikiString.getChildren().elements();
             	while (childs.hasMoreElements()) {
 					Node childNode = (Node) nodes.get(childs.nextElement());
 					Enumeration childrenOfExpandedNode  = expandedNodeComponent.getChildren().elements();
 					boolean duplicated = false;
+		        	Enumeration existingNodeComponentsEnumeration = existingNodeComponents.elements();
+
+		        	//make connectiong as children if already existing
+					while (existingNodeComponentsEnumeration.hasMoreElements()) {
+						NodeComponent oneExistingNode = (NodeComponent) existingNodeComponentsEnumeration.nextElement();
+						if(childNode.getContent().equals(oneExistingNode.getNodeinterface().getContent())){
+							duplicated = true;
+							
+							//make connection not a node.
+							expandedNodeComponent.makeConnection(oneExistingNode);
+							
+							break;
+						}
+					}
+
 					while (childrenOfExpandedNode.hasMoreElements()) {
 						NodeComponent childOfExpandedNodeComponent = (NodeComponent) childrenOfExpandedNode.nextElement();
 						if(childNode.getContent().equals(childOfExpandedNodeComponent.getNodeinterface().getContent())){
@@ -60,6 +77,25 @@ public class AutoExpandOneStep {
             	while (parents.hasMoreElements()) {
 					Node parentNode = (Node) nodes.get(parents.nextElement());
 					boolean duplicated = false;
+		        	Enumeration existingNodeComponentsEnumeration = existingNodeComponents.elements();
+
+		        	//make connectiong as children if already existing
+					while (existingNodeComponentsEnumeration.hasMoreElements()) {
+						NodeComponent oneExistingNode = (NodeComponent) existingNodeComponentsEnumeration.nextElement();
+						if(parentNode.getContent().equals(oneExistingNode.getNodeinterface().getContent())){
+							duplicated = true;
+							
+							//make connection not a node.
+							oneExistingNode.makeConnection(expandedNodeComponent);
+							
+							break;
+						}
+					}
+					
+					
+					
+					
+					
 					Enumeration parentsOfExpandedNode = expandedNodeComponent.getParents().elements();
 					while (parentsOfExpandedNode.hasMoreElements()) {
 						NodeComponent parentOfExpandedNodeComponent = (NodeComponent) parentsOfExpandedNode.nextElement();

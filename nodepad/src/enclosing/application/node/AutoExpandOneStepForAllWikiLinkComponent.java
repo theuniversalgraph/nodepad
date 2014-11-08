@@ -12,7 +12,7 @@ public class AutoExpandOneStepForAllWikiLinkComponent {
 			NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
 			for (Iterator iter = nodeComponent.getWikilinks().iterator(); iter.hasNext();) {
 				WikiLinkComponent	wikiLinkComponent = (WikiLinkComponent) iter.next();
-				AutoExpandOneStep autoExpandOneStep = new AutoExpandOneStep(wikiLinkComponent.getBranketContent(),nodeComponent);
+				AutoExpandOneStep autoExpandOneStep = new AutoExpandOneStep(wikiLinkComponent.getBranketContent(),nodeComponent,nodeObserver.getNode_components());
 			}
 		}
 	}
