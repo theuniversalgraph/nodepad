@@ -11,7 +11,7 @@ public class AutoExpandOneStep {
 
         try
         {
-        	
+        	wikistring = wikistring.replaceAll("\\s", "_");
         	File ndfile = new File(expandedNodeComponent.getObserver().getFilename());
         	File dir = ndfile.getParentFile();
         	String filename = null;
