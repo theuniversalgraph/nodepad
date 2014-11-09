@@ -851,45 +851,58 @@ public class NodeComponent extends Container implements Serializable , KeyListen
     	Collections.sort(l, new LengthComparator());
     	files = (String[])l.toArray();
     	for (int i = 0; i < files.length; i++) {
-    		int index = 0;
     		if(files[i].endsWith("nd")){
     			String file =files[i].substring(0,files[i].length() - 3);
-    			while(index >=0){
-    				if(string.length() >= file.length()){
-    					index =  string.indexOf(file,index);
-    					if(index >= 0 ){
-    						int indexoflastbraketstart = string.lastIndexOf("[[",index);
-    						int indexoflastbraketend = string.lastIndexOf("]]",index);
-    						int indexofnextbraketstart = string.indexOf("[[",index);
-    						int indexofnextbraketend = string.indexOf("]]",index);
-    						if( indexoflastbraketstart <=  indexoflastbraketend){
-    							
-    						String before = string.substring(0,index);
-    						String replaced = string.substring(index ,file.length() + index );
-    						String after = string.substring(index + file.length());
-//    						if(!after.startsWith("]]") && !before.endsWith("[[")){
-//        						if( ! before.endsWith("[[")  && !after.startsWith("]]")){
-	    						StringBuffer buffer =new StringBuffer();
-	    						buffer.append(before);
-	    						buffer.append(replaced.replaceAll(file,"[["+ file + "]]"));
-	    						buffer.append(after);
-	    						string = buffer.toString();
-	    						index = index + file.length() + 4;
-						}else{
-    							index++;
-    						}
-    					}else{
-    						index  = 0;
-    						break;
-    					}
-    				}else{
-    					break;
-    				}
-    			}
+        		string = autolink(string, file);
+        		if(file.contains("_")){
+        			file = file.replaceAll("_", " ");
+            		string = autolink(string, file);
+
+        		}
+    			
+    			
+    			
     		}
     	}
     	return string;
     }
+
+	private String autolink(String string, String file) {
+		int index = 0;
+		while(index >=0){
+			if(string.length() >= file.length()){
+				index =  string.indexOf(file,index);
+				if(index >= 0 ){
+					int indexoflastbraketstart = string.lastIndexOf("[[",index);
+					int indexoflastbraketend = string.lastIndexOf("]]",index);
+					int indexofnextbraketstart = string.indexOf("[[",index);
+					int indexofnextbraketend = string.indexOf("]]",index);
+					if( indexoflastbraketstart <=  indexoflastbraketend){
+						
+					String before = string.substring(0,index);
+					String replaced = string.substring(index ,file.length() + index );
+					String after = string.substring(index + file.length());
+//    						if(!after.startsWith("]]") && !before.endsWith("[[")){
+//        						if( ! before.endsWith("[[")  && !after.startsWith("]]")){
+						StringBuffer buffer =new StringBuffer();
+						buffer.append(before);
+						buffer.append(replaced.replaceAll(file,"[["+ file + "]]"));
+						buffer.append(after);
+						string = buffer.toString();
+						index = index + file.length() + 4;
+				}else{
+						index++;
+					}
+				}else{
+					index  = 0;
+					break;
+				}
+			}else{
+				break;
+			}
+		}
+		return string;
+	}
     
     public void setText(String text){
     	System.err.println(text);
