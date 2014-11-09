@@ -41,6 +41,8 @@ public class Main {
 						applet.observer.setMac(true);
 						
 					}else{
+						applet.observer.setMac(true);
+						
 						System.err.println("trying to go...applet");
 						applet.observer.openFromFile(string);
 						frame.setTitle(string);
@@ -48,6 +50,8 @@ public class Main {
 				}
 			}
 		}else{
+			applet.observer.setMac(true);
+			
 		    frame.setTitle("top.nd");
 			applet.observer.openFromFile("./data/top.nd");
 			System.err.println("nothing maybe");

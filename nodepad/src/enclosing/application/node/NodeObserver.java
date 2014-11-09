@@ -386,6 +386,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	}
 
     public void openFromWikiWileName(String wikiname,boolean net){
+    	wikiname = wikiname.replaceAll("\\s", "_");
     	if(net){
     	}else{
         	File ndfile = new File(this.getFilename());
@@ -433,6 +434,8 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			    	System.err.println("mac");
 					java.lang.Runtime.getRuntime().exec("./nodepad.sh  "+filename  + " -m");
 			    }else{
+			    	System.err.println("win");
+
 					java.lang.Runtime.getRuntime().exec("./nodepad.exe "+filename);
 
 			    }
