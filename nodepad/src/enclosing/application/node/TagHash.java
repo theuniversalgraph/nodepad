@@ -40,18 +40,15 @@ public class TagHash {
 		hash1.put(new Integer(KeyEvent.VK_N),"@Noding");
 		hash2.put("@Noding",new Integer(KeyEvent.VK_N));
 
-		hash1.put(new Integer(KeyEvent.VK_O),"@Onthego");
-		hash2.put("@Onthego",new Integer(KeyEvent.VK_O));
+		hash1.put(new Integer(KeyEvent.VK_O),"@outsource");
+		hash2.put("@outsource",new Integer(KeyEvent.VK_O));
 
-		hash1.put(new Integer(KeyEvent.VK_P),"@purchase");
-		hash2.put("@purchase",new Integer(KeyEvent.VK_P));
+		hash1.put(new Integer(KeyEvent.VK_P),"@pknk");
+		hash2.put("@pknk",new Integer(KeyEvent.VK_P));
 
-		hash1.put(new Integer(KeyEvent.VK_S),"@secretary");
-		hash2.put("@secretary",new Integer(KeyEvent.VK_S));
+		hash1.put(new Integer(KeyEvent.VK_S),"@scheduled");
+		hash2.put("@scheduled",new Integer(KeyEvent.VK_S));
 		
-		hash1.put(new Integer(KeyEvent.VK_T),"@time");
-		hash2.put("@time",new Integer(KeyEvent.VK_T));
-
 		hash1.put(new Integer(KeyEvent.VK_W),"@wait");
 		hash2.put("@wait",new Integer(KeyEvent.VK_W));
 	}
