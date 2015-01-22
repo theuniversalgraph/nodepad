@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<editmodel:SequenceDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" metadata="nsuml-1.4" tag="10" key="323030343036313420656E636C6F73696E67">
-  <diagramOptions xsi:type="options:SequenceDiagramOptions" autoName="false"/>
-</editmodel:SequenceDiagramEditModel>
