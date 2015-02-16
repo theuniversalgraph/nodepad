@@ -406,11 +406,11 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 						observer.applicationEnds(null);
 					}				
 				}
-				if(ke.getKeyCode()==107){
+				if(ke.getKeyCode()==107 || ke.getKeyCode()==187){
 					new FieldZoomManager(this.getObserver()).zoomin();
 					this.observer.getFontManager().setFontSizeBigger();
 				}
-				if(ke.getKeyCode()==109){
+				if(ke.getKeyCode()==109 || ke.getKeyCode()==189){
 					new FieldZoomManager(this.getObserver()).zoomout();
 					this.observer.getFontManager().setFontSizeSmaller();
 				}
