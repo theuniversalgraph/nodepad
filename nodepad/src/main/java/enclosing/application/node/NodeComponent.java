@@ -313,7 +313,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				e.printStackTrace();
 			}
 		}
-
+		System.err.println(this.bracketName);
 		this.re = new RE(this.bracketName);        
 
 		this.ni = null;
