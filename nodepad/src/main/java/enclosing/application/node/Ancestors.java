@@ -8,6 +8,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 import enclosing.application.node.predicate.Terminal;
+import enclosing.model.Node;
 
 public class Ancestors {
 	AllNode allNode = AllNode.getInstance();
@@ -29,9 +30,6 @@ public class Ancestors {
 		}
 		if(!processed.contains(node)){
 			processed.add(node);
-			if(node.equals("doneのstatusをみたい")){
-				System.err.println("aaaaaaaaaaaaaaaaa");
-			}
 
 			Vector<String> children = AllNode.getAllChildren(node);
 			Collection<String> terminals = Collections2.filter(children, predicate);
