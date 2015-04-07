@@ -41,6 +41,10 @@ import enclosing.application.node.ncplugins.DumpContentToText;
 import enclosing.application.node.ncplugins.EnCauseNodesWithRelativeYPosision;
 import enclosing.application.node.server.OpenFileFromServer;
 import enclosing.application.node.wiki.WikiLinkComponent;
+import enclosing.model.Node;
+import enclosing.webapi.client.AddToBackpack;
+import enclosing.webapi.client.AddToGoogleCalendar;
+import enclosing.webapi.client.AddToTumbler;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface, NodeObserver, Line, NodeOutlet, 

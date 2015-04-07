@@ -8,6 +8,8 @@ package enclosing.application.node;
 import java.applet.Applet;
 import java.awt.*;
 
+import enclosing.model.Node;
+
 // Referenced classes of package enclosing.application.node:
 //            NodeComponent, Node
 

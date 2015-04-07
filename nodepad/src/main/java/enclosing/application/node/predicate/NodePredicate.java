@@ -4,7 +4,7 @@ import java.util.Hashtable;
 
 import com.google.common.base.Predicate;
 
-import enclosing.application.node.Node;
+import enclosing.model.Node;
 
 public abstract class NodePredicate implements Predicate<Node>{
 	int hop = 0;

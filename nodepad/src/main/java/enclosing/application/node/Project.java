@@ -5,6 +5,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 
 import enclosing.application.node.predicate.NodePredicate;
+import enclosing.model.Node;
 import net.enclosing.list.List;
 
 public class Project extends NodePredicate{

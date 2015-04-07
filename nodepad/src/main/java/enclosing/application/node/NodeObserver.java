@@ -44,6 +44,7 @@ import enclosing.application.node.server.SaveNodeFileToServer;
 import enclosing.application.node.wiki.WikiLinkComponent;
 import enclosing.awt.FlatDialogListener;
 import enclosing.awt.YesNoCancelDialog;
+import enclosing.model.Node;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface, NodeComponent, NewNodeContent, Line, 

@@ -8,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import enclosing.model.Node;
+
 public class AutoExpandOneStep {
 	Node theNodeWithTheSameNameAsWikiString = null;
 	public AutoExpandOneStep(String wikistring,NodeComponent  expandedNodeComponent,Hashtable existingNodeComponents){

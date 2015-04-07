@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import enclosing.application.node.predicate.DescendantsOf;
 import enclosing.application.node.predicate.TodoistItemNotExisting;
+import enclosing.model.Node;
 
 public class NodesToTodoistItems {
 	String NODE_WEB_BASEURL = "http://zxc.cz/e2h/p.html?query=";

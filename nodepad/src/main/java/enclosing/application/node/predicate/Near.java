@@ -1,6 +1,6 @@
 package enclosing.application.node.predicate;
 
-import enclosing.application.node.Node;
+import enclosing.model.Node;
 
 public class Near extends NodePredicate {
 	public boolean apply(Node input) {

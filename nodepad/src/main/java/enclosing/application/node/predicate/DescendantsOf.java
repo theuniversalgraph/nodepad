@@ -12,9 +12,9 @@ import com.google.common.collect.ImmutableSet;
 
 import enclosing.application.node.AllNode;
 import enclosing.application.node.MakeNodeFilesForExistingNodes;
-import enclosing.application.node.Node;
 import enclosing.application.node.NodeUtils;
 import enclosing.application.node.Project;
+import enclosing.model.Node;
 
 @WebServlet("/SearchNotesServlet")
 public class DescendantsOf {

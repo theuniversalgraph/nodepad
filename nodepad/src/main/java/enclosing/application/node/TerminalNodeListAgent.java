@@ -11,6 +11,7 @@ import java.util.Vector;
 import myutil.MainFrame;
 import myutil.filehandler;
 import enclosing.application.node.predicate.Terminal;
+import enclosing.model.Node;
 
 
 public class TerminalNodeListAgent {

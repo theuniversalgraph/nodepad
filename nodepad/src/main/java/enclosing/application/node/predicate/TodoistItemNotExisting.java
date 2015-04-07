@@ -7,8 +7,8 @@ import net.enclosing.todoist.Todoist;
 
 import com.google.common.base.Predicate;
 
-import enclosing.application.node.Node;
 import enclosing.application.node.NodeUtils;
+import enclosing.model.Node;
 
 public class TodoistItemNotExisting implements Predicate<Node> {
 	Collection<Item> allItems = null;

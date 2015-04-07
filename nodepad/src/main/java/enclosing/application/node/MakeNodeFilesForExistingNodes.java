@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import org.apache.commons.collections.map.HashedMap;
 
+import enclosing.model.Node;
 import myutil.filehandler;
 
 public class MakeNodeFilesForExistingNodes {
