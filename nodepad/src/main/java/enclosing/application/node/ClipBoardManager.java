@@ -23,7 +23,7 @@ public class ClipBoardManager {
 	public ClipBoardManager(NodeObserver observer){
 		this.observer = observer;
 	}
-	private String filename = "clipboard.nd";
+	private String filename = "./data/clipboard.nd";
 	public Hashtable copy(){
 	    if(this.observer == null || this.observer.getSelected() == null || this.observer.getSelected().size()<1){
 	        return null;
