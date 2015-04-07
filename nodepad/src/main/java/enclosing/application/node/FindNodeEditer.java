@@ -20,8 +20,8 @@ public class FindNodeEditer  extends TextArea implements KeyListener
         System.err.println(e.getKeyCode() +" typed");
         
         if(e.getKeyCode() == 27){
-        	FindNode findNode = new FindNode();
-        	findNode.findNode();
+//        	FindNode findNode = new FindNode();
+//        	findNode.findNode();
 //            this.nc.returnFromEditing();
 //            this.nc.requestFocusInWindow();
         }
