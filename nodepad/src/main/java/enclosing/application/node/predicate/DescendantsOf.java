@@ -10,9 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
 
+import enclosing.application.node.Node;
 import enclosing.faceless.AllNode;
 import enclosing.faceless.MakeNodeFilesForExistingNodes;
-import enclosing.model.Node;
 import enclosing.model.Project;
 import enclosing.util.NodeUtils;
 

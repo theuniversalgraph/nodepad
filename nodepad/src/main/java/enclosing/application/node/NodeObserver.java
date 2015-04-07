@@ -47,7 +47,6 @@ import enclosing.application.node.wiki.WikiLinkComponent;
 import enclosing.awt.FlatDialogListener;
 import enclosing.awt.YesNoCancelDialog;
 import enclosing.faceless.GetFacelessNodeField;
-import enclosing.model.Node;
 import enclosing.model.NodeInterface;
 import enclosing.util.NodeUtils;
 

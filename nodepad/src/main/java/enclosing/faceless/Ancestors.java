@@ -7,8 +7,8 @@ import java.util.Vector;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
+import enclosing.application.node.Node;
 import enclosing.application.node.predicate.Terminal;
-import enclosing.model.Node;
 import enclosing.util.NodeUtils;
 
 public class Ancestors {

@@ -8,8 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import enclosing.application.node.Node;
 import enclosing.application.node.NodeComponent;
-import enclosing.model.Node;
 import enclosing.util.NodeUtils;
 import myutil.filehandler;
 

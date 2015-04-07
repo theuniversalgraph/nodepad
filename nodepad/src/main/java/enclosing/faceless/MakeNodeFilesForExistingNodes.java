@@ -10,10 +10,10 @@ import java.util.Vector;
 import org.apache.commons.collections.map.HashedMap;
 
 import enclosing.application.node.GetNodeFieldNodeComponent;
+import enclosing.application.node.Node;
 import enclosing.application.node.NodeComponent;
 import enclosing.application.node.NodeFieldApplet;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
-import enclosing.model.Node;
 import enclosing.util.NodeUtils;
 import myutil.filehandler;
 

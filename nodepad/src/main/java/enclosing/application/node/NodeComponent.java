@@ -44,7 +44,6 @@ import enclosing.application.node.ncplugins.MuseigenText;
 import enclosing.application.node.server.OpenFileFromServer;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.WikiLinkComponent;
-import enclosing.model.Node;
 import enclosing.model.NodeInterface;
 import enclosing.model.TagHash;
 import enclosing.webapi.client.AddToBackpack;

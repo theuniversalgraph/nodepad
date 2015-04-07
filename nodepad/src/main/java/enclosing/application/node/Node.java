@@ -3,10 +3,12 @@
 // Decompiler options: packimports(3) 
 // Source File Name:   Node.java
 
-package enclosing.model;
+package enclosing.application.node;
 
 import java.io.Serializable;
 import java.util.Vector;
+
+import enclosing.model.NodeInterface;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface
@@ -14,6 +16,7 @@ import java.util.Vector;
 public class Node
     implements NodeInterface,Serializable
 {
+	private static final long serialVersionUID = 8282646361946173266L;
 
 	/**
 	 * 

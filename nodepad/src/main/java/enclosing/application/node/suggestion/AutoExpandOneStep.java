@@ -8,9 +8,9 @@ import java.io.ObjectInputStream;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import enclosing.application.node.Node;
 import enclosing.application.node.NodeComponent;
 import enclosing.faceless.GetFacelessNodeField;
-import enclosing.model.Node;
 import enclosing.util.NodeUtils;
 
 public class AutoExpandOneStep {

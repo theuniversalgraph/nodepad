@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
+import enclosing.application.node.Node;
 import enclosing.application.node.predicate.NodePredicate;
 import enclosing.faceless.GetNodeFiles;
 import enclosing.util.NodeUtils;
