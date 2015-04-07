@@ -1,4 +1,4 @@
-package enclosing.webapi.tumblr;
+package enclosing.webapi.client;
 
 import java.io.File;
 import java.io.PrintWriter;

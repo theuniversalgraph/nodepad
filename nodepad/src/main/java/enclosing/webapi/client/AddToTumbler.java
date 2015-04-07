@@ -1,4 +1,4 @@
-package enclosing.application.node;
+package enclosing.webapi.client;
 
 import java.net.URLEncoder;
 
@@ -10,6 +10,8 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import enclosing.application.node.NodeInterface;
 
 public class AddToTumbler {
 	public AddToTumbler(NodeInterface node){

@@ -1,4 +1,4 @@
-package enclosing.application.node;
+package enclosing.webapi.client;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -9,6 +9,9 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import enclosing.application.node.NodeComponent;
+import enclosing.application.node.ThreadTxt;
 
 public class AddToBackpack {
 	public AddToBackpack(String nodefieldname,NodeComponent nodeComponent){

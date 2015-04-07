@@ -1,4 +1,4 @@
-package enclosing.application.node;
+package enclosing.webapi.client;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,6 +18,8 @@ import com.google.gdata.data.extensions.When;
 import com.google.gdata.data.extensions.Where;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
+
+import enclosing.application.node.NodeInterface;
 
 public class AddToGoogleCalendar {
 	public AddToGoogleCalendar(NodeInterface node){
