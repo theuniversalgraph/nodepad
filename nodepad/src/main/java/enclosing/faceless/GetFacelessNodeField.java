@@ -5,8 +5,8 @@ import java.util.Vector;
 
 import enclosing.application.node.NodeFieldApplet;
 import enclosing.application.node.NodeObserver;
-import enclosing.application.node.NodeUtils;
 import enclosing.application.node.TestCounter;
+import enclosing.util.NodeUtils;
 
 public class GetFacelessNodeField {
 	public static NodeFieldApplet initApplet() {

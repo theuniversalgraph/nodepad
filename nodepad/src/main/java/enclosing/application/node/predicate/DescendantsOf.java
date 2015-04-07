@@ -10,11 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
 
-import enclosing.application.node.AllNode;
-import enclosing.application.node.MakeNodeFilesForExistingNodes;
-import enclosing.application.node.NodeUtils;
-import enclosing.application.node.Project;
+import enclosing.faceless.AllNode;
+import enclosing.faceless.MakeNodeFilesForExistingNodes;
 import enclosing.model.Node;
+import enclosing.model.Project;
+import enclosing.util.NodeUtils;
 
 @WebServlet("/SearchNotesServlet")
 public class DescendantsOf {

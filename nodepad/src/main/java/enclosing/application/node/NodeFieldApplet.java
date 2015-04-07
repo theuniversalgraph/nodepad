@@ -32,6 +32,12 @@ import enclosing.application.node.server.OpenNodeFileFromServer;
 import enclosing.application.node.skin.MoniterSkin;
 import enclosing.application.node.skin.NodepadSkin;
 import enclosing.application.node.skin.PrintingSkin;
+import enclosing.application.node.suggestion.AutoExpandOneStepForNodeComponents;
+import enclosing.faceless.AllNode;
+import enclosing.faceless.MakeNodeFilesForExistingNodes;
+import enclosing.model.NodeInterface;
+import enclosing.model.TagHash;
+import enclosing.webapi.client.NodesToTodoistItems;
 
 public class NodeFieldApplet extends Applet implements KeyListener,ComponentListener
 {

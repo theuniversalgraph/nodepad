@@ -36,15 +36,22 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.regexp.RE;
 
+import enclosing.application.node.fileplugins.HttpBrowser;
 import enclosing.application.node.ncplugins.BreakNodeIntoNodesWithCRLF;
 import enclosing.application.node.ncplugins.DumpContentToText;
 import enclosing.application.node.ncplugins.EnCauseNodesWithRelativeYPosision;
+import enclosing.application.node.ncplugins.MuseigenText;
 import enclosing.application.node.server.OpenFileFromServer;
+import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.WikiLinkComponent;
 import enclosing.model.Node;
+import enclosing.model.NodeInterface;
+import enclosing.model.TagHash;
 import enclosing.webapi.client.AddToBackpack;
 import enclosing.webapi.client.AddToGoogleCalendar;
 import enclosing.webapi.client.AddToTumbler;
+import enclosing.webapi.client.GoogleAnswer;
+import enclosing.webapi.client.TextToNodes;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface, NodeObserver, Line, NodeOutlet, 

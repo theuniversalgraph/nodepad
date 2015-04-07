@@ -41,10 +41,15 @@ import org.apache.commons.lang.StringUtils;
 import myutil.CounterInterface;
 import myutil.filehandler;
 import enclosing.application.node.server.SaveNodeFileToServer;
+import enclosing.application.node.suggestion.AutoExpandOneStep;
+import enclosing.application.node.wiki.LengthComparator;
 import enclosing.application.node.wiki.WikiLinkComponent;
 import enclosing.awt.FlatDialogListener;
 import enclosing.awt.YesNoCancelDialog;
+import enclosing.faceless.GetFacelessNodeField;
 import enclosing.model.Node;
+import enclosing.model.NodeInterface;
+import enclosing.util.NodeUtils;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface, NodeComponent, NewNodeContent, Line, 

@@ -1,1 +1,0 @@
-jad *.class -d ./jad

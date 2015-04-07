@@ -5,6 +5,8 @@
 
 package enclosing.application.node;
 
+import enclosing.model.NodeInterface;
+
 
 // Referenced classes of package enclosing.application.node:
 //            NodeComponent, NodeObserver, NodeInterface

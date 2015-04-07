@@ -8,8 +8,6 @@ package enclosing.model;
 import java.io.Serializable;
 import java.util.Vector;
 
-import enclosing.application.node.NodeInterface;
-
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface
 

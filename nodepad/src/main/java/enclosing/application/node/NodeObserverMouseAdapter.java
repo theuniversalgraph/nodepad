@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 
 import enclosing.application.node.ncplugins.EnCauseNodesWithRelativeYPosision;
+import enclosing.application.node.suggestion.AutoExpandOneStepForAllWikiLinkComponent;
 
 
 // Referenced classes of package enclosing.application.node:

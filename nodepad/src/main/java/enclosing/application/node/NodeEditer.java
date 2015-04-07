@@ -8,7 +8,6 @@ package enclosing.application.node;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.TextArea;
-
 import java.awt.event.InputMethodEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -20,6 +19,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
+
+import enclosing.application.node.wiki.LengthComparator;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeComponent, NodeInterface

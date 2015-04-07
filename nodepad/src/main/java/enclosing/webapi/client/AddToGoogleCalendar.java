@@ -19,7 +19,7 @@ import com.google.gdata.data.extensions.Where;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 
-import enclosing.application.node.NodeInterface;
+import enclosing.model.NodeInterface;
 
 public class AddToGoogleCalendar {
 	public AddToGoogleCalendar(NodeInterface node){

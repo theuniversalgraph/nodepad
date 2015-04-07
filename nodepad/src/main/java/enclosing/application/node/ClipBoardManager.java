@@ -10,8 +10,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 import myutil.filehandler;
-
 import enclosing.application.node.server.SaveNodeFileToServer;
+import enclosing.model.NodeInterface;
 
 /**
  * @author Administrator

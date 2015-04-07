@@ -2,7 +2,7 @@ package enclosing.application.node.predicate;
 
 import java.util.Hashtable;
 
-import enclosing.application.node.AllNode;
+import enclosing.faceless.AllNode;
 import enclosing.model.Node;
 
 public class Terminal extends NodePredicate{

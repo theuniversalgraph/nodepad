@@ -2,6 +2,8 @@ package enclosing.application.node;
 
 import java.util.Enumeration;
 
+import enclosing.util.NodeUtils;
+
 public class GetNodeFieldNodeComponent {
 	public static NodeComponent findExpandedNodeComponent(NodeFieldApplet applet, String nodeContent) {
 		NodeComponent nodeComponent = (NodeComponent)applet.observer.getNode_components().get("1");

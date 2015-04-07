@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 
+import enclosing.application.node.fileplugins.HttpBrowser;
 import sun.nio.cs.ext.MacHebrew;
 
 public class FollowAllTheUrlOfNodes {
