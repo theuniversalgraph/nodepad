@@ -5,41 +5,8 @@
 
 package enclosing.application.node;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Panel;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.TextField;
-import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Vector;
-
-import javax.imageio.ImageIO;
-
-import org.apache.commons.lang.StringUtils;
-
-import myutil.CounterInterface;
-import myutil.filehandler;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import enclosing.application.node.server.SaveNodeFileToServer;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.LengthComparator;
@@ -49,6 +16,19 @@ import enclosing.awt.YesNoCancelDialog;
 import enclosing.faceless.GetFacelessNodeField;
 import enclosing.model.NodeInterface;
 import enclosing.util.NodeUtils;
+import myutil.CounterInterface;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.URL;
+import java.util.*;
+import java.util.List;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface, NodeComponent, NewNodeContent, Line, 
@@ -65,7 +45,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		final File file = new File(this.getFilename());
 		final String abosulutePath = file.getAbsolutePath();
 		final String withoutPath = abosulutePath.substring(abosulutePath.lastIndexOf("/")+1);
-		String returened = withoutPath.replaceAll("\\.nd", "");
+		String returened = withoutPath.replaceAll(SimpleStringConstants.FILE_POSTFIX, "");
 		return returened;
 	}
 
@@ -169,26 +149,28 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	  }
 
 
-	  public void exportToStream(OutputStream out,Hashtable saved_nodes)
+	  public void exportToJson(OutputStream out, Hashtable saved_nodes)
 	  {
 		  try
 		  {
-			  ObjectOutputStream objout = new ObjectOutputStream(out);
-			  NodeComponent nc;
-
-			  if(saved_nodes == null){
+			  if(saved_nodes == null) {
 				  saved_nodes = getNodeHashFromNCHash();
 			  }
-			  String temp = "test";
-			  objout.writeObject(saved_nodes);
-			  objout.flush();
-			  objout.close();
+              Gson gson = new Gson();
+              String json = gson.toJson(saved_nodes);
+
+              OutputStreamWriter outputStreamWriterWriter =new OutputStreamWriter(out);
+              outputStreamWriterWriter.append(json);
+              outputStreamWriterWriter.flush();
+              outputStreamWriterWriter.close();
 		  }
 		  catch(Exception e)
 		  {
 			  e.printStackTrace();
 		  }
 	  }
+
+
 
 	Hashtable getNodeHashFromNCHash() {
 		Hashtable saved_nodes;
@@ -263,7 +245,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			  try
 			  {
 				  FileOutputStream fo = new FileOutputStream(this.filename);
-				  exportToStream(fo,null);
+				  exportToJson(fo, null);
 				  fo.close();
 				  //		        				new Rectangle(
 				  //		        				-100,-100,
@@ -271,7 +253,8 @@ public class NodeObserver extends Panel implements FlatDialogListener
 				  ////		        				(int)this.getNode_container().getAlignmentY(),
 				  //		        				this.getNode_container().getBounds().width,
 				  //		        				this.getNode_container().getBounds().height));
-				  if(!faceless){
+				  //TODO changed to dalse as it was throwing exceptions
+				  if(false){
 					  Robot robot = new Robot();
 					  BufferedImage screenShot = 
 							  robot.createScreenCapture(this.getNodeFieldApplet().getFrame().getBounds());
@@ -315,6 +298,8 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		getNode_container().add(list_com);
 		   */
 	  }
+
+
 
 	  public NodeObserver(Container node_container,  Hashtable nodes,java.awt.Frame frame)
 	  {
@@ -503,7 +488,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 				  //        		openFromFileWithNewWindow(filename,net);
 
 			  }else{
-				  String filename = "\"" +dir.getAbsolutePath() +"/"+wikiname+".nd\"";
+				  String filename = "\"" +dir.getAbsolutePath() +"/"+wikiname+SimpleStringConstants.FILE_POSTFIX;
 				  openFromFileWithNewWindow(filename,net);
 
 			  }
@@ -614,11 +599,11 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			  //put in the nc hash of this
 			  nchash.put(node.getId(),new NodeComponent(this,node));
 		  }
-		  this.addNodeComponentHash(nchash,resize);
+		  this.addNodeComponentHash(nchash, resize);
 
 	  }
 	  private String getWikiNameFromFile(String filename) {
-		  String returned = filename.replaceAll(".nd", "");
+		  String returned = filename.replaceAll(SimpleStringConstants.FILE_POSTFIX, "");
 		  returned = returned.substring(filename.lastIndexOf("/")+1, returned.length());
 		  return returned;
 	  }
@@ -640,12 +625,12 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			  filename = newFile.getAbsolutePath();
 			  this.filename = filename;
 		  }
-		  openFromObject(filehandler.objectInputer(filename));
+		  openFromObject(inputNodesFromFile(filename));
 		  System.err.println(this.filename);
 
 	  }
 	  public void addNodeComponentHash(Hashtable newhash){
-		  this.addNodeComponentHash(newhash,true);
+		  this.addNodeComponentHash(newhash, true);
 	  }
 
 	  public void addNodeComponentHash(Hashtable newhash,boolean resize){
@@ -796,7 +781,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  try
 		  {
 			  Socket sock = new Socket(hostname, port);
-			  exportToStream(sock.getOutputStream(),null);
+			  exportToJson(sock.getOutputStream(), null);
 			  sock.close();
 		  }
 		  catch(Exception e)
@@ -805,13 +790,21 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  }
 	  }
 
+      // method to read json file
 	  public static Hashtable inputNodesFromFile(String filename)
 	  {
-		  Hashtable nodes = null;
-		  try
+		  Hashtable nodes = new Hashtable();
+          Gson gson = new Gson();
+          try
 		  {
-			  nodes = inputNodeObject(new ObjectInputStream(new FileInputStream(filename)));
-			  return nodes;
+              FileInputStream fileInputStream = new FileInputStream(filename);
+              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+			  Type type = new TypeToken<Map<String, Node>>() {}.getType();
+			  Map<String, Node> fromJsonMap = gson.fromJson(bufferedReader, type);
+			  for (Map.Entry<String, Node> entry : fromJsonMap.entrySet()) {
+				  nodes.put(entry.getKey(), entry.getValue());
+			  }
+              return nodes;
 		  }
 		  catch(Exception e)
 		  {
@@ -819,6 +812,24 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  }
 		  return null;
 	  }
+
+
+    //method to read *.nd file
+    public static Hashtable inputNodesFromFileOld(String filename)
+    {
+        Hashtable nodes = null;
+        try
+        {
+            nodes = inputNodeObject(new ObjectInputStream(new FileInputStream(filename)));
+            return nodes;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 	  public NodeComponent makeNewNornalNodeAt(int x,int y){
 		  try {
@@ -932,7 +943,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	  private boolean connecting;
 
 	  private java.awt.Frame frame;
-	  String filename = "node.nd";
+	  String filename = SimpleStringConstants.FILE_NAME_NODE + SimpleStringConstants.FILE_POSTFIX;
 
 	  /**
 	   * 

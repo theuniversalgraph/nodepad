@@ -1,41 +1,5 @@
 package enclosing.application.node;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.StringTokenizer;
-import java.util.Vector;
-import java.util.logging.FileHandler;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import myutil.filehandler;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
-import org.apache.regexp.RE;
-
 import enclosing.application.node.fileplugins.HttpBrowser;
 import enclosing.application.node.ncplugins.BreakNodeIntoNodesWithCRLF;
 import enclosing.application.node.ncplugins.DumpContentToText;
@@ -46,11 +10,23 @@ import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.WikiLinkComponent;
 import enclosing.model.NodeInterface;
 import enclosing.model.TagHash;
-import enclosing.webapi.client.AddToBackpack;
-import enclosing.webapi.client.AddToGoogleCalendar;
-import enclosing.webapi.client.AddToTumbler;
-import enclosing.webapi.client.GoogleAnswer;
-import enclosing.webapi.client.TextToNodes;
+import enclosing.webapi.client.*;
+import myutil.filehandler;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
+import org.apache.regexp.RE;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.Serializable;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface, NodeObserver, Line, NodeOutlet, 
@@ -544,7 +520,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			StringBuilder builder = new StringBuilder();
 			for(int i = 0;i < filenames.length;i++){
 				String filename = filenames[i];
-				if(filename.endsWith(".nd")){
+				if(filename.endsWith(SimpleStringConstants.FILE_POSTFIX)){
 					try{
 						Object obj = filehandler.objectInputer(dateDir.getAbsolutePath() + "/" + filename);
 						Hashtable hash = (Hashtable)obj;		
@@ -613,7 +589,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		Arrays.sort(filenames);
 		for(int i = 0;i < filenames.length;i++){
 			String filename = filenames[i];
-			if(filename.endsWith(".nd")){
+			if(filename.endsWith(SimpleStringConstants.FILE_POSTFIX)){
 				filenames[i] = "[["+filename.substring(0,filename.length()-3)+"]]";
 			}
 		}

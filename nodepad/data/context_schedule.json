@@ -1,0 +1,24 @@
+{
+  "4": {
+    "x": 108,
+    "y": 191,
+    "width": 173,
+    "height": 29,
+    "id": "4",
+    "content": "space_context_schedue",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["3"],
+    "childlen": []
+  },
+  "3": {
+    "x": 106,
+    "y": 133,
+    "width": 139,
+    "height": 29,
+    "id": "3",
+    "content": "context_schedule",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["4"]
+  }
+}

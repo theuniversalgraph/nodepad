@@ -5,13 +5,13 @@
  */
 package enclosing.application.node;
 
+import enclosing.application.node.server.SaveNodeFileToServer;
+import enclosing.model.NodeInterface;
+import myutil.filehandler;
+
 import java.io.FileOutputStream;
 import java.util.Enumeration;
 import java.util.Hashtable;
-
-import myutil.filehandler;
-import enclosing.application.node.server.SaveNodeFileToServer;
-import enclosing.model.NodeInterface;
 
 /**
  * @author Administrator
@@ -23,7 +23,7 @@ public class ClipBoardManager {
 	public ClipBoardManager(NodeObserver observer){
 		this.observer = observer;
 	}
-	private String filename = "./data/clipboard.nd";
+	private String filename = SimpleStringConstants.FILE_NAME_CLIPBOARD+SimpleStringConstants.FILE_POSTFIX;
 	public Hashtable copy(){
 	    if(this.observer == null || this.observer.getSelected() == null || this.observer.getSelected().size()<1){
 	        return null;
@@ -57,7 +57,7 @@ public class ClipBoardManager {
 			try
 			{
 				FileOutputStream fo = new FileOutputStream(this.filename);
-				this.observer.exportToStream(fo,hash);
+				this.observer.exportToJson(fo, hash);
 				fo.close();
 			}
 			catch(Exception e)

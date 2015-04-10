@@ -5,9 +5,9 @@
 
 package enclosing.application.node;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.TextArea;
+import enclosing.application.node.wiki.LengthComparator;
+
+import java.awt.*;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,9 +18,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Vector;
-
-import enclosing.application.node.wiki.LengthComparator;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeComponent, NodeInterface
@@ -119,13 +116,13 @@ public class NodeEditer extends TextArea implements KeyListener{
 		if(dir !=null){
 			this.suggested = dir.list(new FilenameFilter(){
 	    		public boolean accept(File dir,String filename){
-	    			return filename.endsWith(".nd");
+	    			return filename.endsWith(SimpleStringConstants.FILE_POSTFIX);
 	    		}
 	    	});
 		}else{
 			this.suggested = new File("./data").list(new FilenameFilter(){ 
 	    		public boolean accept(File dir,String filename){
-	    			return filename.endsWith(".nd");
+	    			return filename.endsWith(SimpleStringConstants.FILE_POSTFIX);
 	    		}
 	    	});
 		}

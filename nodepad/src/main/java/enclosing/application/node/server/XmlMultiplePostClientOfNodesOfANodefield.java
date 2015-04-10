@@ -106,7 +106,7 @@ public class XmlMultiplePostClientOfNodesOfANodefield {
 			
 			
 //        	and saves to the local ndx file
-        	if(observer.getFilename().endsWith(".nd")){
+        	if(observer.getFilename().endsWith(".json")){
         		File ndxfile = new File(observer.getFilename() + "x");
         		XMLWriter xmlWriter2 = new XMLWriter(new FileWriter(ndxfile.getAbsoluteFile()),format);
         		xmlWriter2.write(document);

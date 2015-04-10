@@ -34,7 +34,7 @@ public class AllNode {
 			if(nodefieldHash == null){
 				nodefieldHash = new Hashtable();
 			}
-			allNodesHash.put(nodeFiles[i].getName().replaceAll("\\.nd", ""), nodefieldHash);
+			allNodesHash.put(nodeFiles[i].getName().replaceAll("\\.json", ""), nodefieldHash);
 			for(Enumeration en = nodefieldHash.elements();en.hasMoreElements();){
 				vec.add((Node)en.nextElement());
 			}

@@ -191,6 +191,12 @@
 	<version>2.1</version>
 </dependency>
 
+      <dependency>
+          <groupId>com.google.code.gson</groupId>
+          <artifactId>gson</artifactId>
+          <version>2.3.1</version>
+      </dependency>
+
 
 
 
@@ -206,6 +212,7 @@
   		<artifactId>todoist</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+
   </dependencies>
   <properties>
   	<project.build.sourceEncoding

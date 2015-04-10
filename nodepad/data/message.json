@@ -1,0 +1,219 @@
+{
+  "43": {
+    "x": 230,
+    "y": 25,
+    "width": 80,
+    "height": 20,
+    "id": "43",
+    "content": "お時間の調整[[連絡]]",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["6"]
+  },
+  "32": {
+    "x": 344,
+    "y": 48,
+    "width": 80,
+    "height": 20,
+    "id": "32",
+    "content": "share\r\nshare image\r\nshare text \r\nshare files",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["6"]
+  },
+  "20": {
+    "x": 74,
+    "y": 119,
+    "width": 80,
+    "height": 20,
+    "id": "20",
+    "content": "edit",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "42": {
+    "x": 74,
+    "y": 109,
+    "width": 80,
+    "height": 20,
+    "id": "42",
+    "content": "message+",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "41": {
+    "x": 74,
+    "y": 109,
+    "width": 80,
+    "height": 20,
+    "id": "41",
+    "content": "stsc",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "51": {
+    "x": 238,
+    "y": 34,
+    "width": 80,
+    "height": 20,
+    "id": "51",
+    "content": "連絡",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["6"]
+  },
+  "29": {
+    "x": 174,
+    "y": 37,
+    "width": 80,
+    "height": 20,
+    "id": "29",
+    "content": "ゲリラ連絡網に連絡",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["6"]
+  },
+  "6": {
+    "x": 174,
+    "y": 69,
+    "width": 80,
+    "height": 20,
+    "id": "6",
+    "content": "message",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [
+      "51",
+      "38",
+      "48",
+      "35",
+      "32",
+      "43",
+      "29"
+    ],
+    "childlen": [
+      "26",
+      "23",
+      "20",
+      "47",
+      "17",
+      "46",
+      "15",
+      "42",
+      "41",
+      "3"
+    ]
+  },
+  "17": {
+    "x": 337,
+    "y": 126,
+    "width": 80,
+    "height": 20,
+    "id": "17",
+    "content": "contact info",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "38": {
+    "x": 298,
+    "y": 35,
+    "width": 80,
+    "height": 20,
+    "id": "38",
+    "content": "notification",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["6"]
+  },
+  "26": {
+    "x": 74,
+    "y": 109,
+    "width": 80,
+    "height": 20,
+    "id": "26",
+    "content": "massager",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "15": {
+    "x": 216,
+    "y": 236,
+    "width": 80,
+    "height": 20,
+    "id": "15",
+    "content": "@iPhone evernote",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "48": {
+    "x": 295,
+    "y": 30,
+    "width": 80,
+    "height": 20,
+    "id": "48",
+    "content": "メッセージ",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["6"]
+  },
+  "3": {
+    "x": 129,
+    "y": 201,
+    "width": 80,
+    "height": 20,
+    "id": "3",
+    "content": "mail / phone / skype / goto / see / basecamp / generate rss * readers",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "47": {
+    "x": 74,
+    "y": 109,
+    "width": 80,
+    "height": 20,
+    "id": "47",
+    "content": "@iPhone teleblah",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "46": {
+    "x": 74,
+    "y": 109,
+    "width": 80,
+    "height": 20,
+    "id": "46",
+    "content": "content",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  },
+  "35": {
+    "x": 142,
+    "y": 38,
+    "width": 80,
+    "height": 20,
+    "id": "35",
+    "content": "入家さんに連絡",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["6"]
+  },
+  "23": {
+    "x": 74,
+    "y": 269,
+    "width": 80,
+    "height": 20,
+    "id": "23",
+    "content": "メタメッセージ",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["6"],
+    "childlen": []
+  }
+}

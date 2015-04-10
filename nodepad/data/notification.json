@@ -1,0 +1,112 @@
+{
+  "70": {
+    "x": 169,
+    "y": 158,
+    "width": 80,
+    "height": 20,
+    "id": "70",
+    "content": "trigger",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [],
+    "childlen": ["56"]
+  },
+  "63": {
+    "x": 129,
+    "y": 236,
+    "width": 80,
+    "height": 20,
+    "id": "63",
+    "content": "message+",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["56"],
+    "childlen": []
+  },
+  "57": {
+    "x": 211,
+    "y": 248,
+    "width": 80,
+    "height": 20,
+    "id": "57",
+    "content": "message",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["56"],
+    "childlen": []
+  },
+  "56": {
+    "x": 169,
+    "y": 179,
+    "width": 80,
+    "height": 20,
+    "id": "56",
+    "content": "notification",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": [
+      "76",
+      "73",
+      "70"
+    ],
+    "childlen": [
+      "76",
+      "63",
+      "73",
+      "60",
+      "57",
+      "66"
+    ]
+  },
+  "76": {
+    "x": 69,
+    "y": 219,
+    "width": 80,
+    "height": 20,
+    "id": "76",
+    "content": "通知",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["56"],
+    "childlen": ["56"]
+  },
+  "60": {
+    "x": 19,
+    "y": 247,
+    "width": 80,
+    "height": 20,
+    "id": "60",
+    "content": "ExportRss + rssmailer",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["56"],
+    "childlen": []
+  },
+  "67": {
+    "x": 315,
+    "y": 297,
+    "width": 80,
+    "height": 20,
+    "id": "67",
+    "content": "iftttで何がfしたいか",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["66"],
+    "childlen": []
+  },
+  "73": {
+    "x": 69,
+    "y": 219,
+    "width": 80,
+    "height": 20,
+    "id": "73",
+    "content": "通知を増やす",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["56"],
+    "childlen": ["56"]
+  },
+  "66": {
+    "x": 315,
+    "y": 237,
+    "width": 80,
+    "height": 20,
+    "id": "66",
+    "content": "ifttt",
+    "contenttype": "enclosing.application.node.Node",
+    "parents": ["56"],
+    "childlen": ["67"]
+  }
+}

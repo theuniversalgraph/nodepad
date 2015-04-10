@@ -10,76 +10,57 @@ import java.util.Hashtable;
 
 import enclosing.application.node.Node;
 import enclosing.application.node.NodeComponent;
+import enclosing.application.node.NodeObserver;
 import enclosing.faceless.GetFacelessNodeField;
 import enclosing.util.NodeUtils;
 
 public class AutoExpandOneStep {
 	Node theNodeWithTheSameNameAsWikiString = null;
 	public AutoExpandOneStep(String wikistring,NodeComponent  expandedNodeComponent,Hashtable existingNodeComponents){
-    	try {
-			wikistring = wikistring.replaceAll("\\s", "_");
-			wikistring = NodeUtils.removeTagString(wikistring);
-			wikistring = NodeUtils.saferStringOf(wikistring);
+        wikistring = wikistring.replaceAll("\\s", "_");
+        wikistring = NodeUtils.removeTagString(wikistring);
+        wikistring = NodeUtils.saferStringOf(wikistring);
 
-			
-			
+        String filename = GetFacelessNodeField.getBasedirFile(wikistring).getAbsolutePath()+"/"+NodeUtils.saferStringOf(wikistring)+".json";
+        Hashtable nodes   = (Hashtable) NodeObserver.inputNodesFromFile(filename);
 
-			String filename = GetFacelessNodeField.getBasedirFile(wikistring).getAbsolutePath()+"/"+NodeUtils.saferStringOf(wikistring)+".nd";
-
-			ObjectInputStream in =new ObjectInputStream(new FileInputStream(filename)) ;
-			Hashtable nodes   = null;
-			nodes = (Hashtable)in.readObject();
-			in.close();
-			
-			
-			Enumeration enumeration = nodes.elements();
-			Node theNodeWithTheSameNameAsWikiString = null;
-			while (enumeration.hasMoreElements()) {
-				Node node = (Node) enumeration.nextElement();
-				final String safeNodeContent = NodeUtils.removeTagString(NodeUtils.saferStringOf(node.getContent())); 
-				if(safeNodeContent.equals(wikistring)){
-					theNodeWithTheSameNameAsWikiString = node;
+        Enumeration enumeration = nodes.elements();
+        Node theNodeWithTheSameNameAsWikiString = null;
+        while (enumeration.hasMoreElements()) {
+            Node node = (Node) enumeration.nextElement();
+            final String safeNodeContent = NodeUtils.removeTagString(NodeUtils.saferStringOf(node.getContent()));
+            if(safeNodeContent.equals(wikistring)){
+                theNodeWithTheSameNameAsWikiString = node;
 //				theNodeWithTheSameNameAsWikiStringExists = true;
-					break;
-				}
-			}
-			new AutoExpandOneStep(theNodeWithTheSameNameAsWikiString,expandedNodeComponent,existingNodeComponents,nodes);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+                break;
+            }
+        }
+        new AutoExpandOneStep(theNodeWithTheSameNameAsWikiString,expandedNodeComponent,existingNodeComponents,nodes);
 	}
 	public AutoExpandOneStep(Node theNodeWithTheSameNameAsWikiString,NodeComponent  expandedNodeComponent,Hashtable existingNodeComponents, Hashtable nodes){
 
         try
         {
-            
-            
+
+
             if(theNodeWithTheSameNameAsWikiString!=null){
             	Enumeration childs = theNodeWithTheSameNameAsWikiString.getChildren().elements();
             	while (childs.hasMoreElements()) {
 					Node childNode = (Node) nodes.get(childs.nextElement());
 					String childContent = childNode.getContent();
 					childContent = NodeUtils.removeTagString(NodeUtils.saferStringOf(childContent));
-					
+
 					oneStepForChild(expandedNodeComponent,
 							existingNodeComponents, childContent);
 				}
-            	
+
             	Enumeration parents = theNodeWithTheSameNameAsWikiString.getParents().elements();
             	while (parents.hasMoreElements()) {
 					Node parentNode = (Node) nodes.get(parents.nextElement());
 					String parentContent = NodeUtils.removeTagString(NodeUtils.saferStringOf(parentNode.getContent()));
 		        	Enumeration existingNodeComponentsEnumeration = existingNodeComponents.elements();
 
-		        	oneStepForParent(expandedNodeComponent, 
+		        	oneStepForParent(expandedNodeComponent,
 							parentContent, existingNodeComponentsEnumeration);
 				}
             }
@@ -102,18 +83,18 @@ public class AutoExpandOneStep {
 			NodeComponent oneExistingNode = (NodeComponent) existingNodeComponentsEnumeration.nextElement();
 			if(parentContent.equals(NodeUtils.saferStringOf(NodeUtils.removeTagString(oneExistingNode.getNodeinterface().getContent())))){
 				duplicated = true;
-				
+
 				//make connection not a node.
 				oneExistingNode.makeConnection(expandedNodeComponent);
-				
+
 				break;
 			}
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 		Enumeration parentsOfExpandedNode = expandedNodeComponent.getParents().elements();
 		while (parentsOfExpandedNode.hasMoreElements()) {
 			NodeComponent parentOfExpandedNodeComponent = (NodeComponent) parentsOfExpandedNode.nextElement();
@@ -136,14 +117,14 @@ public class AutoExpandOneStep {
 		//make connectiong as children if already existing
 		while (existingNodeComponentsEnumeration.hasMoreElements()) {
 			NodeComponent oneExistingNode = (NodeComponent) existingNodeComponentsEnumeration.nextElement();
-			
+
 			final String oneExistingNodeStringWithoutTags = NodeUtils.saferStringOf(NodeUtils.removeTagString(oneExistingNode.getNodeinterface().getContent()));
 			if(childContent.equals(oneExistingNodeStringWithoutTags)){
 				duplicated = true;
-				
+
 				//make connection not a node.
 				expandedNodeComponent.makeConnection(oneExistingNode);
-				
+
 				break;
 			}
 		}

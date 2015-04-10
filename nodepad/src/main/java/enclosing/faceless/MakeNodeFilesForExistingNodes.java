@@ -84,7 +84,7 @@ public class MakeNodeFilesForExistingNodes {
 	}
 
 	private long getFileTimeStamp(String nodefield) {
-		File file = new File("./data/"+nodefield+".nd");
+		File file = new File("./data/"+nodefield+".json");
 		return file.lastModified();
 	}
 
@@ -113,7 +113,7 @@ public class MakeNodeFilesForExistingNodes {
 			File basedirFile = GetFacelessNodeField.getBasedirFile(foundNode.getContent());
 			if(applet==null){
 				applet = GetFacelessNodeField.initApplet();
-				applet.getObserver().openFromFile(basedirFile.getAbsolutePath()+"/"+NodeUtils.saferStringOf(foundNode.getContent())+".nd");
+				applet.getObserver().openFromFile(basedirFile.getAbsolutePath()+"/"+NodeUtils.saferStringOf(foundNode.getContent())+".json");
 			}
 
 			NodeComponent expandedNodeComponent = GetNodeFieldNodeComponent.findExpandedNodeComponent(applet,NodeUtils.removeTagString(NodeUtils.saferStringOf(foundNode.getContent())));
@@ -133,7 +133,7 @@ public class MakeNodeFilesForExistingNodes {
 		NodeFieldApplet applet = GetFacelessNodeField.initApplet();
 		
 		try {
-			applet.getObserver().openFromFile(GetFacelessNodeField.getBasedirFile(foundNode.getContent()).getAbsolutePath()+"/"+NodeUtils.saferStringOf(foundNode.getContent())+".nd");
+			applet.getObserver().openFromFile(GetFacelessNodeField.getBasedirFile(foundNode.getContent()).getAbsolutePath()+"/"+NodeUtils.saferStringOf(foundNode.getContent())+".json");
 			createLines(foundNode,applet,nodes);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -1,8 +1,8 @@
 package enclosing.application.node;
 import myutil.MainFrame;
-import java.awt.*;
-
 import org.apache.commons.lang.StringUtils;
+
+import java.awt.*;
 
 /**
  * @author Administrator
@@ -43,8 +43,8 @@ public class Main {
 			}
 		}else{
 			
-		    frame.setTitle("top.nd");
-			applet.observer.openFromFile("./data/top.nd");
+		    frame.setTitle("top.json");
+			applet.observer.openFromFile("./data/top.json");
 			System.err.println("nothing maybe");
 		}
 	} // end of main (method of HelloJava3D)
