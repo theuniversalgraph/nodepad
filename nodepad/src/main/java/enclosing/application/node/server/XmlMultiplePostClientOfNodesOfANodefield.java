@@ -22,7 +22,7 @@ import org.dom4j.io.XMLWriter;
 import enclosing.application.node.NodeComponent;
 import enclosing.application.node.NodeObserver;
 import enclosing.application.node.NodepadPostMethod;
-import enclosing.model.NodeInterface;
+import core.model.NodeInterface;
 
 
 

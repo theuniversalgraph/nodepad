@@ -4,7 +4,7 @@ package enclosing.application.node.wiki;
 
 import enclosing.application.node.NodeComponent;
 import enclosing.application.node.NodeObserver;
-import enclosing.model.NodeInterface;
+import core.model.NodeInterface;
 
 /**
  * @author Administrator

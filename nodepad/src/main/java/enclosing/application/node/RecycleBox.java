@@ -5,7 +5,7 @@
 
 package enclosing.application.node;
 
-import enclosing.model.NodeInterface;
+import core.model.NodeInterface;
 
 
 // Referenced classes of package enclosing.application.node:

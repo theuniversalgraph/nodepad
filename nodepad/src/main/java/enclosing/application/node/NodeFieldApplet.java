@@ -5,39 +5,28 @@
 
 package enclosing.application.node;
 
-import java.applet.Applet;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Enumeration;
-import java.util.Hashtable;
-
-import myutil.MainFrame;
+import core.model.NodeInterface;
 import enclosing.application.node.fileplugins.OpenXlsWithTheSameNameAsNodeFile;
 import enclosing.application.node.ncplugins.EnCauseNodesWithRelativeYPosision;
 import enclosing.application.node.ncplugins.ProcessNodeCrudRequestByAccessingServer;
 import enclosing.application.node.ncplugins.UniteNodesIntoOneNode;
 import enclosing.application.node.server.OpenNodeFileFromServer;
-import enclosing.application.node.skin.MoniterSkin;
 import enclosing.application.node.skin.NodepadSkin;
 import enclosing.application.node.skin.PrintingSkin;
 import enclosing.application.node.suggestion.AutoExpandOneStepForNodeComponents;
 import enclosing.faceless.AllNode;
 import enclosing.faceless.MakeNodeFilesForExistingNodes;
-import enclosing.model.NodeInterface;
 import enclosing.model.TagHash;
 import enclosing.webapi.client.NodesToTodoistItems;
+import myutil.MainFrame;
+
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Enumeration;
 
 public class NodeFieldApplet extends Applet implements KeyListener,ComponentListener
 {
@@ -360,7 +349,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 				///////////////////////////////////////    	 	ctrl + alt + ?
 		    }else if(ke.isAltDown()){
 		    	if(ke.getKeyCode() == KeyEvent.VK_L){
-		    	FollowAllTheUrlOfNodes followAllTheUrlOfNodes =new  FollowAllTheUrlOfNodes(this.getObserver().getSelected().elements());
+		    	FollowAllTheUrlOfNodes followAllTheUrlOfNodes =new FollowAllTheUrlOfNodes(this.getObserver().getSelected().elements());
 		    		
 		    	}
 		    	
@@ -463,7 +452,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 				Enumeration enumeration =this.getObserver().getSelected().elements(); 
 				while (enumeration.hasMoreElements()) {
 					NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
-					NodeInterface nodeInterface =nodeComponent.getNodeinterface(); 
+					NodeInterface nodeInterface =nodeComponent.getNodeinterface();
 					if(nodeInterface.getContent().startsWith(TagHash.getInstance().getTag(ke.getKeyCode()))){
 						nodeInterface.setContent(nodeInterface.getContent().substring(TagHash.getInstance().getTag(ke.getKeyCode()).length() + 1));
 					}else{

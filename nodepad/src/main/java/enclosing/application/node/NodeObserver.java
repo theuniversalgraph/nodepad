@@ -7,6 +7,8 @@ package enclosing.application.node;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import core.model.Node;
+import core.model.NodeInterface;
 import enclosing.application.node.server.SaveNodeFileToServer;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.LengthComparator;
@@ -14,7 +16,6 @@ import enclosing.application.node.wiki.WikiLinkComponent;
 import enclosing.awt.FlatDialogListener;
 import enclosing.awt.YesNoCancelDialog;
 import enclosing.faceless.GetFacelessNodeField;
-import enclosing.model.NodeInterface;
 import enclosing.util.NodeUtils;
 import myutil.CounterInterface;
 
@@ -169,6 +170,26 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			  e.printStackTrace();
 		  }
 	  }
+
+    public static void exportFileToJson(OutputStream out, Hashtable saved_nodes)
+    {
+        try
+        {
+            Gson gson = new Gson();
+            String json = gson.toJson(saved_nodes);
+
+            OutputStreamWriter outputStreamWriterWriter =new OutputStreamWriter(out);
+            outputStreamWriterWriter.append(json);
+            outputStreamWriterWriter.flush();
+            outputStreamWriterWriter.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 
@@ -488,7 +509,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 				  //        		openFromFileWithNewWindow(filename,net);
 
 			  }else{
-				  String filename = "\"" +dir.getAbsolutePath() +"/"+wikiname+SimpleStringConstants.FILE_POSTFIX;
+				  String filename = "\"" +dir.getAbsolutePath() +"/"+wikiname+ SimpleStringConstants.FILE_POSTFIX;
 				  openFromFileWithNewWindow(filename,net);
 
 			  }
@@ -655,7 +676,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  }
 
 		  for(Enumeration en = newhash.elements();en.hasMoreElements();){
-			  NodeComponent nc =(NodeComponent)en.nextElement(); 
+			  NodeComponent nc =(NodeComponent)en.nextElement();
 			  nc.getNodeinterface().setId(Integer.toString(Integer.parseInt(nc.getNodeinterface().getId())+offset));
 
 			  Vector childrenvec = nc.getNodeinterface().getChildren(); 

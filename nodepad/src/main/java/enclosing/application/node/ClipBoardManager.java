@@ -5,8 +5,8 @@
  */
 package enclosing.application.node;
 
+import core.model.NodeInterface;
 import enclosing.application.node.server.SaveNodeFileToServer;
-import enclosing.model.NodeInterface;
 import myutil.filehandler;
 
 import java.io.FileOutputStream;
@@ -23,7 +23,7 @@ public class ClipBoardManager {
 	public ClipBoardManager(NodeObserver observer){
 		this.observer = observer;
 	}
-	private String filename = SimpleStringConstants.FILE_NAME_CLIPBOARD+SimpleStringConstants.FILE_POSTFIX;
+	private String filename = SimpleStringConstants.FILE_NAME_CLIPBOARD+ SimpleStringConstants.FILE_POSTFIX;
 	public Hashtable copy(){
 	    if(this.observer == null || this.observer.getSelected() == null || this.observer.getSelected().size()<1){
 	        return null;

@@ -1,5 +1,7 @@
 package enclosing.application.node;
 
+import core.model.Node;
+import core.model.NodeInterface;
 import enclosing.application.node.fileplugins.HttpBrowser;
 import enclosing.application.node.ncplugins.BreakNodeIntoNodesWithCRLF;
 import enclosing.application.node.ncplugins.DumpContentToText;
@@ -8,7 +10,6 @@ import enclosing.application.node.ncplugins.MuseigenText;
 import enclosing.application.node.server.OpenFileFromServer;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.WikiLinkComponent;
-import enclosing.model.NodeInterface;
 import enclosing.model.TagHash;
 import enclosing.webapi.client.*;
 import myutil.filehandler;

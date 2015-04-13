@@ -1,11 +1,8 @@
 package enclosing.application.node.predicate;
 
-import java.util.Hashtable;
+import core.model.Node;
 
-import enclosing.application.node.Node;
-import enclosing.faceless.AllNode;
-
-public class Terminal extends NodePredicate{
+public class Terminal extends NodePredicate {
 	
 	public boolean apply(Node node) {
 //		Node realNode = allNode.findNodeFieldNode(node.getContent());

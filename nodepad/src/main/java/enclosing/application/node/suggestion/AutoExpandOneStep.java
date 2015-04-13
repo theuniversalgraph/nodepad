@@ -1,18 +1,13 @@
 package enclosing.application.node.suggestion;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.Enumeration;
-import java.util.Hashtable;
-
-import enclosing.application.node.Node;
+import core.model.Node;
 import enclosing.application.node.NodeComponent;
 import enclosing.application.node.NodeObserver;
 import enclosing.faceless.GetFacelessNodeField;
 import enclosing.util.NodeUtils;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class AutoExpandOneStep {
 	Node theNodeWithTheSameNameAsWikiString = null;

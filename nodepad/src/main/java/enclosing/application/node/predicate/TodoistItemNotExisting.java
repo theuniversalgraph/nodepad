@@ -1,14 +1,12 @@
 package enclosing.application.node.predicate;
 
-import java.util.Collection;
-
+import com.google.common.base.Predicate;
+import core.model.Node;
+import enclosing.util.NodeUtils;
 import net.enclosing.todoist.Item;
 import net.enclosing.todoist.Todoist;
 
-import com.google.common.base.Predicate;
-
-import enclosing.application.node.Node;
-import enclosing.util.NodeUtils;
+import java.util.Collection;
 
 public class TodoistItemNotExisting implements Predicate<Node> {
 	Collection<Item> allItems = null;

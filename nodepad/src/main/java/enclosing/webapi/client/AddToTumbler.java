@@ -11,7 +11,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import enclosing.model.NodeInterface;
+import core.model.NodeInterface;
 
 public class AddToTumbler {
 	public AddToTumbler(NodeInterface node){

@@ -1,20 +1,18 @@
 package enclosing.application.node.predicate;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.Vector;
-
-import javax.servlet.annotation.WebServlet;
-
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
-
-import enclosing.application.node.Node;
+import core.model.Node;
 import enclosing.faceless.AllNode;
 import enclosing.faceless.MakeNodeFilesForExistingNodes;
 import enclosing.model.Project;
 import enclosing.util.NodeUtils;
+
+import javax.servlet.annotation.WebServlet;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Vector;
 
 @WebServlet("/SearchNotesServlet")
 public class DescendantsOf {
@@ -22,13 +20,13 @@ public class DescendantsOf {
 	AllNode allNode = AllNode.getInstance();
 	Collection<Node> globalFiltered  = new Vector<Node>();;
 	
-	public DescendantsOf(String nodefield,NodePredicate predicate,Hashtable nodefieldHash, Collection processed2){
+	public DescendantsOf(String nodefield, NodePredicate predicate,Hashtable nodefieldHash, Collection processed2){
 		nodefield=NodeUtils.saferStringOf(NodeUtils.removeTagString(nodefield));
 		Node realNode = allNode.findNodeFieldNode(nodefield);
 
 		new DescendantsOf(realNode,this.globalFiltered,predicate,processed2,1,nodefieldHash);
 	}
-	public DescendantsOf(Node node,Collection<Node> globalFiltered,NodePredicate predicate,Collection processed,int hop,Hashtable nodefieldHash){
+	public DescendantsOf(Node node,Collection<Node> globalFiltered, NodePredicate predicate,Collection processed,int hop,Hashtable nodefieldHash){
 		if(node==null){
 			return;
 		}
@@ -68,7 +66,7 @@ public class DescendantsOf {
 		}
 		return nodes;
 	}
-	public static Collection<Node> find(String nodefield,NodePredicate predicate, Collection processed2){
+	public static Collection<Node> find(String nodefield, NodePredicate predicate, Collection processed2){
 		nodefield = NodeUtils.comparable(nodefield);
 		AllNode allNode = AllNode.getInstance();
 		Hashtable nodefieldHash = (Hashtable)allNode.allNodesHash.get(nodefield);	

@@ -2,7 +2,7 @@ package enclosing.application.node.predicate;
 
 import com.google.common.base.Predicate;
 
-import enclosing.application.node.Node;
+import core.model.Node;
 
 public class Solo implements Predicate<Node>{
 

@@ -10,7 +10,7 @@ import java.util.Vector;
 
 import myutil.MainFrame;
 import myutil.filehandler;
-import enclosing.application.node.Node;
+import core.model.Node;
 import enclosing.application.node.NodeFieldApplet;
 import enclosing.application.node.NodepadWindowAdapter;
 import enclosing.application.node.predicate.Terminal;

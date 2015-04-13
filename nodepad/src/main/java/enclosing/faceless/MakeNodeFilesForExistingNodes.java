@@ -1,21 +1,18 @@
 package enclosing.faceless;
 
-import java.io.File;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Vector;
-
-import org.apache.commons.collections.map.HashedMap;
-
+import core.model.Node;
 import enclosing.application.node.GetNodeFieldNodeComponent;
-import enclosing.application.node.Node;
 import enclosing.application.node.NodeComponent;
 import enclosing.application.node.NodeFieldApplet;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.util.NodeUtils;
 import myutil.filehandler;
+
+import java.io.File;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class MakeNodeFilesForExistingNodes {
 	private static final String TIME_STAMP_FILE = "nodefield_process_map.txt";
