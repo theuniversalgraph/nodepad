@@ -23,7 +23,7 @@ public class UniteNodesIntoOneNode {
         StringBuffer buffer = new StringBuffer();
         while(en.hasMoreElements()){
             NodeComponent temp = (NodeComponent)en.nextElement();
-            buffer.append(temp.getNodeinterface().getContent()+"\r\n");
+            buffer.append(temp.getNodeInterface().getContent()+"\r\n");
             if(leftx > temp.getX()){
                 leftx = temp.getX();
             }

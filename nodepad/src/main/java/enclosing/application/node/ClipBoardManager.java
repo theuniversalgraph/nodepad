@@ -46,8 +46,8 @@ public class ClipBoardManager {
         for(Enumeration en = nchash.elements(); en.hasMoreElements();){
             NodeComponent nc = (NodeComponent)en.nextElement();
             nc.updateNodeInterface();
-            System.err.println(nc.getNodeinterface().getId() + "is the  " + nc.getNodeinterface().getContent());
-            NodeInterface ni = nc.getNodeinterface();
+            System.err.println(nc.getNodeInterface().getId() + "is the  " + nc.getNodeInterface().getContent());
+            NodeInterface ni = nc.getNodeInterface();
             ni.setX(ni.getX()-leftx+10);
             ni.setY(ni.getY()-topy + 30);
             hash.put(ni.getId(),ni);

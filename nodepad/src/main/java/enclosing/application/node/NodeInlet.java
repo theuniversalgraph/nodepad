@@ -27,7 +27,7 @@ public class NodeInlet extends Component
     public void paint(Graphics g)
     {
         g.setColor(this.getNc().getObserver().getNodeFieldApplet().getSkin().getInletnormal());
-        if(this.getNc().getNodeinterface().getContent().startsWith("#w")){
+        if(this.getNc().getNodeInterface().getContent().startsWith("#w")){
         	g.setColor(this.getNc().getObserver().getNodeFieldApplet().getSkin().getInlettransparent());
         }
         if(big){

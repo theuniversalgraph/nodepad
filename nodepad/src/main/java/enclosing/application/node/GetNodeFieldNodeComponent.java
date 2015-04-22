@@ -11,7 +11,7 @@ public class GetNodeFieldNodeComponent {
 			nodeComponent = applet.getObserver().makeNewFieldNode(nodeContent);
 			return nodeComponent;
 		}
-		if(NodeUtils.removeTagString(nodeComponent.getNodeinterface().getContent()).equalsIgnoreCase(nodeContent)){
+		if(NodeUtils.removeTagString(nodeComponent.getNodeInterface().getContent()).equalsIgnoreCase(nodeContent)){
 			return nodeComponent;
 		}else{
 			System.err.println("oh........");
@@ -22,8 +22,8 @@ public class GetNodeFieldNodeComponent {
 //		while (nodeComponentsEnumeration.hasMoreElements()) {
 //			NodeComponent nodeComponent = (NodeComponent) nodeComponentsEnumeration
 //					.nextElement();
-//			System.err.println(nodeComponent.getNodeinterface().getContent());
-//			if(NodeUtils.removeTagString(nodeComponent.getNodeinterface().getContent()).equalsIgnoreCase(nodeContent)){
+//			System.err.println(nodeComponent.getNodeInterface().getContent());
+//			if(NodeUtils.removeTagString(nodeComponent.getNodeInterface().getContent()).equalsIgnoreCase(nodeContent)){
 //				return nodeComponent;
 //			}
 //		}

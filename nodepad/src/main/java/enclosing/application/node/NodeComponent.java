@@ -25,6 +25,7 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lombok.Data;
 import myutil.filehandler;
 
 import org.apache.commons.lang.StringUtils;
@@ -49,10 +50,7 @@ import enclosing.webapi.client.AddToTumbler;
 import enclosing.webapi.client.GoogleAnswer;
 import enclosing.webapi.client.TextToNodes;
 
-// Referenced classes of package enclosing.application.node:
-//            NodeInterface, NodeObserver, Line, NodeOutlet, 
-//            NodeInlet, NodeEditer
-
+@Data
 public class NodeComponent extends Container implements Serializable , KeyListener
 {
 
@@ -60,41 +58,16 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 	public void updateNodeInterface()
 	{
-		ni.setX(getLocation().x);
-		ni.setY(getLocation().y);
-		ni.setWidth(getSize().width);
-		ni.setHeight(getSize().height);
-		ni.setChildren(new Vector());
-		ni.setParents(new Vector());
-		for(Enumeration en = getChildren().keys(); en.hasMoreElements(); ni.getChildren().addElement((String)en.nextElement()));
-		for(Enumeration en = getParents().keys(); en.hasMoreElements(); ni.getParents().addElement((String)en.nextElement()));
+		this.getNodeInterface().setX(getLocation().x);
+		this.getNodeInterface().setY(getLocation().y);
+		this.getNodeInterface().setWidth(getSize().width);
+		this.getNodeInterface().setHeight(getSize().height);
+		this.getNodeInterface().setChildren(new Vector());
+		this.getNodeInterface().setParents(new Vector());
+		for(Enumeration en = getChildren().keys(); en.hasMoreElements(); this.getNodeInterface().getChildren().addElement((String)en.nextElement()));
+		for(Enumeration en = getParents().keys(); en.hasMoreElements(); this.getNodeInterface().getParents().addElement((String)en.nextElement()));
 	}
 
-	public void setObserver(NodeObserver observer)
-	{
-		this.observer = observer;
-	}
-
-	public NodeObserver getObserver()
-	{
-		return observer;
-	}
-
-	/**
-	 * 
-	 * @uml.property name="dirty"
-	 */
-	public void setDirty(boolean flag) {
-		dirty = flag;
-	}
-
-	/**
-	 * 
-	 * @uml.property name="dirty"
-	 */
-	public boolean getDirty() {
-		return dirty;
-	}
 
 	public void disselected()
 	{
@@ -103,7 +76,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		repaint();
 		if(observer != null && observer.getMode().getSelected() != null)
 		{ 
-			observer.getMode().getSelected().remove(getNodeinterface().getId());
+			observer.getMode().getSelected().remove(this.getNodeInterface().getId());
 			if(observer.getMode().getSelected().size() == 0)
 				observer.getMode().setSelected(null);
 		}
@@ -146,52 +119,6 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		}
 	}
 
-
-
-	/**
-	 * 
-	 * @uml.property name="editing"
-	 */
-	public void setEditing(boolean flag) {
-		editing = flag;
-	}
-
-	/**
-	 * 
-	 * @uml.property name="editing"
-	 */
-	public boolean getEditing() {
-		return editing;
-	}
-
-
-	public void setNodeinterface(NodeInterface ni)
-	{
-		this.ni = ni;
-	}
-
-	public NodeInterface getNodeinterface()
-	{
-		return ni;
-	}
-
-	/**
-	 * 
-	 * @uml.property name="children"
-	 */
-	public void setChildren(Hashtable hash) {
-		children = hash;
-	}
-
-	/**
-	 * 
-	 * @uml.property name="children"
-	 */
-	public Hashtable getChildren() {
-		return children;
-	}
-
-
 	public void update(Graphics g)
 	{
 		paint(g);
@@ -206,7 +133,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		{
 			if(observer.getMode().getSelected() == null)
 				observer.getMode().setSelected(new Hashtable());
-			observer.getMode().getSelected().put(getNodeinterface().getId(), this);
+			observer.getMode().getSelected().put(this.getNodeInterface().getId(), this);
 			//            this.observer.getNodeFieldApplet().repaint();
 		}
 	}
@@ -218,7 +145,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		for(Enumeration en = children.elements(); en.hasMoreElements();)
 		{
 			NodeComponent temp = (NodeComponent)en.nextElement();
-			if(temp.getFolded())
+			if(temp.isFolded())
 			{
 				temp.setVisible(true);
 			} else
@@ -231,9 +158,9 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	}
 	public void moveLocationOfChildren(int x,int y ,Hashtable hashtable){
 		dirty = true;
-		if(!this.getFolded() && hashtable.get(this.getNodeinterface().getId()) == null){
+		if(!this.isFolded() && hashtable.get(this.getNodeInterface().getId()) == null){
 			this.moveLocation(x,y);
-			hashtable.put(this.getNodeinterface().getId(),this);
+			hashtable.put(this.getNodeInterface().getId(),this);
 		}
 		for(Enumeration en = children.elements(); en.hasMoreElements(); ((NodeComponent)en.nextElement()).moveLocationOfChildren(x,y,hashtable));
 	}
@@ -248,25 +175,16 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 		for(Enumeration en = getChildren_line().keys(); en.hasMoreElements(); ((Line)getChildren_line().get(nc)).setLocationAndSize(this, nc))
 			nc = (NodeComponent)en.nextElement();
-		if(this.getFolded()){
+		if(this.isFolded()){
 			this.moveLocationOfChildren(x,y,new Hashtable());
 		}
-		if(this.getObserver().getNodeFieldApplet().isSeekingNext() && this.getNodeinterface().getContent().startsWith("#current")){
+		if(this.getObserver().getNodeFieldApplet().isSeekingNext() && this.getNodeInterface().getContent().startsWith("#current")){
 			this.getObserver().getNodeFieldApplet().setYOfCurrentBar(this.getY());
 			this.getObserver().getNodeFieldApplet().repaint();
 		}
 		repaint();
 	}
 
-	public void setInlet(NodeInlet i)
-	{
-		inlet = i;
-	}
-
-	public NodeInlet getInlet()
-	{
-		return inlet;
-	}
 
 	public void removed()
 	{
@@ -281,7 +199,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		}
 
 		if(observer != null)
-			observer.getNode_components().remove(getNodeinterface().getId());
+			observer.getNode_components().remove(getNodeInterface().getId());
 
 		getParent().remove(this);
 
@@ -303,7 +221,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		processEditing();
 	}
 
-	public NodeComponent(NodeObserver observer, NodeInterface ni)
+	public NodeComponent(NodeObserver observer, NodeInterface nodeInterface)
 	{
 		//for regexp
 		if(this.bracketName ==null){
@@ -323,7 +241,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		System.err.println(this.bracketName);
 		this.re = new RE(this.bracketName);        
 
-		this.ni = null;
+		this.nodeInterface = null;
 		this.observer = null;
 		outlet = null;
 		inlet = null;
@@ -341,8 +259,8 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		this.observer = observer;
 		setFont(new Font("Dialog", Font.PLAIN, this.getObserver().getFontManager().getSize()));
 		fm = getToolkit().getFontMetrics(getFont());
-		this.ni = ni;
-		setLocation(ni.getX(), ni.getY());
+		this.setNodeInterface(nodeInterface);
+		setLocation(this.getNodeInterface().getX(), this.getNodeInterface().getY());
 		outlet = new NodeOutlet(this);
 		inlet = new NodeInlet(this);
 		add(outlet);
@@ -351,7 +269,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		setBackground(this.getNormalBackgroundColor());
 		setForeground(this.getNormalForegroundColor());
 		setSize(getPreferredSize());
-		this.setText(ni.getContent());
+		this.setText(this.getNodeInterface().getContent());
 
 		this.setFocusable(true);
 		this.addKeyListener(this);
@@ -452,8 +370,8 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			}
 
 		}
-		//        if(!this.getNodeinterface().getContent().equals("") &&this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@"))  ){
-		//            if(!this.getNodeinterface().getContent().equals("") &&this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@wait") || this.contentBufBuf[0].startsWith("@done") || this.contentBufBuf[0].startsWith("@cycle"))  ){
+		//        if(!this.getNodeInterface().getContent().equals("") &&this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@"))  ){
+		//            if(!this.getNodeInterface().getContent().equals("") &&this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@wait") || this.contentBufBuf[0].startsWith("@done") || this.contentBufBuf[0].startsWith("@cycle"))  ){
 		//        	g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNctransparentfore());
 		//        }
 		if(this.contentBufBuf != null){
@@ -471,7 +389,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			//            g.setFont(new Font("Dialog", 0, 5));
 			//            g.drawString("",2,4);
 		}
-		if(this.getFolded() == true){
+		if(this.isFolded() == true){
 			g.setColor(Color.RED);
 			g.setFont(new Font("Dialog",0,20));
 			g.drawString(" ! ",0,this.getHeight()-5);
@@ -479,7 +397,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 		if(observer.getNodeFieldApplet().isIdshow() == true){
 			g.setColor(new Color(70,70,70,200));
-			g.drawString(this.getNodeinterface().getId(),this.getPreferredSize().width - 20,getPreferredSize().height-4 );
+			g.drawString(this.getNodeInterface().getId(),this.getPreferredSize().width - 20,getPreferredSize().height-4 );
 		}
 		//       gg.drawImage(offImage,0,0,this);
 		//        this.paintComponents(g);
@@ -487,7 +405,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	}
 
 	private boolean isColored() {
-		return StringUtils.isNotBlank(this.getNodeinterface().getContent()) && this.contentBufBuf[0]!=null && this.contentBufBuf[0].startsWith("#");
+		return StringUtils.isNotBlank(this.getNodeInterface().getContent()) && this.contentBufBuf[0]!=null && this.contentBufBuf[0].startsWith("#");
 	}
 	private int getColorFromHex(String colorExpression) {
 
@@ -574,7 +492,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			}
 			if(vector.size() == 0){
 				this.contentBufBuf = new String[]{"no result found"};
-				this.getNodeinterface().setContent("no result found");
+				this.getNodeInterface().setContent("no result found");
 			}else{
 				this.contentBufBuf = new String[vector.size()];
 				int i = 0;
@@ -582,7 +500,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 					this.contentBufBuf[i] = (String) iter.next();
 					i++;
 				}
-				this.getNodeinterface().setContent(builder.toString());
+				this.getNodeInterface().setContent(builder.toString());
 
 			}
 
@@ -592,11 +510,11 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 
 	public void showGoogleResultONBrowser(){
-		GoogleAnswer answer = new GoogleAnswer(this.getNodeinterface().getContent());
+		GoogleAnswer answer = new GoogleAnswer(this.getNodeInterface().getContent());
 		answer.openAllWithBrowser();
 	}
 	public NodeComponent[] createGoogleAnswerChildrenOfThisNode(){
-		GoogleAnswer answer = new GoogleAnswer(this.getNodeinterface().getContent());
+		GoogleAnswer answer = new GoogleAnswer(this.getNodeInterface().getContent());
 		NodeComponent[] components = new NodeComponent[answer.getAnswers().length];
 		if(answer.getAnswers().length>0){
 			for(int i= 0;i < answer.getAnswers().length;i++){
@@ -673,7 +591,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		int yoffset = 20;
 		int xoffset = 55;
 
-		int xToBeAdded =     	this.getNodeinterface().getParents().size()==0?0:xRandom-xoffset;
+		int xToBeAdded =     	this.getNodeInterface().getParents().size()==0?0:xRandom-xoffset;
 		NodeComponent nc = this.getObserver().makeNewNornalNodeAt(this.getX()+xToBeAdded,this.getY() - yoffset - yRandom);
 		nc.makeConnection(this);
 		this.getObserver().setMode("normal",null);
@@ -919,7 +837,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 
 
-			getNodeinterface().setContent(text);
+			getNodeInterface().setContent(text);
 			text = this.replateNodefileStringToLink(text);
 			StringTokenizer st = new StringTokenizer(text, "\n");
 			if(text != null && !(text.equals(""))){
@@ -1004,21 +922,6 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			return x > 0 && x < getSize().width && y > -4 && y < getSize().height;
 		}
 
-		/**
-		 * 
-		 * @uml.property name="folded"
-		 */
-		public void setFolded(boolean flag) {
-			folded = flag;
-		}
-
-		/**
-		 * 
-		 * @uml.property name="folded"
-		 */
-		public boolean getFolded() {
-			return folded;
-		}
 
 
 		public void processMouseClicked(MouseEvent me)
@@ -1077,22 +980,13 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 		public void processMouseAltAndClicked(MouseEvent me)
 		{
-			if(this.getFolded() == false){
+			if(this.isFolded() == false){
 				goFolded();
 			}else{
 				goUnfolded();
 			}
 		}
 
-		public void setParents(Hashtable hash)
-		{
-			parents = hash;
-		} 
-
-		public Hashtable getParents()
-		{
-			return parents;
-		}
 
 		public Dimension getMinimumSize()
 		{
@@ -1101,7 +995,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 		public Dimension getPreferredSize()
 		{
-			if(this.contentBufBuf == null || this.ni.getContent().equals("")){
+			if(this.contentBufBuf == null || this.getNodeInterface().getContent().equals("")){
 				this.setSize(new Dimension(80, 20));
 				return this.getSize();
 			}else{
@@ -1113,22 +1007,6 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				return this.getSize();
 			}
 
-		}
-
-		/**
-		 * 
-		 * @uml.property name="children_line"
-		 */
-		public void setChildren_line(Hashtable hash) {
-			children_line = hash;
-		}
-
-		/**
-		 * 
-		 * @uml.property name="children_line"
-		 */
-		public Hashtable getChildren_line() {
-			return children_line;
 		}
 
 
@@ -1147,21 +1025,21 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 		public void makeConnection(NodeComponent theother)
 		{
-			if(theother.getNodeinterface().getId().equals(getNodeinterface().getId()) || getChildren().get(theother.getNodeinterface().getId()) != null)
+			if(theother.getNodeInterface().getId().equals(getNodeInterface().getId()) || getChildren().get(theother.getNodeInterface().getId()) != null)
 			{
 				observer.setMode("normal", null);
 			} else
 			{
 				dirty = true;
-				children.put(theother.getNodeinterface().getId(), theother);
-				theother.getParents().put(getNodeinterface().getId(), this);
+				children.put(theother.getNodeInterface().getId(), theother);
+				theother.getParents().put(getNodeInterface().getId(), this);
 				Line line = new Line(this, theother);
 				getParent().add(line);
-				children_line.put((NodeComponent)children.get(theother.getNodeinterface().getId()), line);
+				children_line.put((NodeComponent)children.get(theother.getNodeInterface().getId()), line);
 			}
 		}
 
-		private NodeInterface ni;
+//		private NodeInterface ni;
 		private NodeObserver observer;
 		private NodeOutlet outlet;
 		private NodeInlet inlet;
@@ -1196,7 +1074,6 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 		private Vector wikilinks = new Vector();
 
-
 		public void addWikiLinkComponent(WikiLinkComponent wlc){
 			this.add(wlc);
 			this.wikilinks.add(wlc);
@@ -1206,60 +1083,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			this.wikilinks.remove(wlc);
 		}
 
-		public FontMetrics getFm() {
-			return fm;
-		}
 
-		public Vector getWikilinks() {
-			return wikilinks;
-		}
-
-		/**
-		 * @param vector
-		 */
-		public void setWikilinks(Vector vector) {
-			wikilinks = vector;
-		}
-
-		/**
-		 * @return
-		 * 
-		 * @uml.property name="pressed"
-		 */
-		public boolean isPressed() {
-			return pressed;
-		}
-
-		/**
-		 * @param b
-		 * 
-		 * @uml.property name="pressed"
-		 */
-		public void setPressed(boolean b) {
-			pressed = b;
-		}
-
-		/**
-		 * @return
-		 * 
-		 * @uml.property name="p"
-		 */
-		public Point getP() {
-			return p;
-		}
-
-		/**
-		 * @param point
-		 * 
-		 * @uml.property name="p"
-		 */
-		public void setP(Point point) {
-			p = point;
-		}
-
-		/* (�� Javadoc)
-		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-		 */
 		public void keyPressed(KeyEvent ke) {
 		}
 
@@ -1270,8 +1094,8 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			if(ke.getKeyCode()==127){//delete
 				if(ke.isControlDown()){
 					AddToGoogleCalendar addToGoogleCalendar 
-					= new AddToGoogleCalendar(this.getNodeinterface());
-					AddToTumbler addToTumbler = new AddToTumbler(this.getNodeinterface());
+					= new AddToGoogleCalendar(this.getNodeInterface());
+					AddToTumbler addToTumbler = new AddToTumbler(this.getNodeInterface());
 				}
 				this.getObserver().setMode("delete",null);
 			}
@@ -1317,7 +1141,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 						TextToNodes textToNodes = new TextToNodes(this,this.getObserver());
 					}
 					if(ke.getKeyCode() == KeyEvent.VK_T){
-						AddToTumbler addToTumbler = new AddToTumbler(this.getNodeinterface());
+						AddToTumbler addToTumbler = new AddToTumbler(this.getNodeInterface());
 					}
 					if(ke.getKeyCode()==KeyEvent.VK_B){
 						AddToBackpack addToBackpack = new AddToBackpack(this.getObserver().getFilename(),this);
@@ -1388,10 +1212,10 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			}
 
 			if(ke.getKeyCode()==KeyEvent.VK_K){
-				String wikiname = this.getNodeinterface().getContent();
+				String wikiname = this.getNodeInterface().getContent();
 
-				//			this.getNodeinterface().setContent("[[" + this.getNodeinterface().getContent() + "]]");
-				//			this.setText(this.getNodeinterface().getContent());
+				//			this.getNodeInterface().setContent("[[" + this.getNodeInterface().getContent() + "]]");
+				//			this.setText(this.getNodeInterface().getContent());
 				this.getObserver().getNodepadDao().openFromWikiWileName(wikiname,false);
 			}else if(ke.getKeyCode() == KeyEvent.VK_P){
 				HttpBrowser browser = new HttpBrowser("http://localhost:8090/en/CashEventsFromNDaysBack.do?n=-20");
@@ -1399,12 +1223,12 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 
 			if(TagHash.getInstance().getTag(ke.getKeyCode()) !=null ){
-				if(this.getNodeinterface().getContent().startsWith(TagHash.getInstance().getTag(ke.getKeyCode()))){
-					this.getNodeinterface().setContent(this.getNodeinterface().getContent().substring(TagHash.getInstance().getTag(ke.getKeyCode()).length() + 1));
+				if(this.getNodeInterface().getContent().startsWith(TagHash.getInstance().getTag(ke.getKeyCode()))){
+					this.getNodeInterface().setContent(this.getNodeInterface().getContent().substring(TagHash.getInstance().getTag(ke.getKeyCode()).length() + 1));
 				}else{
-					this.getNodeinterface().setContent(TagHash.getInstance().getTag(ke.getKeyCode()) + " " + this.getNodeinterface().getContent());
+					this.getNodeInterface().setContent(TagHash.getInstance().getTag(ke.getKeyCode()) + " " + this.getNodeInterface().getContent());
 				}
-				this.setText(this.getNodeinterface().getContent());
+				this.setText(this.getNodeInterface().getContent());
 			}
 
 
@@ -1414,91 +1238,15 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 		 */
 		public void keyTyped(KeyEvent ke){
-
 		}	
 
 
 
-
-
-
-		public Color getNormalBackgroundColor() {
-			return normalBackgroundColor;
-		}
-
-		public void setNormalBackgroundColor(Color normalBackgroundColor) {
-			this.normalBackgroundColor = normalBackgroundColor;
-		}
-
-		public Color getNormalForegroundColor() {
-			return normalForegroundColor;
-		}
-
-		public void setNormalForegroundColor(Color normalForegroundColor) {
-			this.normalForegroundColor = normalForegroundColor;
-		}
-
-		public Color getSelectedBackgroundColor() {
-			return selectedBackgroundColor;
-		}
-
-		public void setSelectedBackgroundColor(Color selectedBackgroundColor) {
-			this.selectedBackgroundColor = selectedBackgroundColor;
-		}
-
-		public Color getSelectedForegroundColor() {
-			return selectedForegroundColor;
-		}
-
-		public void setSelectedForegroundColor(Color selectedForegroundColor) {
-			this.selectedForegroundColor = selectedForegroundColor;
-		}
-
-		public void setFm(FontMetrics fm) {
-			this.fm = fm;
-		}
-
 		private boolean transparent = false;
-
-
 		private int movespan = 30;
-
-
-		public int getMovespan() {
-			return movespan;
-		}
-
-		public void setMovespan(int movespan) {
-			this.movespan = movespan;
-		}
-
-		public boolean isTransparent() {
-			return transparent;
-		}
-
-		public void setTransparent(boolean transparent) {
-			this.transparent = transparent;
-		}
 		private boolean hoist = false;
-
-
-		public boolean isHoist() {
-			return hoist;
-		}
-
-		public void setHoist(boolean hoist) {
-			this.hoist = hoist;
-		}
 		private boolean terminal;
-
-
-		public boolean isTerminal() {
-			return terminal;
-		}
-
-		public void setTerminal(boolean terminal) {
-			this.terminal = terminal;
-		}
+		private NodeInterface nodeInterface;
 
 		private Color getColorFromCssColor(String csscolorstring ){
 			String rstring = csscolorstring.substring(1,3);

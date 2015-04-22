@@ -27,7 +27,7 @@ public class ThreadTxt {
 		StringBuilder 			builder = new StringBuilder();
 		try {
 
-			String string = node.getNodeinterface().getContent();
+			String string = node.getNodeInterface().getContent();
 			SAXReader reader = new SAXReader();
 			Document document = reader.read( new LocalStaticData().getValue("storytellerurl") + "/DisplayXmlOfJ2eeStory.do");
 			Element j2eeStorysElemnt =  document.getRootElement();

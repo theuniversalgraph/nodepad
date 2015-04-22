@@ -40,7 +40,7 @@ public class XmlMultiplePostClientOfNodesOfANodefield {
 			
 			while (enumeration.hasMoreElements()) {
 				NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
-				NodeInterface node = nodeComponent.getNodeinterface();
+				NodeInterface node = nodeComponent.getNodeInterface();
 				
 				Element nodeElement =  nodefieldElement.addElement("node");
 				Element idElement =  nodeElement.addElement("id");
@@ -71,7 +71,7 @@ public class XmlMultiplePostClientOfNodesOfANodefield {
 			 enumeration = observer.getNode_components().elements();
 			while (enumeration.hasMoreElements()) {
 				NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
-				NodeInterface node = nodeComponent.getNodeinterface();
+				NodeInterface node = nodeComponent.getNodeInterface();
 				for (Iterator iter = node.getChildren().iterator(); iter.hasNext();) {
 					String childString = (String) iter.next();
 					Element linkElement = nodefieldElement.addElement("link");

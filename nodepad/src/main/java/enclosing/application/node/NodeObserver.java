@@ -66,24 +66,24 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		for(Enumeration en = node_components.elements(); en.hasMoreElements();)
 		{
 			NodeComponent nc = (NodeComponent)en.nextElement();
-			for(int i = 0; i < nc.getNodeinterface().getChildren().size(); i++)
+			for(int i = 0; i < nc.getNodeInterface().getChildren().size(); i++)
 			{
-				NodeComponent temp = (NodeComponent)node_components.get((String)nc.getNodeinterface().getChildren().elementAt(i));
-				nc.getChildren().put(temp.getNodeinterface().getId(), temp);
-				temp.getParents().put(nc.getNodeinterface().getId(), nc);
+				NodeComponent temp = (NodeComponent)node_components.get((String)nc.getNodeInterface().getChildren().elementAt(i));
+				nc.getChildren().put(temp.getNodeInterface().getId(), temp);
+				temp.getParents().put(nc.getNodeInterface().getId(), nc);
 			}
 		}
 	}
 
 	public void addNC(NodeComponent nc)
 	{
-		node_components.put(nc.getNodeinterface().getId(), nc);
+		node_components.put(nc.getNodeInterface().getId(), nc);
 		node_container.add(nc,0);
 		nc.repaint();
 	}
 	public void add(NodeComponent nc)
 	{
-		node_components.put(nc.getNodeinterface().getId(), nc);
+		node_components.put(nc.getNodeInterface().getId(), nc);
 		node_container.add(nc);
 	}
 
@@ -92,7 +92,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		for(Enumeration en = getNode_components().elements(); en.hasMoreElements();)
 		{
 			NodeComponent temp = (NodeComponent)en.nextElement();
-			if(temp.getEditing())
+			if(temp.isEditing())
 				temp.returnFromEditing();
 		}
 
@@ -121,7 +121,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		for(Enumeration en = node_components.elements(); en.hasMoreElements();){
 			nc = (NodeComponent)en.nextElement();
 			nc.updateNodeInterface();
-			saved_nodes.put(nc.getNodeinterface().getId(),nc.getNodeinterface());
+			saved_nodes.put(nc.getNodeInterface().getId(),nc.getNodeInterface());
 		}
 		return saved_nodes;
 	}
@@ -135,7 +135,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		for(Enumeration en = getNode_components().elements(); en.hasMoreElements(); temp.disselected())
 		{
 			temp = (NodeComponent)en.nextElement();
-			if(temp.getEditing())
+			if(temp.isEditing())
 				temp.returnFromEditing();
 		}
 
@@ -442,27 +442,27 @@ public class NodeObserver extends Panel implements FlatDialogListener
 
 		for(Enumeration en = newhash.elements();en.hasMoreElements();){
 			NodeComponent nc =(NodeComponent)en.nextElement();
-			nc.getNodeinterface().setId(Integer.toString(Integer.parseInt(nc.getNodeinterface().getId())+offset));
+			nc.getNodeInterface().setId(Integer.toString(Integer.parseInt(nc.getNodeInterface().getId())+offset));
 
-			Vector childrenvec = nc.getNodeinterface().getChildren(); 
+			Vector childrenvec = nc.getNodeInterface().getChildren(); 
 			Vector newchildrenvec = new Vector();
 			for(int i = 0;i < childrenvec.size();i++){
 				newchildrenvec.add(Integer.toString(offset + Integer.parseInt((String)childrenvec.elementAt(i))));
 			}
-			nc.getNodeinterface().setChildren(newchildrenvec);
-			Vector parentvec = nc.getNodeinterface().getParents();
+			nc.getNodeInterface().setChildren(newchildrenvec);
+			Vector parentvec = nc.getNodeInterface().getParents();
 			Vector newparents = new Vector();
 			for(int i = 0;i < parentvec.size();i++){
 				newparents.add(Integer.toString(offset + Integer.parseInt((String)parentvec.elementAt(i))));
 			}
-			nc.getNodeinterface().setParents(newparents);
+			nc.getNodeInterface().setParents(newparents);
 
 			this.addNC(nc);
-			Vector vec = nc.getNodeinterface().getChildren();
+			Vector vec = nc.getNodeInterface().getChildren();
 			for(int i = 0;i < vec.size() ;i++){
 				nc.makeConnection((NodeComponent)newhash.get(Integer.toString(Integer.parseInt((String)vec.elementAt(i)) - offset)));
 			}
-			//			nc.setText(nc.getNodeinterface().getContent());
+			//			nc.setText(nc.getNodeInterface().getContent());
 			nc.repaint();
 		}
 		if(resize &&!this.mode.isFaceless()){
@@ -550,7 +550,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	public boolean getDirty(){
 		for(Enumeration en = this.getNode_components().elements();en.hasMoreElements();){
 			NodeComponent nc = (NodeComponent)en.nextElement();
-			if(nc.getDirty()){ return true; }
+			if(nc.isDirty()){ return true; }
 		}
 		return false;
 	}

@@ -30,7 +30,7 @@ public class FontManager {
 			NodeComponent component =(NodeComponent)en.nextElement(); 
 			component.setFont(new Font("Dialog", Font.PLAIN, this.size));
 			component.setFm(component.getFontMetrics(component.getFont()));
-			component.setText(component.getNodeinterface().getContent());
+			component.setText(component.getNodeInterface().getContent());
 		}
 //		this.nodeObserver.repaint();
 		this.nodeObserver.getNodeFieldApplet().repaint();

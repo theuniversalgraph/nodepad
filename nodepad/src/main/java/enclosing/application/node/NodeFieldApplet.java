@@ -274,7 +274,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 				if(this.isTaggedHoist() && TagHash.getInstance().getTag(ke.getKeyCode()).equals(this.getHoisttag())){
 					for (Enumeration en= this.getObserver().getNode_components().elements();en.hasMoreElements();) {
 						NodeComponent nc = (NodeComponent)en.nextElement();
-						if(!nc.getNodeinterface().getContent().startsWith( this.getHoisttag())){
+						if(!nc.getNodeInterface().getContent().startsWith( this.getHoisttag())){
 							nc.setHoist(false);
 							nc.repaint();
 						}
@@ -287,7 +287,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 					this.setTaggedHoist(true);
 					for (Enumeration en= this.getObserver().getNode_components().elements();en.hasMoreElements();) {
 						NodeComponent nc = (NodeComponent)en.nextElement();
-						if(!nc.getNodeinterface().getContent().startsWith(this.getHoisttag())){
+						if(!nc.getNodeInterface().getContent().startsWith(this.getHoisttag())){
 							nc.setHoist(true);
 							nc.repaint();
 						}
@@ -341,7 +341,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 							Enumeration enumeration = this.observer.getNode_components().elements();
 							while (enumeration.hasMoreElements()) {
 								NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
-								if(nodeComponent.getNodeinterface().getContent().startsWith("#current")){
+								if(nodeComponent.getNodeInterface().getContent().startsWith("#current")){
 									this.setCurrentBarExists(true);
 									this.setYOfCurrentBar(nodeComponent.getY());
 									break;
@@ -428,13 +428,13 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 					Enumeration enumeration = this.observer.getNode_components().elements();
 					while (enumeration.hasMoreElements()) {
 						NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
-						if(!nodeComponent.getNodeinterface().getContent().startsWith("@")
-								&& !nodeComponent.getNodeinterface().getContent().startsWith("どうすれば")
-								&& !nodeComponent.getNodeinterface().getContent().contains("考")
-								&& !nodeComponent.getNodeinterface().getContent().contains("どうすれば")
+						if(!nodeComponent.getNodeInterface().getContent().startsWith("@")
+								&& !nodeComponent.getNodeInterface().getContent().startsWith("どうすれば")
+								&& !nodeComponent.getNodeInterface().getContent().contains("考")
+								&& !nodeComponent.getNodeInterface().getContent().contains("どうすれば")
 						){
-							nodeComponent.getNodeinterface().setContent("どうすれば"+ nodeComponent.getNodeinterface().getContent());
-							nodeComponent.setText(nodeComponent.getNodeinterface().getContent());
+							nodeComponent.getNodeInterface().setContent("どうすれば"+ nodeComponent.getNodeInterface().getContent());
+							nodeComponent.setText(nodeComponent.getNodeInterface().getContent());
 						}
 					}
 
@@ -464,7 +464,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 				Enumeration enumeration =this.getObserver().getMode().getSelected().elements(); 
 				while (enumeration.hasMoreElements()) {
 					NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
-					NodeInterface nodeInterface =nodeComponent.getNodeinterface();
+					NodeInterface nodeInterface =nodeComponent.getNodeInterface();
 					if(nodeInterface.getContent().startsWith(TagHash.getInstance().getTag(ke.getKeyCode()))){
 						nodeInterface.setContent(nodeInterface.getContent().substring(TagHash.getInstance().getTag(ke.getKeyCode()).length() + 1));
 					}else{
@@ -492,11 +492,11 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 		for (Enumeration en = this.observer.getNode_components().elements(); en.hasMoreElements();) {
 			NodeComponent element = (NodeComponent) en.nextElement();
 			element.updateNodeInterface();
-			if(element.getNodeinterface().getX()+element.getPreferredSize().width > width){
-				width = (element.getNodeinterface().getX()+element.getPreferredSize().width);
+			if(element.getNodeInterface().getX()+element.getPreferredSize().width > width){
+				width = (element.getNodeInterface().getX()+element.getPreferredSize().width);
 			}
-			if(element.getNodeinterface().getY()+element.getPreferredSize().height > height){
-				height = (element.getNodeinterface().getY()+ element.getPreferredSize().height);
+			if(element.getNodeInterface().getY()+element.getPreferredSize().height > height){
+				height = (element.getNodeInterface().getY()+ element.getPreferredSize().height);
 			}
 		}
 		if(this.net){

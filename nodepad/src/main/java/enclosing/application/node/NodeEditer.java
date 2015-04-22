@@ -94,13 +94,13 @@ public class NodeEditer extends TextArea implements KeyListener{
     	
     }
     public NodeEditer(NodeComponent nc)    {
-		super(nc.getNodeinterface().getContent(),0,0,SCROLLBARS_NONE);
+		super(nc.getNodeInterface().getContent(),0,0,SCROLLBARS_NONE);
 		int x = nc.getLocation().x;
 		int y = nc.getLocation().y;
       this.nc = null;
       this.nc = nc;
 		setLocation(x,y);
-		this.setText(nc.getNodeinterface().getContent());
+		this.setText(nc.getNodeInterface().getContent());
 
 		setBackground(Color.white);
 		setForeground(Color.black);
@@ -146,7 +146,7 @@ public class NodeEditer extends TextArea implements KeyListener{
 			}
 			i++;
 		}
-		if(nc.getNodeinterface().getContent().length() != 0)
+		if(nc.getNodeInterface().getContent().length() != 0)
 			setSize(maxLength+20, 14*(i-1)+28);
 		else
 			setSize(80, 20);

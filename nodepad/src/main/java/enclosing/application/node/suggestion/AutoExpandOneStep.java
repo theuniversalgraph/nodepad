@@ -77,7 +77,7 @@ public class AutoExpandOneStep {
 		//make connectiong as children if already existing
 		while (existingNodeComponentsEnumeration.hasMoreElements()) {
 			NodeComponent oneExistingNode = (NodeComponent) existingNodeComponentsEnumeration.nextElement();
-			if(parentContent.equals(NodeUtils.saferStringOf(NodeUtils.removeTagString(oneExistingNode.getNodeinterface().getContent())))){
+			if(parentContent.equals(NodeUtils.saferStringOf(NodeUtils.removeTagString(oneExistingNode.getNodeInterface().getContent())))){
 				duplicated = true;
 
 				//make connection not a node.
@@ -94,7 +94,7 @@ public class AutoExpandOneStep {
 		Enumeration parentsOfExpandedNode = expandedNodeComponent.getParents().elements();
 		while (parentsOfExpandedNode.hasMoreElements()) {
 			NodeComponent parentOfExpandedNodeComponent = (NodeComponent) parentsOfExpandedNode.nextElement();
-			if(parentContent.equals(parentOfExpandedNodeComponent.getNodeinterface().getContent())){
+			if(parentContent.equals(parentOfExpandedNodeComponent.getNodeInterface().getContent())){
 				duplicated = true;
 				break;
 			}
@@ -114,7 +114,7 @@ public class AutoExpandOneStep {
 		while (existingNodeComponentsEnumeration.hasMoreElements()) {
 			NodeComponent oneExistingNode = (NodeComponent) existingNodeComponentsEnumeration.nextElement();
 
-			final String oneExistingNodeStringWithoutTags = NodeUtils.saferStringOf(NodeUtils.removeTagString(oneExistingNode.getNodeinterface().getContent()));
+			final String oneExistingNodeStringWithoutTags = NodeUtils.saferStringOf(NodeUtils.removeTagString(oneExistingNode.getNodeInterface().getContent()));
 			if(childContent.equals(oneExistingNodeStringWithoutTags)){
 				duplicated = true;
 
@@ -127,7 +127,7 @@ public class AutoExpandOneStep {
 
 		while (childrenOfExpandedNode.hasMoreElements()) {
 			NodeComponent childOfExpandedNodeComponent = (NodeComponent) childrenOfExpandedNode.nextElement();
-			if(childContent.equals(NodeUtils.removeTagString(childOfExpandedNodeComponent.getNodeinterface().getContent()))){
+			if(childContent.equals(NodeUtils.removeTagString(childOfExpandedNodeComponent.getNodeInterface().getContent()))){
 				duplicated = true;
 				break;
 			}

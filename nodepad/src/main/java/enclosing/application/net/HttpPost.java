@@ -12,7 +12,7 @@ public class HttpPost {
 			String url = hostname + uri;
 			HttpClient client = new HttpClient();
 			PostMethod method = new PostMethod(url);
-			method.addParameter(new NameValuePair("content",nodeComponent.getNodeinterface().getContent()));
+			method.addParameter(new NameValuePair("content",nodeComponent.getNodeInterface().getContent()));
 			client.executeMethod(method);
 		} catch (Exception e) {
 			e.printStackTrace();

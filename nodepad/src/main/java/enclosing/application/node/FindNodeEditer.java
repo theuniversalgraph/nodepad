@@ -62,7 +62,7 @@ public class FindNodeEditer  extends TextArea implements KeyListener
 //			i++;
 		}
 //		
-//		if(nc.getNodeinterface().getContent().length() != 0)
+//		if(nc.getNodeInterface().getContent().length() != 0)
 //			setSize(saidai_length+20, 14*(i-1)+28);
 //		else
 //			setSize(80, 20);

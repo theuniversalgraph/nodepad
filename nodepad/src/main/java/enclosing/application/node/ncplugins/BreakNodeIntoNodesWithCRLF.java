@@ -19,7 +19,7 @@ import enclosing.application.node.NodeObserver;
  */
 public class BreakNodeIntoNodesWithCRLF {
     public BreakNodeIntoNodesWithCRLF(NodeComponent nc,NodeObserver observer){
-        StringTokenizer st = new StringTokenizer(nc.getNodeinterface().getContent(),"\r\n");
+        StringTokenizer st = new StringTokenizer(nc.getNodeInterface().getContent(),"\r\n");
         while(st.hasMoreElements()){
             int xRandom = (int)(Math.random() * 150)-75;
             int yRandom = (int)(Math.random() * 100)-50;

@@ -56,7 +56,7 @@ public class ProcessNodeCrudRequestByAccessingServer {
                 String idstr = stringTokenizer.nextToken();
                 for(Enumeration en = observer.getNode_components().elements();en.hasMoreElements();){
                 	NodeComponent nodeComponent = (NodeComponent)en.nextElement();
-                	if(nodeComponent.getNodeinterface().getId() .equals( idstr)){
+                	if(nodeComponent.getNodeInterface().getId() .equals( idstr)){
                 		nodeComponent.selected();
                 		break;
                 	}

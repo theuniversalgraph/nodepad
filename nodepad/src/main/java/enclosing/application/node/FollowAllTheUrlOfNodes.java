@@ -14,9 +14,9 @@ public class FollowAllTheUrlOfNodes {
 	public FollowAllTheUrlOfNodes(Enumeration enumeration){
 		while (enumeration.hasMoreElements()) {
 			NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
-			if(nodeComponent.getNodeinterface().getContent().contains("http://")){
+			if(nodeComponent.getNodeInterface().getContent().contains("http://")){
 				Pattern pattern = Pattern.compile("http://.*");
-				Matcher matcher = pattern.matcher(nodeComponent.getNodeinterface().getContent());
+				Matcher matcher = pattern.matcher(nodeComponent.getNodeInterface().getContent());
 				while (matcher.find()) {
 					HttpBrowser browser = new HttpBrowser(matcher.group(0));
 					

@@ -35,9 +35,9 @@ public class Line extends Component
     public void removed()
     {
         getParent().remove(this);
-        parent_node.getChildren().remove(child.getNodeinterface().getId());
+        parent_node.getChildren().remove(child.getNodeInterface().getId());
         parent_node.getChildren_line().remove(child);
-        child.getParents().remove(getParent_node().getNodeinterface().getId());
+        child.getParents().remove(getParent_node().getNodeInterface().getId());
         if(parent_node.getObserver().getMode().isHardDelete()){
         	RemoveAllLine removeAllLine = new RemoveAllLine();
         }

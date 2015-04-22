@@ -77,7 +77,7 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 		if(observer.getMode().equals("editing")){
 			for(Enumeration en = observer.getNode_components().elements();en.hasMoreElements();){
 				NodeComponent nc = (NodeComponent)en.nextElement();
-				if(nc.getEditing()){
+				if(nc.isEditing()){
 					nc.returnFromEditing();
 				}
 			}

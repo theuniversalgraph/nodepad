@@ -27,9 +27,9 @@ public class NodeOutlet extends Component
     public void paint(Graphics g)
     {
         g.setColor(this.getNc().getObserver().getNodeFieldApplet().getSkin().getOutletnormal());
-        if((this.getNc().getChildren() == null || this.getNc().getChildren().size() ==0) && !this.getNc().getNodeinterface().getContent().startsWith("#w") && !this.getNc().getNodeinterface().getContent().startsWith("#cycle")){
+        if((this.getNc().getChildren() == null || this.getNc().getChildren().size() ==0) && !this.getNc().getNodeInterface().getContent().startsWith("#w") && !this.getNc().getNodeInterface().getContent().startsWith("#cycle")){
         	g.setColor(new Color(250,70,70,140));
-        }else if(this.getNc().getNodeinterface().getContent().startsWith("#w")){
+        }else if(this.getNc().getNodeInterface().getContent().startsWith("#w")){
         	g.setColor(this.getNc().getObserver().getNodeFieldApplet().getSkin().getOutlettransparent());
         }
         if(entered){

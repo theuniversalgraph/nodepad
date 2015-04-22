@@ -21,7 +21,7 @@ public class DumpContentToText {
         try {
             PrintWriter writer = new PrintWriter(new FileOutputStream("./dump",true));
             writer.write("<"+xmltag + ">");
-            writer.write(component.getNodeinterface().getContent());
+            writer.write(component.getNodeInterface().getContent());
             writer.write("</"+xmltag + ">\r\n");
             writer.close();
         } catch (Exception e) {

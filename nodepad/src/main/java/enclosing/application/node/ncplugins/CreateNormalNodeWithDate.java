@@ -10,7 +10,7 @@ public class CreateNormalNodeWithDate {
 		
 		for(Enumeration en = observer.getNode_components().elements();en.hasMoreElements();){
 			NodeComponent nodeComponent = (NodeComponent)en.nextElement();
-			if(nodeComponent.getNodeinterface().getContent().startsWith("#4444") && nodeComponent.getNodeinterface().getContent().contains(date)){
+			if(nodeComponent.getNodeInterface().getContent().startsWith("#4444") && nodeComponent.getNodeInterface().getContent().contains(date)){
 				int ranX = (int)(Math.random() * 100);
 				int ranY = (int)(Math.random() * 100);
 				
