@@ -20,7 +20,7 @@ public class TestCounter
 
     public int getNext(String countername)
     {
-        if(countername.equals("enclosing.application.node.Node"))
+        if(countername.equals("com.theuniversalgraph.model.Node"))
         {
             nodecount++;
             return nodecount;
@@ -34,7 +34,7 @@ public class TestCounter
 
     public int getCount(String countername)
     {
-        if(countername.equals("enclosing.application.node.Node"))
+        if(countername.equals("com.theuniversalgraph.model.Node"))
             return nodecount;
         else if(countername.equals("enclosing.scheduler.Schedule")){
         	return this.schecount;
@@ -45,7 +45,7 @@ public class TestCounter
 
     public void setCount(String countername, int i)
     {
-        if(countername.equals("enclosing.application.node.Node"))
+        if(countername.equals("com.theuniversalgraph.model.Node"))
             nodecount = i;
         else if(countername.equals("enclosing.scheduler.Schedule"))
         		schecount = i;
