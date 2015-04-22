@@ -21,6 +21,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Enumeration;
+import java.util.Hashtable;
 
 import myutil.MainFrame;
 
@@ -183,7 +184,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
         setBackground(Color.white);
         this.observer.setNodeFieldApplet(this);
 		if(net){
-			this.observer.openFromObject(OpenNodeFileFromServer.process(this.getUser(),this.getFilename(),this.getServerName()));
+			this.observer.openFromObject((Hashtable)OpenNodeFileFromServer.process(this.getUser(),this.getFilename(),this.getServerName()));
 		}else{
 		}        
     }

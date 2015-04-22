@@ -6,7 +6,7 @@ import java.util.Hashtable;
 import com.theuniversalgraph.model.Node;
 
 import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeObserver;
+import enclosing.application.node.NodepadDAO;
 import enclosing.faceless.GetFacelessNodeField;
 import enclosing.util.NodeUtils;
 
@@ -18,7 +18,7 @@ public class AutoExpandOneStep {
         wikistring = NodeUtils.saferStringOf(wikistring);
 
         String filename = GetFacelessNodeField.getBasedirFile(wikistring).getAbsolutePath()+"/"+NodeUtils.saferStringOf(wikistring)+".json";
-        Hashtable nodes   = (Hashtable) NodeObserver.inputNodesFromFile(filename);
+        Hashtable nodes   = (Hashtable) NodepadDAO.inputNodesFromFile(filename);
 
         Enumeration enumeration = nodes.elements();
         Node theNodeWithTheSameNameAsWikiString = null;

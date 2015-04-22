@@ -37,14 +37,14 @@ public class Main {
 						
 						System.err.println("trying to go...applet");
 //						string = "store_terminals_to_todoist.nd";
-						applet.observer.openFromFile(string);
+						applet.observer.getNodepadDao().openFromFile(string);
 						frame.setTitle(string);
 				}
 			}
 		}else{
 			
 		    frame.setTitle("top.json");
-			applet.observer.openFromFile("./data/top.json");
+			applet.observer.getNodepadDao().openFromFile("./data/top.json");
 			System.err.println("nothing maybe");
 		}
 	} // end of main (method of HelloJava3D)

@@ -40,7 +40,7 @@ public class TerminalNodeListAgent {
 		}		
 		applet.setFrame(frame);
 		frame.addWindowListener(new NodepadWindowAdapter(applet.getObserver()));
-		applet.getObserver().openFromFile("terminals.json");
+		applet.getObserver().getNodepadDao().openFromFile("terminals.json");
 
 ////		Collection<Node> terminals = com.google.common.collect.Collections2.filter(vec, new Terminal());
 //

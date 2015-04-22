@@ -40,7 +40,7 @@ public class SimpleStringConstants {
             });
 
             for (File ndFile : files) {
-                Hashtable hashtable = NodeObserver.inputNodesFromFileOld(ndFile.getAbsolutePath());
+                Hashtable hashtable = NodepadDAO.inputNodesFromFileOld(ndFile.getAbsolutePath());
                 try {
                     String nameJsonPostfix = ndFile.getName().replaceAll(FILE_ND_POSTFIX, FILE_JSON_POSTFIX);
 
@@ -50,7 +50,7 @@ public class SimpleStringConstants {
                     }
 
                     FileOutputStream fo = new FileOutputStream(file_json, false);
-                    NodeObserver.exportFileToJson(fo, hashtable);
+                    NodepadDAO.exportFileToJson(fo, hashtable);
                     fo.close();
                 } catch (Exception e) {
                     e.printStackTrace();

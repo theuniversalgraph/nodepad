@@ -68,7 +68,7 @@ public class TextToNodes {
 		try {
 			NodeFieldApplet applet = GetFacelessNodeField.initApplet();
 			
-			applet.getObserver().openFromFile(GetFacelessNodeField.getBasedirFile(target).getAbsolutePath()+"/"+NodeUtils.saferStringOf(target)+".json");
+			applet.getObserver().getNodepadDao().openFromFile(GetFacelessNodeField.getBasedirFile(target).getAbsolutePath()+"/"+NodeUtils.saferStringOf(target)+".json");
 			NodeComponent expandedNodeComponent = GetNodeFieldNodeComponent.findExpandedNodeComponent(applet,NodeUtils.removeTagString(NodeUtils.saferStringOf(target)));
 			if(expandsToChild){
 				AutoExpandOneStep.oneStepForChild(expandedNodeComponent, applet.getObserver().getNode_components(), expanded);
@@ -76,7 +76,7 @@ public class TextToNodes {
 				AutoExpandOneStep.oneStepForParent(expandedNodeComponent, expanded,applet.getObserver().getNode_components().elements());
 			}
 
-			applet.getObserver().saveToFile();
+			applet.getObserver().getNodepadDao().saveToFile();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

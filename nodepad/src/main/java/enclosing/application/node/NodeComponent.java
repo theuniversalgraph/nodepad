@@ -1508,7 +1508,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 				//			this.getNodeinterface().setContent("[[" + this.getNodeinterface().getContent() + "]]");
 				//			this.setText(this.getNodeinterface().getContent());
-				this.getObserver().openFromWikiWileName(wikiname,false);
+				this.getObserver().getNodepadDao().openFromWikiWileName(wikiname,false);
 			}else if(ke.getKeyCode() == KeyEvent.VK_P){
 				HttpBrowser browser = new HttpBrowser("http://localhost:8090/en/CashEventsFromNDaysBack.do?n=-20");
 			}

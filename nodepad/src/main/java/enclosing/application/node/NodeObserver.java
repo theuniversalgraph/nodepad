@@ -15,33 +15,23 @@ import java.awt.TextField;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
 import myutil.CounterInterface;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.theuniversalgraph.model.Node;
 import com.theuniversalgraph.model.NodeInterface;
 
@@ -51,7 +41,6 @@ import enclosing.application.node.wiki.LengthComparator;
 import enclosing.application.node.wiki.WikiLinkComponent;
 import enclosing.awt.FlatDialogListener;
 import enclosing.awt.YesNoCancelDialog;
-import enclosing.faceless.GetFacelessNodeField;
 import enclosing.util.NodeUtils;
 
 // Referenced classes of package enclosing.application.node:
@@ -64,6 +53,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	String[] nodeFiles = null;
 	private boolean faceless;
 	boolean hardDelete;
+	private NodepadDAO nodepadDao;
 
 	public String getNodefieldName(){
 		final File file = new File(this.getFilename());
@@ -146,7 +136,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		 Hashtable nodes = null;
 		 try
 		 {
-			 nodes = inputNodeObject(new ObjectInputStream((new Socket(add, port)).getInputStream()));
+			 nodes = NodepadDAO.inputNodeObject(new ObjectInputStream((new Socket(add, port)).getInputStream()));
 			 return nodes;
 		 }
 		 catch(Exception e)
@@ -173,50 +163,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	  }
 
 
-	  public void exportToJson(OutputStream out, Hashtable saved_nodes)
-	  {
-		  try
-		  {
-			  if(saved_nodes == null) {
-				  saved_nodes = getNodeHashFromNCHash();
-			  }
-              Gson gson = new Gson();
-              String json = gson.toJson(saved_nodes);
-
-              OutputStreamWriter outputStreamWriterWriter =new OutputStreamWriter(out);
-              outputStreamWriterWriter.append(json);
-              outputStreamWriterWriter.flush();
-              outputStreamWriterWriter.close();
-		  }
-		  catch(Exception e)
-		  {
-			  e.printStackTrace();
-		  }
-	  }
-
-    public static void exportFileToJson(OutputStream out, Hashtable saved_nodes)
-    {
-        try
-        {
-            Gson gson = new Gson();
-            String json = gson.toJson(saved_nodes);
-
-            OutputStreamWriter outputStreamWriterWriter =new OutputStreamWriter(out);
-            outputStreamWriterWriter.append(json);
-            outputStreamWriterWriter.flush();
-            outputStreamWriterWriter.close();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-
-	Hashtable getNodeHashFromNCHash() {
+	  Hashtable getNodeHashFromNCHash() {
 		Hashtable saved_nodes;
 		NodeComponent nc;
 		saved_nodes = new Hashtable();
@@ -278,45 +225,6 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	  }
 
 
-
-	  public void saveToFile()
-	  {
-
-		  if (this.getNodeFieldApplet().isNet()) {
-			  SaveNodeFileToServer fileToServer = new SaveNodeFileToServer(this);
-			  fileToServer.process(this.getNodeFieldApplet().getUser(),this.getNodeFieldApplet().getFilename(),this.getNodeFieldApplet().getServerName());
-		  }else{
-			  try
-			  {
-				  FileOutputStream fo = new FileOutputStream(this.filename);
-				  exportToJson(fo, null);
-				  fo.close();
-				  //		        				new Rectangle(
-				  //		        				-100,-100,
-				  ////		        				(int)this.getNode_container().getAlignmentX(),
-				  ////		        				(int)this.getNode_container().getAlignmentY(),
-				  //		        				this.getNode_container().getBounds().width,
-				  //		        				this.getNode_container().getBounds().height));
-				  //TODO changed to dalse as it was throwing exceptions
-				  if(false){
-					  Robot robot = new Robot();
-					  BufferedImage screenShot = 
-							  robot.createScreenCapture(this.getNodeFieldApplet().getFrame().getBounds());
-
-					  File file = new File(this.filename);
-					  ImageIO.write(screenShot, "PNG", new File("./screenshots/" + file.getName() + ".png"));
-				  }
-			  }
-			  catch(Exception e)
-			  {
-				  e.printStackTrace();
-			  }
-		  }
-		  for(Enumeration en = this.getNode_components().elements();en.hasMoreElements();){
-			  ((NodeComponent)en.nextElement()).setDirty(false);
-		  }
-	  }
-
 	  public void setAllNodesNormal()
 	  {
 		  NodeComponent temp;
@@ -343,6 +251,11 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		   */
 	  }
 
+		public void openFromObject(Hashtable obj){
+			this.selectAllNodes();
+			this.setMode("delete",null);
+			this.addFromObject(obj);
+		  }
 
 
 	  public NodeObserver(Container node_container,  Hashtable nodes,java.awt.Frame frame)
@@ -367,6 +280,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  this.frame = frame;
 
 		  this.fontManager = new FontManager(this);
+		  this.nodepadDao = new NodepadDAO(this);
 
 		  loadNodeFiles();
 	  }
@@ -471,7 +385,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  } else if (str.equals("save")) {
 			  //			new HttpPostNodeField(this);
 			  //			new XmlMultiplePostClientOfNodesOfANodefield(this);
-			  saveToFile();
+			  this.nodepadDao.saveToFile();
 		  } else if (str.equals("normal")) {
 			  setMode_object(null);
 			  connecting = false;
@@ -485,7 +399,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			  }
 		  } else if (str.equals("WikiClicked")) {
 
-			  openFromWikiWileName(
+			  this.nodepadDao.openFromWikiWileName(
 					  ((WikiLinkComponent) this.getMode_object())
 					  .getBranketContent(),this.getNodeFieldApplet().isNet());
 		  } else if (str.equals("list")) {
@@ -513,30 +427,6 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  getNode_container().repaint();
 	  }
 
-	  public void openFromWikiWileName(String wikiname,boolean net){
-		  wikiname = wikiname.replaceAll("\\s", "_");
-		  if(net){
-		  }else{
-			  File ndfile = new File(this.getFilename());
-			  File dir = ndfile.getParentFile();
-
-			  if(mac){
-				  try {
-					  Process process = Runtime.getRuntime().exec("tv.sh " + wikiname );
-				  }catch(Exception exception){
-					  exception.printStackTrace();
-				  }
-
-				  //            	String filename = dir.getAbsolutePath() +"/"+wikiname+".nd";
-				  //        		openFromFileWithNewWindow(filename,net);
-
-			  }else{
-				  String filename = "\"" +dir.getAbsolutePath() +"/"+wikiname+ SimpleStringConstants.FILE_POSTFIX;
-				  openFromFileWithNewWindow(filename,net);
-
-			  }
-		  }
-	  }
 	  /**
 	   * 
 	   * @return if yes or can, return true, if cancel,return false
@@ -552,33 +442,6 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			  return true;
 		  }
 		  return false;
-	  }
-	  public void openFromFileWithNewWindow(String filename,boolean net){
-		  if(!net){
-			  try {
-				  System.err.println(filename);
-				  if(this.isMac()){
-					  System.err.println("mac");
-					  java.lang.Runtime.getRuntime().exec("./nodepad.sh  "+filename  + " -m");
-				  }else{
-					  System.err.println("win");
-
-					  java.lang.Runtime.getRuntime().exec("./nodepad.exe "+filename);
-
-				  }
-
-			  } catch (Exception e) {
-				  e.printStackTrace();
-			  }
-		  }else{
-			  try {
-				  String url = this.getNodeFieldApplet().getURL()+"?f="+filename+"&u="+this.getNodeFieldApplet().getUser();
-				  this.getNodeFieldApplet().getAppletContext().showDocument(new URL(url),"_brank");
-			  } catch (Exception e) {
-				  e.printStackTrace();
-			  }
-
-		  }
 	  }
 	  public static void newWindow(){
 		  try {
@@ -651,27 +514,6 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  return returned;
 	  }
 
-	  public void openFromObject(Object obj){
-		  this.selectAllNodes();
-		  this.setMode("delete",null);
-		  this.addFromObject(obj);
-	  }
-
-	  public void openFromFile(String filename){
-
-		  this.filename = filename;
-		  File file = new File(this.filename);
-		  String theFilename = file.getName();
-		  if(GetFacelessNodeField.isNodeSentence(theFilename) && !filename.contains("sentences/")){
-			  System.err.println("it is a sentence ");
-			  File newFile = new File(file.getParentFile().getAbsolutePath()+"/sentences/"+theFilename);
-			  filename = newFile.getAbsolutePath();
-			  this.filename = filename;
-		  }
-		  openFromObject(inputNodesFromFile(filename));
-		  System.err.println(this.filename);
-
-	  }
 	  public void addNodeComponentHash(Hashtable newhash){
 		  this.addNodeComponentHash(newhash, true);
 	  }
@@ -792,22 +634,6 @@ public class NodeObserver extends Panel implements FlatDialogListener
 
 
 
-	  public static Hashtable inputNodeObject(ObjectInputStream in)
-	  {
-		  Hashtable nodes = null;
-		  try
-		  {
-			  nodes = (Hashtable)in.readObject();
-			  in.close();
-			  return nodes;
-		  }
-		  catch(Exception e)
-		  {
-			  e.printStackTrace();
-		  }
-		  return null;
-	  }
-
 	  public void disselectAllNodes(Hashtable hash)
 	  {
 		  NodeComponent temp;
@@ -824,61 +650,6 @@ public class NodeObserver extends Panel implements FlatDialogListener
 
 		  setMode("normal", null);
 	  }
-
-	  public void exportToSocket(String hostname, int port)
-	  {
-		  try
-		  {
-			  Socket sock = new Socket(hostname, port);
-			  exportToJson(sock.getOutputStream(), null);
-			  sock.close();
-		  }
-		  catch(Exception e)
-		  {
-			  e.printStackTrace();
-		  }
-	  }
-
-      // method to read json file
-	  public static Hashtable inputNodesFromFile(String filename)
-	  {
-		  Hashtable nodes = new Hashtable();
-          Gson gson = new Gson();
-          try
-		  {
-              FileInputStream fileInputStream = new FileInputStream(filename);
-              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-			  Type type = new TypeToken<Map<String, Node>>() {}.getType();
-			  Map<String, Node> fromJsonMap = gson.fromJson(bufferedReader, type);
-			  for (Map.Entry<String, Node> entry : fromJsonMap.entrySet()) {
-				  nodes.put(entry.getKey(), entry.getValue());
-			  }
-              return nodes;
-		  }
-		  catch(Exception e)
-		  {
-			  e.printStackTrace();
-		  }
-		  return null;
-	  }
-
-
-    //method to read *.nd file
-    public static Hashtable inputNodesFromFileOld(String filename)
-    {
-        Hashtable nodes = null;
-        try
-        {
-            nodes = inputNodeObject(new ObjectInputStream(new FileInputStream(filename)));
-            return nodes;
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
 	  public NodeComponent makeNewNornalNodeAt(int x,int y){
 		  try {
@@ -1037,7 +808,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	  public void  dialogHaveEnd(String command) {
 
 		  if(command.equals("yes")){
-			  this.saveToFile();
+			  this.nodepadDao.saveToFile();
 			  this.applicationEnds(this.windowevent);
 		  }else if(command.equals("no")){
 			  this.applicationEnds(this.windowevent);
@@ -1132,6 +903,16 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  this.nodefieldid = nodefieldid;
 	  }
 
+
+	public NodepadDAO getNodepadDao() {
+		return nodepadDao;
+	}
+
+
+	public void setNodepadDao(NodepadDAO nodepadDao) {
+		this.nodepadDao = nodepadDao;
+	}
+	  
 
 
 }

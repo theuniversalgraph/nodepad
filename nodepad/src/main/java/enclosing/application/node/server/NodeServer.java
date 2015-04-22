@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
-import enclosing.application.node.NodeObserver;
+import enclosing.application.node.NodepadDAO;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeObserver
@@ -27,7 +27,7 @@ public class NodeServer extends Thread
             {
                 Socket incomingsock = sock.accept();
                 sock = new ServerSocket(port);
-                java.util.Hashtable hash = NodeObserver.inputNodesFromFile(filename);
+                java.util.Hashtable hash = NodepadDAO.inputNodesFromFile(filename);
                 ObjectOutputStream out = new ObjectOutputStream(incomingsock.getOutputStream());
                 out.writeObject(hash);
                 out.close();

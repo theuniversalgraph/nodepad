@@ -59,7 +59,7 @@ public class ClipBoardManager {
 			try
 			{
 				FileOutputStream fo = new FileOutputStream(this.filename);
-				this.observer.exportToJson(fo, hash);
+				this.observer.getNodepadDao().exportToJson(fo, hash);
 				fo.close();
 			}
 			catch(Exception e)
