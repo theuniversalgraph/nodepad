@@ -8,8 +8,8 @@ import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 
 public class ProcessNodeCrudRequestByAccessingServer {
 	public static  void  process(NodeObserver observer){

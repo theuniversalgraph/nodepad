@@ -5,7 +5,8 @@
  */
 package enclosing.webapi.client;
 
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
+
 import enclosing.application.node.fileplugins.HttpBrowser;
 
 

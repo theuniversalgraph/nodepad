@@ -4,7 +4,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import enclosing.application.node.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+
 import enclosing.application.node.wiki.WikiLinkComponent;
 
 public class AutoExpandOneStepForNodeComponents {

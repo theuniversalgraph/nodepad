@@ -2,8 +2,8 @@ package enclosing.application.node.ncplugins;
 
 import java.util.Enumeration;
 
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 
 public class CreateNormalNodeWithDate {
 	public static void process(String date,String content,NodeObserver observer){

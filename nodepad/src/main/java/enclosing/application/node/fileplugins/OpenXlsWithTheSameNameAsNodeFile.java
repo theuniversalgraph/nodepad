@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 
 /**
  * @author Administrator

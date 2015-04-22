@@ -16,11 +16,10 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodepadPostMethod;
 import com.theuniversalgraph.model.NodeInterface;
-
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeObserver;
-import enclosing.application.node.NodepadPostMethod;
 
 
 

@@ -1,6 +1,6 @@
 package enclosing.application.node.ncplugins;
 
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 
 public class FollowAllTheUrlOfSelectedNodes {
 	NodeObserver observer = null;

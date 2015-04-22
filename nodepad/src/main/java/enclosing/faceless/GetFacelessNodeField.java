@@ -3,9 +3,10 @@ package enclosing.faceless;
 import java.io.File;
 import java.util.Vector;
 
-import enclosing.application.node.NodeFieldApplet;
-import enclosing.application.node.NodeObserver;
-import enclosing.application.node.TestCounter;
+import com.theuniversalgraph.application.nodepad.NodeFieldApplet;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
+import com.theuniversalgraph.application.nodepad.TestCounter;
+
 import enclosing.util.NodeUtils;
 
 public class GetFacelessNodeField {

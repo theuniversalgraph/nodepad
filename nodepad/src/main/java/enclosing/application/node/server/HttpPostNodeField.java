@@ -11,8 +11,8 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import enclosing.application.node.NodeObserver;
-import enclosing.application.node.NodepadPostMethod;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodepadPostMethod;
 
 public class HttpPostNodeField {
 	public HttpPostNodeField(NodeObserver observer){

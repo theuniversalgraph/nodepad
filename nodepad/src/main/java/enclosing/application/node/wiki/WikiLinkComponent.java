@@ -5,8 +5,8 @@ package enclosing.application.node.wiki;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-import enclosing.application.node.FontManager;
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.FontManager;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 /**
  * @author Administrator
  *

@@ -9,9 +9,9 @@ import java.util.Vector;
 
 import myutil.filehandler;
 
+import com.theuniversalgraph.application.nodepad.NodeComponent;
 import com.theuniversalgraph.model.Node;
 
-import enclosing.application.node.NodeComponent;
 import enclosing.util.NodeUtils;
 
 public class AllNode {

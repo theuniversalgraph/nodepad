@@ -8,11 +8,11 @@ import java.util.Map;
 
 import myutil.filehandler;
 
+import com.theuniversalgraph.application.nodepad.GetNodeFieldNodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeFieldApplet;
 import com.theuniversalgraph.model.Node;
 
-import enclosing.application.node.GetNodeFieldNodeComponent;
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeFieldApplet;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.util.NodeUtils;
 

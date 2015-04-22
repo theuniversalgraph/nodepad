@@ -2,10 +2,9 @@
  */
 package enclosing.application.node.wiki;
 
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 import com.theuniversalgraph.model.NodeInterface;
-
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeObserver;
 
 /**
  * @author Administrator

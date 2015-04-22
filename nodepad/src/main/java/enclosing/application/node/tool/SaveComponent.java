@@ -5,9 +5,10 @@
 
 package enclosing.application.node.tool;
 
-import enclosing.application.node.NodeObserver;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 
 public class SaveComponent extends Component
 {

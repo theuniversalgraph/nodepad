@@ -10,10 +10,11 @@ import java.util.Vector;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-import enclosing.application.node.GetNodeFieldNodeComponent;
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeFieldApplet;
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.GetNodeFieldNodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeFieldApplet;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
+
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.faceless.GetFacelessNodeField;
 import enclosing.util.NodeUtils;

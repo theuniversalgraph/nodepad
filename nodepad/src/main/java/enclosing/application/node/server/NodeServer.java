@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
-import enclosing.application.node.NodepadDAO;
+import com.theuniversalgraph.application.nodepad.NodepadDAO;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeObserver

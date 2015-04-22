@@ -4,7 +4,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 
-import enclosing.application.node.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
 
 public class HttpPost {
 	public HttpPost(String hostname,String uri,NodeComponent nodeComponent){

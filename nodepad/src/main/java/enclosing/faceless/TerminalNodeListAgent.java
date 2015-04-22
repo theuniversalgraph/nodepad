@@ -9,10 +9,9 @@ import java.util.Vector;
 
 import myutil.MainFrame;
 
+import com.theuniversalgraph.application.nodepad.NodeFieldApplet;
+import com.theuniversalgraph.application.nodepad.NodepadWindowAdapter;
 import com.theuniversalgraph.model.Node;
-
-import enclosing.application.node.NodeFieldApplet;
-import enclosing.application.node.NodepadWindowAdapter;
 
 
 public class TerminalNodeListAgent {

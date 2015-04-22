@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 
 /**
  * @author Administrator

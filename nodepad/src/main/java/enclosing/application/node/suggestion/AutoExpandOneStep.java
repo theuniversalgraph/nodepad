@@ -3,10 +3,10 @@ package enclosing.application.node.suggestion;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodepadDAO;
 import com.theuniversalgraph.model.Node;
 
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodepadDAO;
 import enclosing.faceless.GetFacelessNodeField;
 import enclosing.util.NodeUtils;
 

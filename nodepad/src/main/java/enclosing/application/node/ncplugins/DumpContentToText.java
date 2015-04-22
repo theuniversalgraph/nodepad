@@ -7,9 +7,8 @@ package enclosing.application.node.ncplugins;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
-
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 
 /**
  * @author Administrator

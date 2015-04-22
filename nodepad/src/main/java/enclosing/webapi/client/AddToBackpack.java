@@ -10,8 +10,8 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.ThreadTxt;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.ThreadTxt;
 
 public class AddToBackpack {
 	public AddToBackpack(String nodefieldname,NodeComponent nodeComponent){

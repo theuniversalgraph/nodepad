@@ -5,7 +5,7 @@
 
 package enclosing.application.node.server;
 
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
 
 public class SaveNodeFileToServer
 {

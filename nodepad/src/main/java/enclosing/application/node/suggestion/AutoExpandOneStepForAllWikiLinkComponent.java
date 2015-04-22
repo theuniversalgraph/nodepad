@@ -3,8 +3,9 @@ package enclosing.application.node.suggestion;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeObserver;
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+import com.theuniversalgraph.application.nodepad.NodeObserver;
+
 import enclosing.application.node.wiki.WikiLinkComponent;
 
 public class AutoExpandOneStepForAllWikiLinkComponent {
