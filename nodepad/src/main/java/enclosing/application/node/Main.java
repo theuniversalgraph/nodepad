@@ -25,7 +25,7 @@ public class Main {
 		applet.setFrame(frame);
 		frame.addWindowListener(new NodepadWindowAdapter(applet.observer));
 		if(PlatformUtils.isMac()){
-			applet.observer.setMac(true);
+			applet.observer.getMode().setMac(true);
 		}
 
 		if(args.length > 0){

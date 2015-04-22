@@ -17,8 +17,8 @@ public class NodeObserverMouseMotionAdapter extends MouseMotionAdapter {
 			
 		
 		}else{
-			if(this.observer.getSelectingZone() != null){
-				SelectingZone selectingZone = this.observer.getSelectingZone();
+			if(this.observer.getMode().getSelectingZone() != null){
+				SelectingZone selectingZone = this.observer.getMode().getSelectingZone();
 				if(arg0.getX() < selectingZone.getStartx()){
 					selectingZone.setLocation(arg0.getX(),selectingZone.getY());
 				}
@@ -26,7 +26,7 @@ public class NodeObserverMouseMotionAdapter extends MouseMotionAdapter {
 					selectingZone.setLocation(selectingZone.getX(),arg0.getY());
 				}
 				selectingZone.setSize(Math.abs(arg0.getX()-selectingZone.getStartx()), Math.abs(arg0.getY()-selectingZone.getStarty()));
-				this.observer.getSelectingZone().repaint();
+				this.observer.getMode().getSelectingZone().repaint();
 				this.observer.repaint();
 			}
 		}

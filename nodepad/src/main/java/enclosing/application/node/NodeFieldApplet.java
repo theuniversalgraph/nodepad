@@ -86,10 +86,10 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
         if(observer != null && observer.getMode() != null){
         	g.setColor(Color.red);
         	g.setFont(new Font("Dialog", 0, 11));
-            if(this.getObserver().isMac()){
-                g.drawString(observer.getMode() + " @mac", 20, 20);
+            if(this.getObserver().getMode().isMac()){
+                g.drawString(observer.getMode().getMode() + " @mac", 20, 20);
             }else{
-                g.drawString(observer.getMode(), 20, 20);
+                g.drawString(observer.getMode().getMode(), 20, 20);
             }
         }
     	if(this.isDisplayAux()){
@@ -306,7 +306,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 		    if(ke.isShiftDown()){ 
 		    	switch (ke.getKeyCode()) {
 				case KeyEvent.VK_ENTER:
-			        new UniteNodesIntoOneNode(this.getObserver().getSelected().elements(),this.getObserver());
+			        new UniteNodesIntoOneNode(this.getObserver().getMode().getSelected().elements(),this.getObserver());
 					break;
 				case KeyEvent.VK_X:
 		            new OpenXlsWithTheSameNameAsNodeFile(this.getObserver());
@@ -320,10 +320,10 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 					this.repaint();
 					break;
 				case KeyEvent.VK_LEFT:
-					new AlignNodeToLeft(this.getObserver().getSelected());
+					new AlignNodeToLeft(this.getObserver().getMode().getSelected());
 					break;
 				case KeyEvent.VK_UP:
-					new AlignNodeToTop(this.getObserver().getSelected());
+					new AlignNodeToTop(this.getObserver().getMode().getSelected());
 					break;
 				default:
 					break;
@@ -334,7 +334,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 					/////////////////////////////////////////////// ctrl + alt
 					if(ke.getKeyCode() == KeyEvent.VK_A){
 						AutoExpandOneStepForNodeComponents autoExpandOneStepForNodeComponents
-						 =new AutoExpandOneStepForNodeComponents(this.getObserver().getSelected().elements(),this.getObserver().getNode_components());
+						 =new AutoExpandOneStepForNodeComponents(this.getObserver().getMode().getSelected().elements(),this.getObserver().getNode_components());
 					}else if(ke.getKeyCode() == KeyEvent.VK_S){
 						if(!this.isSeekingNext()){
 							this.setSeekingNext(true);
@@ -361,7 +361,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 				///////////////////////////////////////    	 	ctrl + alt + ?
 		    }else if(ke.isAltDown()){
 		    	if(ke.getKeyCode() == KeyEvent.VK_L){
-		    	FollowAllTheUrlOfNodes followAllTheUrlOfNodes =new FollowAllTheUrlOfNodes(this.getObserver().getSelected().elements());
+		    	FollowAllTheUrlOfNodes followAllTheUrlOfNodes =new FollowAllTheUrlOfNodes(this.getObserver().getMode().getSelected().elements());
 		    		
 		    	}
 		    	
@@ -441,19 +441,19 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 				    
 				}
 				if(ke.getKeyCode() == KeyEvent.VK_L){
-				    new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
+				    new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 				}
 		    }
 		}else{
 		    if(ke.getKeyCode()==107){
-		        new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
+		        new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 		    }
 		}
 	    
 		
 		if(ke.getKeyCode()==127){//delete
 			if(ke.isShiftDown()){
-				this.getObserver().hardDelete = true;
+				this.getObserver().getMode().setHardDelete(true); 
 			}
 			this.getObserver().setMode("delete",null);
 		}
@@ -461,7 +461,7 @@ public class NodeFieldApplet extends Applet implements KeyListener,ComponentList
 		
 		if(!ke.isAltDown() && !ke.isActionKey() && !ke.isAltGraphDown() && !ke.isControlDown() && !ke.isMetaDown() && !ke.isShiftDown()){
 			if(TagHash.getInstance().getTag(ke.getKeyCode()) !=null ){
-				Enumeration enumeration =this.getObserver().getSelected().elements(); 
+				Enumeration enumeration =this.getObserver().getMode().getSelected().elements(); 
 				while (enumeration.hasMoreElements()) {
 					NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
 					NodeInterface nodeInterface =nodeComponent.getNodeinterface();

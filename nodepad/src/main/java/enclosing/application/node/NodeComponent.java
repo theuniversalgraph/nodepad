@@ -101,11 +101,11 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		setBackground(this.getNormalBackgroundColor());
 		setForeground(this.getNormalForegroundColor());
 		repaint();
-		if(observer != null && observer.getSelected() != null)
+		if(observer != null && observer.getMode().getSelected() != null)
 		{ 
-			observer.getSelected().remove(getNodeinterface().getId());
-			if(observer.getSelected().size() == 0)
-				observer.setSelected(null);
+			observer.getMode().getSelected().remove(getNodeinterface().getId());
+			if(observer.getMode().getSelected().size() == 0)
+				observer.getMode().setSelected(null);
 		}
 	}
 
@@ -204,9 +204,9 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		repaint();
 		if(observer != null)
 		{
-			if(observer.getSelected() == null)
-				observer.setSelected(new Hashtable());
-			observer.getSelected().put(getNodeinterface().getId(), this);
+			if(observer.getMode().getSelected() == null)
+				observer.getMode().setSelected(new Hashtable());
+			observer.getMode().getSelected().put(getNodeinterface().getId(), this);
 			//            this.observer.getNodeFieldApplet().repaint();
 		}
 	}
@@ -274,7 +274,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		if(this.getParents().size()>0 ){
 			Enumeration en1 = this.getParents().elements();
 			NodeComponent topParentNC = (NodeComponent)en1.nextElement();
-			if(!this.getObserver().getSelected().contains(topParentNC)){
+			if(!this.getObserver().getMode().getSelected().contains(topParentNC)){
 				this.getObserver().disselectAllNodes(this.getObserver().getNode_components());
 				topParentNC.requestFocusInWindow();
 			}
@@ -987,7 +987,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 					requestFocus(); 
 					pressed = false;
 					if(this.isSelected()){
-						for(Enumeration en = this.observer.getSelected().elements();en.hasMoreElements();){
+						for(Enumeration en = this.observer.getMode().getSelected().elements();en.hasMoreElements();){
 							((NodeComponent)en.nextElement()).moveLocation(me.getX() - p.x, me.getY() - p.y);
 						}
 					}else{
@@ -1032,14 +1032,14 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 				if(isSelected()){
 					if(me.isAltDown()){
-						new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
+						new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 					}	
 					disselected();
 
 				}else{
 					selected();
 					if(me.isAltDown()){
-						new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
+						new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 					}
 				}
 			}        else        if(me.isAltDown()){
@@ -1161,112 +1161,21 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			}
 		}
 
-		/**
-		 * 
-		 * @uml.property name="ni"
-		 * @uml.associationEnd 
-		 * @uml.property name="ni" multiplicity="(1 1)"
-		 */
 		private NodeInterface ni;
-
-		/**
-		 * 
-		 * @uml.property name="observer"
-		 * @uml.associationEnd 
-		 * @uml.property name="observer" multiplicity="(0 1)" inverse="selected:enclosing.application.node.NodeObserver"
-		 */
 		private NodeObserver observer;
-
-		/**
-		 * 
-		 * @uml.property name="outlet"
-		 * @uml.associationEnd 
-		 * @uml.property name="outlet" multiplicity="(0 1)" inverse="nc:enclosing.application.node.NodeOutlet"
-		 */
 		private NodeOutlet outlet;
-
-		/**
-		 * 
-		 * @uml.property name="inlet"
-		 * @uml.associationEnd 
-		 * @uml.property name="inlet" multiplicity="(0 1)" inverse="nc:enclosing.application.node.NodeInlet"
-		 */
 		private NodeInlet inlet;
-
-		/**
-		 * 
-		 * @uml.property name="children_line"
-		 * @uml.associationEnd 
-		 * @uml.property name="children_line" multiplicity="(0 1)" inverse="child:enclosing.application.node.Line"
-		 * qualifier="this:enclosing.application.node.NodeComponent line:enclosing.application.node.Line"
-		 */
 		private Hashtable children_line;
 
-		/**
-		 * 
-		 * @uml.property name="children"
-		 * @uml.associationEnd 
-		 * @uml.property name="children" multiplicity="(0 1)" inverse="children:enclosing.application.node.NodeComponent"
-		 * qualifier="getId:java.lang.String temp:enclosing.application.node.NodeComponent"
-		 */
 		private Hashtable children;
-
-		/**
-		 * 
-		 * @uml.property name="parents"
-		 * @uml.associationEnd 
-		 * @uml.property name="parents" multiplicity="(0 -1)" ordering="ordered" elementType=
-		 * "java.lang.String" qualifier="getId:enclosing.application.node.NodeComponent nc:enclosing.application.node.Line"
-		 */
 		private Hashtable parents;
-
-		/**
-		 * 
-		 * @uml.property name="fm"
-		 */
 		private FontMetrics fm;
-
-		/**
-		 * 
-		 * @uml.property name="editing"
-		 */
 		private boolean editing;
-
-		/**
-		 * 
-		 * @uml.property name="folded"
-		 */
 		private boolean folded;
-
-
-		/**
-		 * 
-		 * @uml.property name="edit"
-		 * @uml.associationEnd 
-		 * @uml.property name="edit" multiplicity="(1 1)" inverse="nc:enclosing.application.node.NodeEditer"
-		 */
 		private NodeEditer edit;
 
-		/**
-		 * 
-		 * @uml.property name="pressed"
-		 */
 		private boolean pressed;
-
-		/**
-		 * 
-		 * @uml.property name="p"
-		 */
 		private Point p;
-
-		//	//////////////////normal setting
-		//	
-		//	private Color selectedBackgroundColor = 	new Color(0,0,0,80);
-		//	private Color selectedForegroundColor= new Color(255,255,255,150);
-		//	
-		//	private Color normalBackgroundColor =new Color(255,255,255,200); 	
-		//	private Color normalForegroundColor = 		new Color(0,0,0,250);
-
 
 		private Color selectedBackgroundColor = 	new Color(255,255,255,80);
 		private Color selectedForegroundColor= new Color(0,0,0,150);
@@ -1275,33 +1184,16 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		private Color normalForegroundColor = 		new Color(255,255,255,250);
 
 
-
-		/**
-		 * 
-		 * @uml.property name="dirty"
-		 */
 		private boolean dirty;
 
 		private int saidai_length = 0;
 		private String[] contentBuf = null;
 
-		/**
-		 * 
-		 * @uml.property name="re"
-		 * @uml.associationEnd 
-		 * @uml.property name="re" multiplicity="(0 1)"
-		 */
 		private org.apache.regexp.RE re = null;
 
 		private String[] contentBufBuf = null;
 		private static String bracketName = null;
 
-		/**
-		 * 
-		 * @uml.property name="wikilinks"
-		 * @uml.associationEnd 
-		 * @uml.property name="wikilinks" multiplicity="(0 -1)" elementType="enclosing.application.node.wiki.WikiLinkComponent"
-		 */
 		private Vector wikilinks = new Vector();
 
 
@@ -1314,18 +1206,10 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			this.wikilinks.remove(wlc);
 		}
 
-		/**
-		 * @return
-		 * 
-		 * @uml.property name="fm"
-		 */
 		public FontMetrics getFm() {
 			return fm;
 		}
 
-		/**
-		 * @return
-		 */
 		public Vector getWikilinks() {
 			return wikilinks;
 		}
@@ -1470,7 +1354,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				}
 			}else{//not ctrl
 				if(ke.getKeyCode()==107){
-					new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
+					new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 				}
 			}
 

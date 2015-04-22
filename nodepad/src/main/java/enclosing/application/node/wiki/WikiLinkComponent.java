@@ -48,17 +48,17 @@ public class WikiLinkComponent extends Component{
 
 		case 500: 
 			if(me.getButton() == MouseEvent.BUTTON3){
-				this.observer.setMode_object(this);
+				this.observer.getMode().setMode_object(this);
 				this.observer.setMode("WikiAutoExpand",this);
 				
 			}else{
 				if(me.getClickCount() ==2){
 					if(me.isShiftDown()){
-						this.observer.setMode_object(this);
+						this.observer.getMode().setMode_object(this);
 						this.observer.setMode("WikiAutoExpand",this);
 						
 					}else{
-						this.observer.setMode_object(this);
+						this.observer.getMode().setMode_object(this);
 						this.observer.setMode("WikiClicked",this);
 					}
 				}

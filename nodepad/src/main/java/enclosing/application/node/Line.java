@@ -38,7 +38,7 @@ public class Line extends Component
         parent_node.getChildren().remove(child.getNodeinterface().getId());
         parent_node.getChildren_line().remove(child);
         child.getParents().remove(getParent_node().getNodeinterface().getId());
-        if(parent_node.getObserver().hardDelete){
+        if(parent_node.getObserver().getMode().isHardDelete()){
         	RemoveAllLine removeAllLine = new RemoveAllLine();
         }
     }
@@ -46,8 +46,8 @@ public class Line extends Component
     public void disselected()
     {
         setForeground(new Color(122,124,115));
-        if(parent_node.getObserver().getSelected_line() != null)
-            parent_node.getObserver().getSelected_line().remove(parent_node);
+        if(parent_node.getObserver().getMode().getSelected_line() != null)
+            parent_node.getObserver().getMode().getSelected_line().remove(parent_node);
         repaint();
     }
 
@@ -117,9 +117,9 @@ public class Line extends Component
     public void selected()
     {
         setForeground(Color.red);
-        if(parent_node.getObserver().getSelected_line() == null)
-            parent_node.getObserver().setSelected_line(new Hashtable());
-        parent_node.getObserver().getSelected_line().put(parent_node, this);
+        if(parent_node.getObserver().getMode().getSelected_line() == null)
+            parent_node.getObserver().getMode().setSelected_line(new Hashtable());
+        parent_node.getObserver().getMode().getSelected_line().put(parent_node, this);
         repaint();
     }
 

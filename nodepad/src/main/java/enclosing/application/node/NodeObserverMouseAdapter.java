@@ -94,13 +94,13 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 			selectingZone.setStartx(me.getX());
 			selectingZone.setStarty(me.getY());
 			selectingZone.setLocation(me.getX(),me.getY());
-			this.observer.setSelectingZone(selectingZone);
+			this.observer.getMode().setSelectingZone(selectingZone);
 			selectingZone.validate();
 			selectingZone.setVisible(true);
 //			this.observer.repaint();
 //			selectingZone.repaint();
 			if(me.isAltDown()){
-		        new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
+		        new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 			}
 		}
 		
@@ -114,7 +114,7 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 	public void mouseReleased(MouseEvent me) {
 		//for panel move dragging the field 
 		if(me.getButton() == MouseEvent.BUTTON2 || me.getButton()== MouseEvent.BUTTON3){
-			Point startPoint = (Point)this.observer.getMode_object();
+			Point startPoint = (Point)this.observer.getMode().getMode_object();
 			for(Enumeration en = this.observer.getNode_components().elements();en.hasMoreElements();){
 				NodeComponent nc = (NodeComponent)en.nextElement();
 				nc.moveLocation(me.getX()-((int)startPoint.getX()),me.getY()-((int)startPoint.getY()));
@@ -150,7 +150,7 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 		}else{
 			boolean selecting = true;
 			this.observer.setMode("selectingZoneEnds",me);
-			SelectingZone selectingZone = this.observer.getSelectingZone();
+			SelectingZone selectingZone = this.observer.getMode().getSelectingZone();
 			try {
 				this.observer.getNode_container().remove(selectingZone);
 			} catch (NullPointerException e) {
@@ -158,12 +158,12 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 			}
 
 			if(selecting){
-				if(this.observer.getSelected_line()!=null){
-					for(Enumeration en1 = this.observer.getSelected_line().elements();en1.hasMoreElements();){
+				if(this.observer.getMode().getSelected_line()!=null){
+					for(Enumeration en1 = this.observer.getMode().getSelected_line().elements();en1.hasMoreElements();){
 						((Line)en1.nextElement()).disselected();
 					}
 				}
-				this.observer.setSelectingZone(null);
+				this.observer.getMode().setSelectingZone(null);
 				for(Enumeration en = this.observer.getNode_components().elements();en.hasMoreElements();){
 					NodeComponent nc = (NodeComponent)en.nextElement();
 					if(selectingZone.contains(nc.getX()-selectingZone.getX() ,nc.getY()-selectingZone.getY())){
@@ -183,7 +183,7 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 			}
 
 			if(me.isAltDown()){
-		        new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
+		        new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 			}
 			
 		}

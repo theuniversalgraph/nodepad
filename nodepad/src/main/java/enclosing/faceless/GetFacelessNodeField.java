@@ -15,7 +15,7 @@ public class GetFacelessNodeField {
 		applet.setObserver(new NodeObserver(applet,null,null));
 		applet.getObserver().setCounter(new TestCounter());
 		applet.getObserver().setNodeFieldApplet(applet);
-		applet.getObserver().setFaceless(true);;
+		applet.getObserver().getMode().setFaceless(true);;
 		
 		if(applet.getObserver()==null){
 			try {

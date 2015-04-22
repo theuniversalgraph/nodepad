@@ -119,7 +119,7 @@ public class NodeInlet extends Component
 
     public void endConnection()
     {
-        ((NodeComponent)nc.getObserver().getMode_object()).makeConnection(nc);
+        ((NodeComponent)nc.getObserver().getMode().getMode_object()).makeConnection(nc);
         setBig(false);
         nc.getObserver().setMode("normal", null);
     }

@@ -27,11 +27,11 @@ public class ClipBoardManager {
 	}
 	private String filename = SimpleStringConstants.FILE_NAME_CLIPBOARD+ SimpleStringConstants.FILE_POSTFIX;
 	public Hashtable copy(){
-	    if(this.observer == null || this.observer.getSelected() == null || this.observer.getSelected().size()<1){
+	    if(this.observer == null || this.observer.getMode().getSelected() == null || this.observer.getMode().getSelected().size()<1){
 	        return null;
 	    }
 		Hashtable hash = new Hashtable();
-		Hashtable nchash = this.observer.getSelected();
+		Hashtable nchash = this.observer.getMode().getSelected();
 		int leftx = Integer.MAX_VALUE;
 		int topy = Integer.MAX_VALUE;
 		for(Enumeration en = nchash.elements();en.hasMoreElements();){
