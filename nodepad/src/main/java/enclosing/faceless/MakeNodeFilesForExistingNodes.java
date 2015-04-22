@@ -1,18 +1,20 @@
 package enclosing.faceless;
 
-import core.model.Node;
-import enclosing.application.node.GetNodeFieldNodeComponent;
-import enclosing.application.node.NodeComponent;
-import enclosing.application.node.NodeFieldApplet;
-import enclosing.application.node.suggestion.AutoExpandOneStep;
-import enclosing.util.NodeUtils;
-import myutil.filehandler;
-
 import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+
+import myutil.filehandler;
+
+import com.theuniversalgraph.model.Node;
+
+import enclosing.application.node.GetNodeFieldNodeComponent;
+import enclosing.application.node.NodeComponent;
+import enclosing.application.node.NodeFieldApplet;
+import enclosing.application.node.suggestion.AutoExpandOneStep;
+import enclosing.util.NodeUtils;
 
 public class MakeNodeFilesForExistingNodes {
 	private static final String TIME_STAMP_FILE = "nodefield_process_map.txt";

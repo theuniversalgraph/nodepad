@@ -3,8 +3,7 @@ package enclosing.application.node.predicate;
 import java.util.Hashtable;
 
 import com.google.common.base.Predicate;
-
-import core.model.Node;
+import com.theuniversalgraph.model.Node;
 
 public abstract class NodePredicate implements Predicate<Node>{
 	int hop = 0;

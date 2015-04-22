@@ -5,15 +5,14 @@
 package enclosing.faceless;
 
 import java.awt.Frame;
-import java.util.Collection;
 import java.util.Vector;
 
 import myutil.MainFrame;
-import myutil.filehandler;
-import core.model.Node;
+
+import com.theuniversalgraph.model.Node;
+
 import enclosing.application.node.NodeFieldApplet;
 import enclosing.application.node.NodepadWindowAdapter;
-import enclosing.application.node.predicate.Terminal;
 
 
 public class TerminalNodeListAgent {

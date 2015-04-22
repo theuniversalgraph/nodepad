@@ -1,8 +1,7 @@
 package enclosing.application.node.predicate;
 
 import com.google.common.base.Predicate;
-
-import core.model.Node;
+import com.theuniversalgraph.model.Node;
 
 public class Descendant implements Predicate<Node>{
 

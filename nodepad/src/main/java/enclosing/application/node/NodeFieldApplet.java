@@ -5,7 +5,27 @@
 
 package enclosing.application.node;
 
-import core.model.NodeInterface;
+import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Enumeration;
+
+import myutil.MainFrame;
+
+import com.theuniversalgraph.model.NodeInterface;
+
 import enclosing.application.node.fileplugins.OpenXlsWithTheSameNameAsNodeFile;
 import enclosing.application.node.ncplugins.EnCauseNodesWithRelativeYPosision;
 import enclosing.application.node.ncplugins.ProcessNodeCrudRequestByAccessingServer;
@@ -18,15 +38,6 @@ import enclosing.faceless.AllNode;
 import enclosing.faceless.MakeNodeFilesForExistingNodes;
 import enclosing.model.TagHash;
 import enclosing.webapi.client.NodesToTodoistItems;
-import myutil.MainFrame;
-
-import java.applet.Applet;
-import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Enumeration;
 
 public class NodeFieldApplet extends Applet implements KeyListener,ComponentListener
 {

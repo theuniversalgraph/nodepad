@@ -18,8 +18,7 @@ import com.google.gdata.data.extensions.When;
 import com.google.gdata.data.extensions.Where;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
-
-import core.model.NodeInterface;
+import com.theuniversalgraph.model.NodeInterface;
 
 public class AddToGoogleCalendar {
 	public AddToGoogleCalendar(NodeInterface node){

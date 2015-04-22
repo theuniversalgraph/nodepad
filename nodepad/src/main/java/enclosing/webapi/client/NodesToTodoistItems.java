@@ -10,10 +10,9 @@ import net.enclosing.todoist.Todoist;
 
 import com.google.common.collect.Collections2;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.theuniversalgraph.model.Node;
 
-import core.model.Node;
 import enclosing.application.node.predicate.DescendantsOf;
 import enclosing.application.node.predicate.TodoistItemNotExisting;
 

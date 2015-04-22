@@ -6,11 +6,8 @@ import java.io.StringWriter;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-import javax.sql.rowset.spi.XmlWriter;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -19,10 +16,11 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import com.theuniversalgraph.model.NodeInterface;
+
 import enclosing.application.node.NodeComponent;
 import enclosing.application.node.NodeObserver;
 import enclosing.application.node.NodepadPostMethod;
-import core.model.NodeInterface;
 
 
 

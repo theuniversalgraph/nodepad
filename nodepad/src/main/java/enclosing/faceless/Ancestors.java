@@ -1,13 +1,14 @@
 package enclosing.faceless;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import core.model.Node;
-import enclosing.util.NodeUtils;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Vector;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.theuniversalgraph.model.Node;
+
+import enclosing.util.NodeUtils;
 
 public class Ancestors {
 	AllNode allNode = AllNode.getInstance();

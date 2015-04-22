@@ -5,10 +5,46 @@
 
 package enclosing.application.node;
 
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Panel;
+import java.awt.Point;
+import java.awt.Robot;
+import java.awt.TextField;
+import java.awt.Window;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
+import javax.imageio.ImageIO;
+
+import myutil.CounterInterface;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import core.model.Node;
-import core.model.NodeInterface;
+import com.theuniversalgraph.model.Node;
+import com.theuniversalgraph.model.NodeInterface;
+
 import enclosing.application.node.server.SaveNodeFileToServer;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.LengthComparator;
@@ -17,19 +53,6 @@ import enclosing.awt.FlatDialogListener;
 import enclosing.awt.YesNoCancelDialog;
 import enclosing.faceless.GetFacelessNodeField;
 import enclosing.util.NodeUtils;
-import myutil.CounterInterface;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.lang.reflect.Type;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.URL;
-import java.util.*;
-import java.util.List;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface, NodeComponent, NewNodeContent, Line, 
@@ -499,7 +522,6 @@ public class NodeObserver extends Panel implements FlatDialogListener
 
 			  if(mac){
 				  try {
-					  System.err.println("aaaaa");
 					  Process process = Runtime.getRuntime().exec("tv.sh " + wikiname );
 				  }catch(Exception exception){
 					  exception.printStackTrace();
@@ -670,10 +692,16 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		  int offset = 0;
 		  if(this.getCounter().getCount(Node.class.getName()) >= lowest){
 			  offset = this.getCounter().getCount((Node.class.getName())) + 1;
+			  
 		  }
 		  if(this.getCounter().getCount(Node.class.getName()) <= highest + offset){
 			  this.getCounter().setCount(Node.class.getName(),highest + offset + 1);
 		  }
+		  System.err.println(highest + " : highest");
+		  System.err.println(lowest + " : lowest");
+		  
+		  System.err.println(Node.class.getName() + " ---- is node class name. ----------");
+		  System.err.println(this.getCounter().getCount(Node.class.getName()) + " --------------- debugging -----------");
 
 		  for(Enumeration en = newhash.elements();en.hasMoreElements();){
 			  NodeComponent nc =(NodeComponent)en.nextElement();

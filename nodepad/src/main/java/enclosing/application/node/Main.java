@@ -12,7 +12,7 @@ public class Main {
 	public static void main(String[] args) {
 		NodeFieldApplet applet = new NodeFieldApplet();
 		applet.setNet(false);
-		System.err.println(" -----------------starting nodepad -------------------");
+		System.err.println(" ----------------- starting nodepad -------------------");
 
 		Frame frame = new MainFrame(applet, 500, 500);
 		while(applet.observer==null){

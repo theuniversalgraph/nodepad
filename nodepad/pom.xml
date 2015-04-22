@@ -197,7 +197,7 @@
         </dependency>
 
         <dependency>
-            <groupId>theuniversalgraph</groupId>
+            <groupId>com.theuniversalgraph</groupId>
             <artifactId>core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

@@ -5,8 +5,7 @@
 
 package enclosing.application.node;
 
-import core.model.NodeInterface;
-
+import com.theuniversalgraph.model.NodeInterface;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeComponent, NodeObserver, NodeInterface

@@ -1,13 +1,14 @@
 package enclosing.application.node.suggestion;
 
-import core.model.Node;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
+import com.theuniversalgraph.model.Node;
+
 import enclosing.application.node.NodeComponent;
 import enclosing.application.node.NodeObserver;
 import enclosing.faceless.GetFacelessNodeField;
 import enclosing.util.NodeUtils;
-
-import java.util.Enumeration;
-import java.util.Hashtable;
 
 public class AutoExpandOneStep {
 	Node theNodeWithTheSameNameAsWikiString = null;

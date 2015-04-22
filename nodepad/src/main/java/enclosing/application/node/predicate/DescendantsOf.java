@@ -1,18 +1,20 @@
 package enclosing.application.node.predicate;
 
-import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableSet;
-import core.model.Node;
-import enclosing.faceless.AllNode;
-import enclosing.faceless.MakeNodeFilesForExistingNodes;
-import enclosing.model.Project;
-import enclosing.util.NodeUtils;
-
-import javax.servlet.annotation.WebServlet;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Vector;
+
+import javax.servlet.annotation.WebServlet;
+
+import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableSet;
+import com.theuniversalgraph.model.Node;
+
+import enclosing.faceless.AllNode;
+import enclosing.faceless.MakeNodeFilesForExistingNodes;
+import enclosing.model.Project;
+import enclosing.util.NodeUtils;
 
 @WebServlet("/SearchNotesServlet")
 public class DescendantsOf {

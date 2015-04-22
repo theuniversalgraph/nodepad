@@ -1,13 +1,15 @@
 package enclosing.model;
 
-import core.model.Node;
+import java.io.File;
+import java.util.ArrayList;
+
+import net.enclosing.list.List;
+
+import com.theuniversalgraph.model.Node;
+
 import enclosing.application.node.predicate.NodePredicate;
 import enclosing.faceless.GetNodeFiles;
 import enclosing.util.NodeUtils;
-import net.enclosing.list.List;
-
-import java.io.File;
-import java.util.ArrayList;
 
 public class Project extends NodePredicate{
 	static String[] PROJECTS = new String[]{"diyk","cf0411","astamuse_contract","better link to node"}; 

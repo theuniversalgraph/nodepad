@@ -1,6 +1,6 @@
 package enclosing.application.node.predicate;
 
-import core.model.Node;
+import com.theuniversalgraph.model.Node;
 
 public class Terminal extends NodePredicate {
 	

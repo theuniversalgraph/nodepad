@@ -1,7 +1,5 @@
 package enclosing.webapi.client;
 
-import java.net.URLEncoder;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
@@ -11,7 +9,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import core.model.NodeInterface;
+import com.theuniversalgraph.model.NodeInterface;
 
 public class AddToTumbler {
 	public AddToTumbler(NodeInterface node){

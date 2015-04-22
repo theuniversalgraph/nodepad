@@ -1,7 +1,39 @@
 package enclosing.application.node;
 
-import core.model.Node;
-import core.model.NodeInterface;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.StringTokenizer;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import myutil.filehandler;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
+import org.apache.regexp.RE;
+
+import com.theuniversalgraph.model.Node;
+import com.theuniversalgraph.model.NodeInterface;
+
 import enclosing.application.node.fileplugins.HttpBrowser;
 import enclosing.application.node.ncplugins.BreakNodeIntoNodesWithCRLF;
 import enclosing.application.node.ncplugins.DumpContentToText;
@@ -11,23 +43,11 @@ import enclosing.application.node.server.OpenFileFromServer;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.WikiLinkComponent;
 import enclosing.model.TagHash;
-import enclosing.webapi.client.*;
-import myutil.filehandler;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
-import org.apache.regexp.RE;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.Serializable;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import enclosing.webapi.client.AddToBackpack;
+import enclosing.webapi.client.AddToGoogleCalendar;
+import enclosing.webapi.client.AddToTumbler;
+import enclosing.webapi.client.GoogleAnswer;
+import enclosing.webapi.client.TextToNodes;
 
 // Referenced classes of package enclosing.application.node:
 //            NodeInterface, NodeObserver, Line, NodeOutlet, 

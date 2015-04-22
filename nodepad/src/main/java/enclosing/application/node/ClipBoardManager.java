@@ -5,13 +5,15 @@
  */
 package enclosing.application.node;
 
-import core.model.NodeInterface;
-import enclosing.application.node.server.SaveNodeFileToServer;
-import myutil.filehandler;
-
 import java.io.FileOutputStream;
 import java.util.Enumeration;
 import java.util.Hashtable;
+
+import myutil.filehandler;
+
+import com.theuniversalgraph.model.NodeInterface;
+
+import enclosing.application.node.server.SaveNodeFileToServer;
 
 /**
  * @author Administrator
