@@ -87,7 +87,7 @@ public class TextToNodes {
 		String[] nodesource = new String[2];
 		Vector vector = new Vector();
 		int index = 0;
-		String content = nodeComponent.getNodeinterface().getContent();
+		String content = nodeComponent.getNodeInterface().getContent();
 		while(index >= 0){
 			int tempinde = index;
 			//        	int causingindexd = content.indexOf("��",index);
