@@ -190,9 +190,9 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		loadNodeFiles();
 	}
 	public String validNodeFile(String file){
-		if(!file.endsWith("nd")) return null;
+		if(!file.endsWith("json")) return null;
 
-		file = file.substring(0,file.length() - 3);
+		file = file.substring(0,file.length() - 5);
 		file = file.replaceAll("\\[", "").replaceAll("\\]", "");
 		file = NodeUtils.removeTagString(NodeUtils.saferStringOf(file));
 

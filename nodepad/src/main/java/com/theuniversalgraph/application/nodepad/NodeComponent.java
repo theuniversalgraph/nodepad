@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -64,8 +65,8 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		this.getNodeInterface().setHeight(getSize().height);
 		this.getNodeInterface().setChildren(new Vector());
 		this.getNodeInterface().setParents(new Vector());
-		for(Enumeration en = getChildren().keys(); en.hasMoreElements(); this.getNodeInterface().getChildren().addElement((String)en.nextElement()));
-		for(Enumeration en = getParents().keys(); en.hasMoreElements(); this.getNodeInterface().getParents().addElement((String)en.nextElement()));
+		Collections.list(getChildren().keys()).forEach(s -> this.getNodeInterface().getChildren().addElement(s));
+		Collections.list(getParents().keys()).forEach(s -> this.getNodeInterface().getParents().addElement(s));
 	}
 
 
@@ -86,15 +87,8 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	{
 		dirty = true;
 		this.setVisible(false);
-		for(Enumeration en = this.getChildren_line().elements();en.hasMoreElements();){
-			Line line  = (Line)en.nextElement();
-			line.setVisible(false);
-		}
-		
-		Enumeration en = children.elements();
-		while(en.hasMoreElements()){
-			((NodeComponent)en.nextElement()).setInvisibleChildren();
-		}
+		Collections.list(this.getChildren_line().elements()).forEach(l -> l.setVisible(false));
+		Collections.list(children.elements()).forEach(n -> n.setInvisibleChildren());
 	}
 
 	public void goFolded()
@@ -113,14 +107,8 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	}
 	public void setVisibleChildren(){
 		this.setVisible(true);
-		for(Enumeration en = this.getChildren_line().elements();en.hasMoreElements();){
-			Line line = (Line)en.nextElement();
-			line.setVisible(true);
-		}
-		for(Enumeration en = this.getChildren().elements();en.hasMoreElements();){
-			NodeComponent nc = (NodeComponent)en.nextElement();
-			nc.setVisibleChildren();
-		}
+		Collections.list(this.getChildren_line().elements()).forEach(l -> l.setVisible(true));
+		Collections.list(this.getChildren().elements()).forEach(n -> n.setVisibleChildren());
 	}
 
 	public void update(Graphics g)
@@ -146,17 +134,16 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	{
 		dirty = true;
 		setVisible(true);
-		for(Enumeration en = children.elements(); en.hasMoreElements();)
+		Collections.list(children.elements()).forEach(NodeComponent::makeVisibleWise);
+	}
+	public static void makeVisibleWise(NodeComponent nodeComponent){
+		if(nodeComponent.isFolded())
 		{
-			NodeComponent temp = (NodeComponent)en.nextElement();
-			if(temp.isFolded())
-			{
-				temp.setVisible(true);
-			} else
-			{
-				temp.setVisible(true);
-				temp.goVisible();
-			}
+			nodeComponent.setVisible(true);
+		} else
+		{
+			nodeComponent.setVisible(true);
+			nodeComponent.goVisible();
 		}
 
 	}
@@ -166,7 +153,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			this.moveLocation(x,y);
 			hashtable.put(this.getNodeInterface().getId(),this);
 		}
-		for(Enumeration en = children.elements(); en.hasMoreElements(); ((NodeComponent)en.nextElement()).moveLocationOfChildren(x,y,hashtable));
+		Collections.list(children.elements()).forEach(n -> moveLocationOfChildren(x,y,hashtable));
 	}
 
 	public void moveLocation(int x, int y)
@@ -177,11 +164,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		Enumeration en = getParents().elements();
 		while(en.hasMoreElements()){
 			nc = (NodeComponent)en.nextElement();
-			if(nc==null)
-				System.err.println("--------------------- null !");
-			else 
-				System.err.println("--------------------- not null !");
-	Line line = ((Line)nc.getChildren_line().get(this.getNodeInterface().getId())); 
+			Line line = ((Line)nc.getChildren_line().get(this.getNodeInterface().getId())); 
 			line.setLocationAndSize(nc, this);
 		}
 
@@ -205,27 +188,41 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	public void removed()
 	{
 		new  DumpContentToText(this,this.getObserver(),"removed","./removed.txt");
-		if(this.getParents().size()>0 ){
+
+		if(this.hasParents()){
 			Enumeration en1 = this.getParents().elements();
 			NodeComponent topParentNC = (NodeComponent)en1.nextElement();
-			if(!this.getObserver().getMode().getSelected().contains(topParentNC)){
-				this.getObserver().disselectAllNodes(this.getObserver().getNode_components());
-				topParentNC.requestFocusInWindow();
-			}
+			this.getObserver().disselectAllNodes(this.getObserver().getNode_components());
+			topParentNC.requestFocusInWindow();
 		}
 
 		if(observer != null)
 			observer.getNode_components().remove(getNodeInterface().getId());
 
 		getParent().remove(this);
+		Collections.list(getChildren_line().elements()).stream().forEach(Line::removed);
+		
+		
+		Enumeration<NodeComponent> enumeration = getParents().elements();
+		while (enumeration.hasMoreElements()) {
+			NodeComponent nodeComponent = (NodeComponent) enumeration
+					.nextElement();
+			((Line)nodeComponent.getChildren_line().get(this.getNodeInterface().getId())).removed();
 
-		for(Enumeration en = getChildren_line().elements(); en.hasMoreElements(); ((Line)en.nextElement()).removed());
-		for(Enumeration en = getParents().elements(); en.hasMoreElements(); ((Line)((NodeComponent)en.nextElement()).getChildren_line().get(this)).removed());
-
+		}
+		
+		
 
 		this.getObserver().getNodeFieldApplet().repaint();
 
+	}
 
+	public static void removeLineOfSelfFromParentNodeComponent(NodeComponent parent, NodeComponent child){
+
+	}
+
+	private boolean hasParents() {
+		return this.getParents().size()>0;
 	}
 
 	public void goEditing()
@@ -257,14 +254,9 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		System.err.println(this.bracketName);
 		this.re = new RE(this.bracketName);        
 
-		this.nodeInterface = null;
-		this.observer = null;
-		outlet = null;
-		inlet = null;
-		children_line = new Hashtable();
+		children_line = new Hashtable<String,Line>();
 		children = new Hashtable();
 		parents = new Hashtable();
-		fm = null;
 		editing = false;
 		folded = false;
 		edit = null;
@@ -316,9 +308,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 
 		}else{
 			if(this.getObserver().getNodeFieldApplet().isSeekingNext()){
-				if(this.getObserver().getNodeFieldApplet().isCurrentBarExists()&& 
-						this.getObserver().getNodeFieldApplet().getYOfCurrentBar() - 100 < this.getY()
-						&& this.getObserver().getNodeFieldApplet().getYOfCurrentBar() + 100 > this.getY() ) {
+				if(isDelayed() ) {
 					g.setColor(Color.PINK);
 				}else{
 					g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNctransparentback());
@@ -334,9 +324,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				}
 			}
 		}
-		if(this.isSpecial()){
-			g.setFont(new Font("Dialog",0,17));
-		}
+		
 		// xxxxxxxxxxxxxxxxxxxxxxxx colored node
 		if(isColored()){
 			Pattern pattern = Pattern.compile("#[0-9a-f]{6}.*");
@@ -356,36 +344,19 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			}
 		}
 		if(this.isSpecial()){
+			g.setFont(new Font("Dialog",0,17));
 			g.fillRoundRect(0, 0, getPreferredSize().width - 4, getPreferredSize().height -4  ,25,25	);
 
 		}else{
 			g.fillRoundRect(0, 0, getPreferredSize().width - 4, getPreferredSize().height - 8  ,15,15	);
 
 		}
-
-		g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNcnormalfore());
-		if(this.getObserver().getNodeFieldApplet().isTaggedHoist() && !this.isHoist()){
-		}else{
-			if(this.getObserver().getNodeFieldApplet().isSeekingNext()){
-				if(this.getObserver().getNodeFieldApplet().isCurrentBarExists()&& 
-						this.getObserver().getNodeFieldApplet().getYOfCurrentBar() - 100 < this.getY()
-						&& this.getObserver().getNodeFieldApplet().getYOfCurrentBar() + 100 > this.getY() ) {
-					g.setColor(Color.RED);
-				}else{
-					g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNctransparentfore());
-				}
-			}else{
-				if (this.isHoist() || this.isTransparent()) {
-					g.setColor(this.getObserver().getNodeFieldApplet().getSkin()
-							.getNctransparentfore());
-				} else {
-					g.setColor(this.getObserver().getNodeFieldApplet().getSkin()
-							.getNcnormalfore());
-				}
-
-			}
-
-		}
+		Color foreColor = this.getObserver().getNodeFieldApplet().getSkin().getNcnormalfore();
+		foreColor = this.getObserver().getNodeFieldApplet().isSeekingNext()&&isDelayed()?Color.RED:foreColor;
+		foreColor = this.getObserver().getNodeFieldApplet().isSeekingNext()&&!isDelayed()?this.getObserver().getNodeFieldApplet().getSkin().getNctransparentfore():foreColor;
+		foreColor = !this.getObserver().getNodeFieldApplet().isSeekingNext()&&(this.isHoist() || this.isTransparent())?this.getObserver().getNodeFieldApplet().getSkin().getNctransparentfore():foreColor;
+		
+		g.setColor(foreColor);
 		//        if(!this.getNodeInterface().getContent().equals("") &&this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@"))  ){
 		//            if(!this.getNodeInterface().getContent().equals("") &&this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@wait") || this.contentBufBuf[0].startsWith("@done") || this.contentBufBuf[0].startsWith("@cycle"))  ){
 		//        	g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNctransparentfore());
@@ -418,6 +389,13 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		//       gg.drawImage(offImage,0,0,this);
 		//        this.paintComponents(g);
 		super.paint(g);
+	}
+
+
+	private boolean isDelayed() {
+		return this.getObserver().getNodeFieldApplet().isCurrentBarExists()&& 
+				this.getObserver().getNodeFieldApplet().getYOfCurrentBar() - 100 < this.getY()
+				&& this.getObserver().getNodeFieldApplet().getYOfCurrentBar() + 100 > this.getY();
 	}
 
 	private boolean isColored() {
@@ -532,12 +510,10 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	public NodeComponent[] createGoogleAnswerChildrenOfThisNode(){
 		GoogleAnswer answer = new GoogleAnswer(this.getNodeInterface().getContent());
 		NodeComponent[] components = new NodeComponent[answer.getAnswers().length];
-		if(answer.getAnswers().length>0){
 			for(int i= 0;i < answer.getAnswers().length;i++){
 				components[i] = this.createNewChild();
 				components[i].setText(answer.getAnswers()[i]);
 			}
-		}
 		return components;
 	}
 	public String[] decodeFilename(String[] filenames){
@@ -683,7 +659,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		return null;
 	}
 	private void goToParentNode(){
-		if(this.isFocusOwner() && this.getParents().size() > 0){
+		if(this.isFocusOwner() && hasParents()){
 			NodeComponent parentNC = (NodeComponent)this.getParents().elements().nextElement();
 			parentNC.observer.disselectAllNodes(this.getObserver().getNode_components());
 			parentNC.selected();
@@ -704,7 +680,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		int distance = Integer.MAX_VALUE;
 		NodeComponent nearlest = null;
 		if(this.isFocusOwner()){
-			if(this.getParents().size() > 0){
+			if(hasParents()){
 				if(this.getParents().size() ==1){
 					NodeComponent nc = (NodeComponent)this.getParents().elements().nextElement();
 					for(Enumeration en = nc.getChildren().elements();en.hasMoreElements();){
@@ -741,7 +717,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		int distance = Integer.MAX_VALUE;
 		NodeComponent nearlest = null;
 		if(this.isFocusOwner()){
-			if(this.getParents().size() > 0){
+			if(hasParents()){
 				if(this.getParents().size() ==1){
 					NodeComponent nc = (NodeComponent)this.getParents().elements().nextElement();
 					for(Enumeration en = nc.getChildren().elements();en.hasMoreElements();){
@@ -792,489 +768,487 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		return string;
 	}
 
-		private String autolink(String string, String file) {
-			int index = 0;
-			while(index >=0){
-				if(string.length() >= file.length()){
-					index =  string.indexOf(file,index);
-					if(index >= 0 ){
-						int indexoflastbraketstart = string.lastIndexOf("[[",index);
-						int indexoflastbraketend = string.lastIndexOf("]]",index);
-						int indexofnextbraketstart = string.indexOf("[[",index);
-						int indexofnextbraketend = string.indexOf("]]",index);
-						if( indexoflastbraketstart <=  indexoflastbraketend){
+	private String autolink(String string, String file) {
+		int index = 0;
+		while(index >=0){
+			if(string.length() >= file.length()){
+				index =  string.indexOf(file,index);
+				if(index >= 0 ){
+					int indexoflastbraketstart = string.lastIndexOf("[[",index);
+					int indexoflastbraketend = string.lastIndexOf("]]",index);
+					int indexofnextbraketstart = string.indexOf("[[",index);
+					int indexofnextbraketend = string.indexOf("]]",index);
+					if( indexoflastbraketstart <=  indexoflastbraketend){
 
-							String before = string.substring(0,index);
-							String replaced = string.substring(index ,file.length() + index );
-							String after = string.substring(index + file.length());
-							//    						if(!after.startsWith("]]") && !before.endsWith("[[")){
-							//        						if( ! before.endsWith("[[")  && !after.startsWith("]]")){
-							StringBuffer buffer =new StringBuffer();
-							buffer.append(before);
-							try {
-								buffer.append(replaced.replaceAll(file,"[["+ file + "]]"));
-							} catch (Exception e) {
-								buffer.append(replaced);
-								e.printStackTrace();
-							}
-							buffer.append(after);
-							string = buffer.toString();
-							index = index + file.length() + 4;
-						}else{
-							index++;
+						String before = string.substring(0,index);
+						String replaced = string.substring(index ,file.length() + index );
+						String after = string.substring(index + file.length());
+						//    						if(!after.startsWith("]]") && !before.endsWith("[[")){
+						//        						if( ! before.endsWith("[[")  && !after.startsWith("]]")){
+						StringBuffer buffer =new StringBuffer();
+						buffer.append(before);
+						try {
+							buffer.append(replaced.replaceAll(file,"[["+ file + "]]"));
+						} catch (Exception e) {
+							buffer.append(replaced);
+							e.printStackTrace();
 						}
+						buffer.append(after);
+						string = buffer.toString();
+						index = index + file.length() + 4;
 					}else{
-						index  = 0;
-						break;
+						index++;
 					}
 				}else{
+					index  = 0;
 					break;
 				}
+			}else{
+				break;
 			}
-			return string;
+		}
+		return string;
+	}
+
+	public void setText(String text){
+		System.err.println(text);
+		if(text.endsWith("\r\n")){
+			text = text.substring(text.lastIndexOf("\r\n"));
+			System.err.println("both");
 		}
 
-		public void setText(String text){
+		if(text.endsWith("\n")){
+			int lastIndex = text.lastIndexOf("\n");
+			text = text.substring(0,lastIndex);
 			System.err.println(text);
-			if(text.endsWith("\r\n")){
-				text = text.substring(text.lastIndexOf("\r\n"));
-				System.err.println("both");
-			}
-
-			if(text.endsWith("\n")){
-				int lastIndex = text.lastIndexOf("\n");
-				text = text.substring(0,lastIndex);
-				System.err.println(text);
-			}
-			if(text.startsWith("\n")){
-				text = text.substring(1);
-				System.err.println(text);
-			}
-
-
-
-			getNodeInterface().setContent(text);
-			text = this.replateNodefileStringToLink(text);
-			StringTokenizer st = new StringTokenizer(text, "\n");
-			if(text != null && !(text.equals(""))){
-				this.contentBuf= new String[st.countTokens()];
-				int i = 0;
-				this.saidai_length = 0;
-				while (st.hasMoreTokens()) {
-					this.contentBuf[i] = st.nextToken();
-
-					i++;
-				}
-
-				if(this.contentBuf[0].startsWith("&")){
-					this.handlePlugin(this.contentBuf[0].substring(1));
-				}else{
-					this.contentBufBuf = this.contentBuf;
-				}
-				for(int ii = 0;ii < this.contentBufBuf.length;ii++){
-					if(this.saidai_length< fm.stringWidth(this.contentBufBuf[ii])){
-						saidai_length = fm.stringWidth(this.contentBufBuf[ii]);
-					}		
-				}
-				if(this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@"))){
-					//		    	if(this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@wait") ||  this.contentBufBuf[0].startsWith("@done") || this.contentBufBuf[0].startsWith("@cycle"))){
-					this.setTransparent(true);
-				}else{
-					this.setTransparent(false);
-				}
-				this.createWikiLinkComponents();
-			}else{
-				this.contentBuf = null;
-				this.contentBufBuf = null;
-			}
-			this.repaint();
+		}
+		if(text.startsWith("\n")){
+			text = text.substring(1);
+			System.err.println(text);
 		}
 
-		public final boolean isSelected()
-		{
-			return getForeground().equals(this.getSelectedForegroundColor());
-		}
 
-		public void processMouseEvent(MouseEvent me)
-		{
 
-			if(me.getButton() == MouseEvent.BUTTON2){
+		getNodeInterface().setContent(text);
+		text = this.replateNodefileStringToLink(text);
+		StringTokenizer st = new StringTokenizer(text, "\n");
+		if(text != null && !(text.equals(""))){
+			this.contentBuf= new String[st.countTokens()];
+			int i = 0;
+			this.saidai_length = 0;
+			while (st.hasMoreTokens()) {
+				this.contentBuf[i] = st.nextToken();
 
+				i++;
+			}
+
+			if(this.contentBuf[0].startsWith("&")){
+				this.handlePlugin(this.contentBuf[0].substring(1));
 			}else{
-				switch(me.getID())
-				{
-				case 500: 
-					requestFocus();
-					processMouseClicked(me);
-					break;
+				this.contentBufBuf = this.contentBuf;
+			}
+			for(int ii = 0;ii < this.contentBufBuf.length;ii++){
+				if(this.saidai_length< fm.stringWidth(this.contentBufBuf[ii])){
+					saidai_length = fm.stringWidth(this.contentBufBuf[ii]);
+				}		
+			}
+			if(this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@"))){
+				//		    	if(this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@wait") ||  this.contentBufBuf[0].startsWith("@done") || this.contentBufBuf[0].startsWith("@cycle"))){
+				this.setTransparent(true);
+			}else{
+				this.setTransparent(false);
+			}
+			this.createWikiLinkComponents();
+		}else{
+			this.contentBuf = null;
+			this.contentBufBuf = null;
+		}
+		this.repaint();
+	}
 
-				case 501:
-					requestFocus(); 
-					for(Enumeration en = this.observer.getNode_components().elements();en.hasMoreElements();){
-						((NodeComponent)en.nextElement()).returnFromEditing();
+	public final boolean isSelected()
+	{
+		return getForeground().equals(this.getSelectedForegroundColor());
+	}
+
+	public void processMouseEvent(MouseEvent me)
+	{
+
+		if(me.getButton() == MouseEvent.BUTTON2){
+
+		}else{
+			requestFocus();
+			switch(me.getID())
+			{
+			case 500: 
+				processMouseClicked(me);
+				break;
+
+			case 501:
+				for(Enumeration en = this.observer.getNode_components().elements();en.hasMoreElements();){
+					((NodeComponent)en.nextElement()).returnFromEditing();
+				}
+				pressed = true;
+				p = me.getPoint();
+				break;
+
+			case 502:
+				pressed = false;
+				if(this.isSelected()){
+					for(Enumeration en = this.observer.getMode().getSelected().elements();en.hasMoreElements();){
+						((NodeComponent)en.nextElement()).moveLocation(me.getX() - p.x, me.getY() - p.y);
 					}
-					pressed = true;
-					p = me.getPoint();
-					break;
-
-				case 502:
-					requestFocus(); 
-					pressed = false;
-					if(this.isSelected()){
-						for(Enumeration en = this.observer.getMode().getSelected().elements();en.hasMoreElements();){
-							((NodeComponent)en.nextElement()).moveLocation(me.getX() - p.x, me.getY() - p.y);
-						}
-					}else{
-						moveLocation(me.getX() - p.x, me.getY() - p.y);
-					}
-					break;
-				}
-
-			}
-		}
-
-		public boolean contains(int x, int y)
-		{
-			return x > 0 && x < getSize().width && y > -4 && y < getSize().height;
-		}
-
-
-
-		public void processMouseClicked(MouseEvent me)
-		{
-
-			if(me.getClickCount() ==2){
-				this.goEditing();
-				return;
-			} 
-			if(me.isControlDown()){
-
-				if(isSelected()){
-					if(me.isAltDown()){
-						new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
-					}	
-					disselected();
-
 				}else{
-					selected();
-					if(me.isAltDown()){
-						new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
-					}
+					moveLocation(me.getX() - p.x, me.getY() - p.y);
 				}
-			}        else        if(me.isAltDown()){
-				processMouseAltAndClicked(me);
-			}        else{
-				processMouseNormallyClicked(me);
-			}
-		}
-
-		public void processEditing()
-		{
-			dirty = true;
-			setVisible(false);
-			edit = new NodeEditer(this);
-			getParent().add(edit);
-			getParent().repaint();
-			edit.requestFocusInWindow();
-		}
-
-		public void returnFromEditing()
-		{
-			if(this.editing){
-				setVisible(true);
-				setEditing(false);
-				this.setText(edit.getText());
-				if(observer != null)
-					observer.setMode("return_from_editing", this);
-				getParent().remove(edit);
-				edit = null;
-				invalidate();
-				repaint();
-				this.dirty=true;
-			}
-		}
-
-		public void processMouseAltAndClicked(MouseEvent me)
-		{
-			if(this.isFolded() == false){
-				goFolded();
-			}else{
-				goUnfolded();
-			}
-		}
-
-
-		public Dimension getMinimumSize()
-		{
-			return new Dimension(80, 15);
-		}
-
-		public Dimension getPreferredSize()
-		{
-			if(this.contentBufBuf == null || this.getNodeInterface().getContent().equals("")){
-				this.setSize(new Dimension(80, 20));
-				return this.getSize();
-			}else{
-				if(this.getObserver().getNodeFieldApplet().isIdshow()){
-					this.setSize(new Dimension(this.saidai_length +35, this.contentBufBuf.length * this.getFm().getHeight()+15));
-				}else{
-					this.setSize(new Dimension(this.saidai_length + 28, this.contentBufBuf.length * this.getFm().getHeight() + 18));
-				}
-				return this.getSize();
+				break;
 			}
 
 		}
+	}
+
+	public boolean contains(int x, int y)
+	{
+		return x > 0 && x < getSize().width && y > -4 && y < getSize().height;
+	}
 
 
-		public void processMouseNormallyClicked(MouseEvent me)
-		{
+
+	public void processMouseClicked(MouseEvent me)
+	{
+
+		if(me.getClickCount() ==2){
+			this.goEditing();
+			return;
+		} 
+		if(me.isControlDown()){
+
 			if(isSelected()){
-				this.observer.disselectAllNodes(this.observer.getNode_components());
-			}
-			else{
-				this.observer.disselectAllNodes(this.observer.getNode_components());
+				if(me.isAltDown()){
+					new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
+				}	
+				disselected();
+
+			}else{
 				selected();
-			}
-
-
-		}
-
-		public void makeConnection(NodeComponent theother)
-		{
-			if(theother.getNodeInterface().getId().equals(getNodeInterface().getId()) || getChildren().get(theother.getNodeInterface().getId()) != null)
-			{
-				observer.setMode("normal", null);
-			} else
-			{
-				dirty = true;
-				children.put(theother.getNodeInterface().getId(), theother);
-				theother.getParents().put(getNodeInterface().getId(), this);
-				Line line = new Line(this, theother);
-				getParent().add(line);
-				NodeComponent theOtherComponent =  (NodeComponent)children.get(theother.getNodeInterface().getId());
-				children_line.put(theOtherComponent.getNodeInterface().getId(), line);
-			}
-		}
-
-//		private NodeInterface ni;
-		private NodeObserver observer;
-		private NodeOutlet outlet;
-		private NodeInlet inlet;
-		private Hashtable children_line;
-
-		private Hashtable children;
-		private Hashtable parents;
-		private FontMetrics fm;
-		private boolean editing;
-		private boolean folded;
-		private NodeEditer edit;
-
-		private boolean pressed;
-		private Point p;
-
-		private Color selectedBackgroundColor = 	new Color(255,255,255,80);
-		private Color selectedForegroundColor= new Color(0,0,0,150);
-
-		private Color normalBackgroundColor =new Color(0,0,0,0); 	
-		private Color normalForegroundColor = 		new Color(255,255,255,250);
-
-
-		private boolean dirty;
-
-		private int saidai_length = 0;
-		private String[] contentBuf = null;
-
-		private org.apache.regexp.RE re = null;
-
-		private String[] contentBufBuf = null;
-		private static String bracketName = null;
-
-		private Vector wikilinks = new Vector();
-
-		public void addWikiLinkComponent(WikiLinkComponent wlc){
-			this.add(wlc);
-			this.wikilinks.add(wlc);
-		}
-		public void removeWikiLinkComponent(WikiLinkComponent wlc){
-			this.remove(wlc);
-			this.wikilinks.remove(wlc);
-		}
-
-
-		public void keyPressed(KeyEvent ke) {
-		}
-
-		/* (�� Javadoc)
-		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
-		 */
-		public void keyReleased(KeyEvent ke) {
-			if(ke.getKeyCode()==127){//delete
-				if(ke.isControlDown()){
-					AddToGoogleCalendar addToGoogleCalendar 
-					= new AddToGoogleCalendar(this.getNodeInterface());
-					AddToTumbler addToTumbler = new AddToTumbler(this.getNodeInterface());
-				}
-				this.getObserver().setMode("delete",null);
-			}
-			if(ke.getKeyCode()==155){//insert
-				this.createNewChild();
-			}
-
-			if(ke.isShiftDown()){//only shift is down
-				if(ke.getKeyCode() == 38){
-					this.moveLocation(0,-this.movespan);
-					return;
-				}
-				if(ke.getKeyCode() == 40){
-					this.moveLocation(0, this.movespan);
-					return;
-				}
-				if(ke.getKeyCode() == 37){
-					this.moveLocation( - this.movespan,0);
-					return;
-				}
-				if(ke.getKeyCode() == 39){
-					this.moveLocation(this.movespan,0);
-					return;
-				}
-				if(ke.getKeyCode()==10) {
-					for (Iterator iterator = this.getWikilinks().iterator(); iterator
-							.hasNext();) {
-						WikiLinkComponent wikiLinkComponent = (WikiLinkComponent) iterator.next();
-						new AutoExpandOneStep(wikiLinkComponent.getBranketContent(), this,this.getObserver().getNode_components());
-						//					this.observer.setMode_object(wikiLinkComponent);
-						//					this.observer.setMode("WikiAutoExpand",this);
-					}
-				}
-			}
-			if(ke.isControlDown()){//ctrl is 
-				if(ke.isShiftDown()){//ctrl + shift
-
-
-				}else if(ke.isAltDown()){//ctrl + alt
-					if(ke.getKeyCode() == KeyEvent.VK_C){
-						// c for Conversion
-						System.err.println("ctrl+alt+c");
-						TextToNodes textToNodes = new TextToNodes(this,this.getObserver());
-					}
-					if(ke.getKeyCode() == KeyEvent.VK_T){
-						AddToTumbler addToTumbler = new AddToTumbler(this.getNodeInterface());
-					}
-					if(ke.getKeyCode()==KeyEvent.VK_B){
-						AddToBackpack addToBackpack = new AddToBackpack(this.getObserver().getFilename(),this);
-					}
-
-
-				}else{//only ctrl
-					if(ke.getKeyCode()==38){//up
-						this.createNewParent();
-					}
-					if(ke.getKeyCode()==40){//down
-						this.createNewChild();
-					}
-					if(ke.getKeyCode()==37){//left
-						this.createNewFriendsLeftSide();
-					}
-					if(ke.getKeyCode()==39){//right
-						this.createNewFriendsRightSide();
-					}
-					if(ke.getKeyCode()==83){
-						this.observer.setMode("save",this.getObserver().getNodeFieldApplet());
-					}
-					if(ke.getKeyCode()==KeyEvent.VK_M){
-						this.createMuseigenChild();
-					}
-					if(ke.getKeyCode() == KeyEvent.VK_G){
-						this.showGoogleResultONBrowser();
-						//				    this.createGoogleAnswerChildrenOfThisNode();
-					}
-					if(ke.getKeyCode() == KeyEvent.VK_ENTER){
-						new BreakNodeIntoNodesWithCRLF(this,this.getObserver());
-					}
-
-				}
-			}else{//not ctrl
-				if(ke.getKeyCode()==107){
+				if(me.isAltDown()){
 					new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 				}
 			}
+		}        else        if(me.isAltDown()){
+			processMouseAltAndClicked(me);
+		}        else{
+			processMouseNormallyClicked(me);
+		}
+	}
 
-			if(!ke.isAltDown() && !ke.isControlDown() && !ke.isMetaDown() && !ke.isShiftDown()){
-				//change forcus to other nodes.
-				if(ke.getKeyCode()==38){//up
-					this.goToParentNode();
-				}
-				if(ke.getKeyCode()==40){//down
-					this.goToChildNode();
-				}
-				if(ke.getKeyCode()==37){//left
-					this.goToFriendLeftSide();
-				}
-				if(ke.getKeyCode()==39){//right
-					this.goToFriendRightSide();
-				}
+	public void processEditing()
+	{
+		dirty = true;
+		setVisible(false);
+		edit = new NodeEditer(this);
+		getParent().add(edit);
+		getParent().repaint();
+		edit.requestFocusInWindow();
+	}
+
+	public void returnFromEditing()
+	{
+		if(this.editing){
+			setVisible(true);
+			setEditing(false);
+			this.setText(edit.getText());
+			if(observer != null)
+				observer.setMode("return_from_editing", this);
+			getParent().remove(edit);
+			edit = null;
+			invalidate();
+			repaint();
+			this.dirty=true;
+		}
+	}
+
+	public void processMouseAltAndClicked(MouseEvent me)
+	{
+		if(this.isFolded() == false){
+			goFolded();
+		}else{
+			goUnfolded();
+		}
+	}
+
+
+	public Dimension getMinimumSize()
+	{
+		return new Dimension(80, 15);
+	}
+
+	public Dimension getPreferredSize()
+	{
+		if(this.contentBufBuf == null || this.getNodeInterface().getContent().equals("")){
+			this.setSize(new Dimension(80, 20));
+			return this.getSize();
+		}else{
+			if(this.getObserver().getNodeFieldApplet().isIdshow()){
+				this.setSize(new Dimension(this.saidai_length +35, this.contentBufBuf.length * this.getFm().getHeight()+15));
+			}else{
+				this.setSize(new Dimension(this.saidai_length + 28, this.contentBufBuf.length * this.getFm().getHeight() + 18));
 			}
-
-
-			if(ke.getKeyCode()==113){//f2
-				this.goEditing();
-			}
-			if(ke.getKeyCode()==10 && !ke.isShiftDown()){//enter!
-				this.goEditing();
-			} 
-
-
-			if(ke.isAltDown()){//only alt
-				//	        new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
-			}
-
-			if(ke.getKeyCode()==KeyEvent.VK_K){
-				String wikiname = this.getNodeInterface().getContent();
-
-				//			this.getNodeInterface().setContent("[[" + this.getNodeInterface().getContent() + "]]");
-				//			this.setText(this.getNodeInterface().getContent());
-				this.getObserver().getNodepadDao().openFromWikiWileName(wikiname,false);
-			}else if(ke.getKeyCode() == KeyEvent.VK_P){
-				HttpBrowser browser = new HttpBrowser("http://localhost:8090/en/CashEventsFromNDaysBack.do?n=-20");
-			}
-
-
-			if(TagHash.getInstance().getTag(ke.getKeyCode()) !=null ){
-				if(this.getNodeInterface().getContent().startsWith(TagHash.getInstance().getTag(ke.getKeyCode()))){
-					this.getNodeInterface().setContent(this.getNodeInterface().getContent().substring(TagHash.getInstance().getTag(ke.getKeyCode()).length() + 1));
-				}else{
-					this.getNodeInterface().setContent(TagHash.getInstance().getTag(ke.getKeyCode()) + " " + this.getNodeInterface().getContent());
-				}
-				this.setText(this.getNodeInterface().getContent());
-			}
-
-
+			return this.getSize();
 		}
 
-		/* (�� Javadoc)
-		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-		 */
-		public void keyTyped(KeyEvent ke){
-		}	
+	}
 
 
-
-		private boolean transparent = false;
-		private int movespan = 30;
-		private boolean hoist = false;
-		private boolean terminal;
-		private NodeInterface nodeInterface;
-
-		private Color getColorFromCssColor(String csscolorstring ){
-			String rstring = csscolorstring.substring(1,3);
-			String gstring = csscolorstring.substring(3,5);
-			String bstring = csscolorstring.substring(5);
-			int r = Integer.parseInt(rstring,16);
-			int g = Integer.parseInt(gstring,16);
-			int b = Integer.parseInt(bstring,16);
-			return new Color(r,g,b);
+	public void processMouseNormallyClicked(MouseEvent me)
+	{
+		if(isSelected()){
+			this.observer.disselectAllNodes(this.observer.getNode_components());
+		}
+		else{
+			this.observer.disselectAllNodes(this.observer.getNode_components());
+			selected();
 		}
 
 
 	}
+
+	public void makeConnection(NodeComponent theother)
+	{
+		if(theother.getNodeInterface().getId().equals(getNodeInterface().getId()) || getChildren().get(theother.getNodeInterface().getId()) != null)
+		{
+			observer.setMode("normal", null);
+		} else
+		{
+			dirty = true;
+			children.put(theother.getNodeInterface().getId(), theother);
+			theother.getParents().put(getNodeInterface().getId(), this);
+			Line line = new Line(this, theother);
+			getParent().add(line);
+			NodeComponent theOtherComponent =  (NodeComponent)children.get(theother.getNodeInterface().getId());
+			children_line.put(theOtherComponent.getNodeInterface().getId(), line);
+		}
+	}
+
+	//		private NodeInterface ni;
+	private NodeObserver observer;
+	private NodeOutlet outlet;
+	private NodeInlet inlet;
+	private Hashtable<String,Line> children_line;
+
+	private Hashtable<String,NodeComponent> children;
+	private Hashtable<String,NodeComponent> parents;
+	private FontMetrics fm;
+	private boolean editing;
+	private boolean folded;
+	private NodeEditer edit;
+
+	private boolean pressed;
+	private Point p;
+
+	private Color selectedBackgroundColor = 	new Color(255,255,255,80);
+	private Color selectedForegroundColor= new Color(0,0,0,150);
+
+	private Color normalBackgroundColor =new Color(0,0,0,0); 	
+	private Color normalForegroundColor = 		new Color(255,255,255,250);
+
+
+	private boolean dirty;
+
+	private int saidai_length = 0;
+	private String[] contentBuf = null;
+
+	private org.apache.regexp.RE re = null;
+
+	private String[] contentBufBuf = null;
+	private static String bracketName = null;
+
+	private Vector wikilinks = new Vector();
+
+	public void addWikiLinkComponent(WikiLinkComponent wlc){
+		this.add(wlc);
+		this.wikilinks.add(wlc);
+	}
+	public void removeWikiLinkComponent(WikiLinkComponent wlc){
+		this.remove(wlc);
+		this.wikilinks.remove(wlc);
+	}
+
+
+	public void keyPressed(KeyEvent ke) {
+	}
+
+	/* (�� Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
+	public void keyReleased(KeyEvent ke) {
+		if(ke.getKeyCode()==127){//delete
+			if(ke.isControlDown()){
+				AddToGoogleCalendar addToGoogleCalendar 
+				= new AddToGoogleCalendar(this.getNodeInterface());
+				AddToTumbler addToTumbler = new AddToTumbler(this.getNodeInterface());
+			}
+			this.getObserver().setMode("delete",null);
+		}
+		if(ke.getKeyCode()==155){//insert
+			this.createNewChild();
+		}
+
+		if(ke.isShiftDown()){//only shift is down
+			if(ke.getKeyCode() == 38){
+				this.moveLocation(0,-this.movespan);
+				return;
+			}
+			if(ke.getKeyCode() == 40){
+				this.moveLocation(0, this.movespan);
+				return;
+			}
+			if(ke.getKeyCode() == 37){
+				this.moveLocation( - this.movespan,0);
+				return;
+			}
+			if(ke.getKeyCode() == 39){
+				this.moveLocation(this.movespan,0);
+				return;
+			}
+			if(ke.getKeyCode()==10) {
+				for (Iterator iterator = this.getWikilinks().iterator(); iterator
+						.hasNext();) {
+					WikiLinkComponent wikiLinkComponent = (WikiLinkComponent) iterator.next();
+					new AutoExpandOneStep(wikiLinkComponent.getBranketContent(), this,this.getObserver().getNode_components());
+					//					this.observer.setMode_object(wikiLinkComponent);
+					//					this.observer.setMode("WikiAutoExpand",this);
+				}
+			}
+		}
+		if(ke.isControlDown()){//ctrl is 
+			if(ke.isShiftDown()){//ctrl + shift
+
+
+			}else if(ke.isAltDown()){//ctrl + alt
+				if(ke.getKeyCode() == KeyEvent.VK_C){
+					// c for Conversion
+					System.err.println("ctrl+alt+c");
+					TextToNodes textToNodes = new TextToNodes(this,this.getObserver());
+				}
+				if(ke.getKeyCode() == KeyEvent.VK_T){
+					AddToTumbler addToTumbler = new AddToTumbler(this.getNodeInterface());
+				}
+				if(ke.getKeyCode()==KeyEvent.VK_B){
+					AddToBackpack addToBackpack = new AddToBackpack(this.getObserver().getFilename(),this);
+				}
+
+
+			}else{//only ctrl
+				if(ke.getKeyCode()==38){//up
+					this.createNewParent();
+				}
+				if(ke.getKeyCode()==40){//down
+					this.createNewChild();
+				}
+				if(ke.getKeyCode()==37){//left
+					this.createNewFriendsLeftSide();
+				}
+				if(ke.getKeyCode()==39){//right
+					this.createNewFriendsRightSide();
+				}
+				if(ke.getKeyCode()==83){
+					this.observer.setMode("save",this.getObserver().getNodeFieldApplet());
+				}
+				if(ke.getKeyCode()==KeyEvent.VK_M){
+					this.createMuseigenChild();
+				}
+				if(ke.getKeyCode() == KeyEvent.VK_G){
+					this.showGoogleResultONBrowser();
+					//				    this.createGoogleAnswerChildrenOfThisNode();
+				}
+				if(ke.getKeyCode() == KeyEvent.VK_ENTER){
+					new BreakNodeIntoNodesWithCRLF(this,this.getObserver());
+				}
+
+			}
+		}else{//not ctrl
+			if(ke.getKeyCode()==107){
+				new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
+			}
+		}
+
+		if(!ke.isAltDown() && !ke.isControlDown() && !ke.isMetaDown() && !ke.isShiftDown()){
+			//change forcus to other nodes.
+			if(ke.getKeyCode()==38){//up
+				this.goToParentNode();
+			}
+			if(ke.getKeyCode()==40){//down
+				this.goToChildNode();
+			}
+			if(ke.getKeyCode()==37){//left
+				this.goToFriendLeftSide();
+			}
+			if(ke.getKeyCode()==39){//right
+				this.goToFriendRightSide();
+			}
+		}
+
+
+		if(ke.getKeyCode()==113){//f2
+			this.goEditing();
+		}
+		if(ke.getKeyCode()==10 && !ke.isShiftDown()){//enter!
+			this.goEditing();
+		} 
+
+
+		if(ke.isAltDown()){//only alt
+			//	        new EnCauseNodesWithRelativeYPosision(this.getObserver().getSelected(),this.getObserver());
+		}
+
+		if(ke.getKeyCode()==KeyEvent.VK_K){
+			String wikiname = this.getNodeInterface().getContent();
+
+			//			this.getNodeInterface().setContent("[[" + this.getNodeInterface().getContent() + "]]");
+			//			this.setText(this.getNodeInterface().getContent());
+			this.getObserver().getNodepadDao().openFromWikiWileName(wikiname,false);
+		}else if(ke.getKeyCode() == KeyEvent.VK_P){
+			HttpBrowser browser = new HttpBrowser("http://localhost:8090/en/CashEventsFromNDaysBack.do?n=-20");
+		}
+
+
+		if(TagHash.getInstance().getTag(ke.getKeyCode()) !=null ){
+			if(this.getNodeInterface().getContent().startsWith(TagHash.getInstance().getTag(ke.getKeyCode()))){
+				this.getNodeInterface().setContent(this.getNodeInterface().getContent().substring(TagHash.getInstance().getTag(ke.getKeyCode()).length() + 1));
+			}else{
+				this.getNodeInterface().setContent(TagHash.getInstance().getTag(ke.getKeyCode()) + " " + this.getNodeInterface().getContent());
+			}
+			this.setText(this.getNodeInterface().getContent());
+		}
+
+
+	}
+
+	/* (�� Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
+	public void keyTyped(KeyEvent ke){
+	}	
+
+
+
+	private boolean transparent = false;
+	private int movespan = 30;
+	private boolean hoist = false;
+	private boolean terminal;
+	private NodeInterface nodeInterface;
+
+	private Color getColorFromCssColor(String csscolorstring ){
+		String rstring = csscolorstring.substring(1,3);
+		String gstring = csscolorstring.substring(3,5);
+		String bstring = csscolorstring.substring(5);
+		int r = Integer.parseInt(rstring,16);
+		int g = Integer.parseInt(gstring,16);
+		int b = Integer.parseInt(bstring,16);
+		return new Color(r,g,b);
+	}
+
+
+}
 

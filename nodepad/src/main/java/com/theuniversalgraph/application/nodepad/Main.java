@@ -44,7 +44,7 @@ public class Main {
 		}else{
 			
 		    frame.setTitle("top.json");
-			applet.observer.getNodepadDao().openFromFile("./data/top.json");
+			applet.observer.getNodepadDao().openFromFile("./data/date_plan-20150423.json");
 			System.err.println("nothing maybe");
 		}
 	} // end of main (method of HelloJava3D)
