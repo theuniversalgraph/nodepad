@@ -10,13 +10,10 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Panel;
 import java.awt.Point;
-import java.awt.Robot;
 import java.awt.TextField;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -28,15 +25,13 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
-
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import myutil.CounterInterface;
 
 import com.theuniversalgraph.model.Node;
 import com.theuniversalgraph.model.NodeInterface;
 
-import enclosing.application.node.server.SaveNodeFileToServer;
 import enclosing.application.node.suggestion.AutoExpandOneStep;
 import enclosing.application.node.wiki.LengthComparator;
 import enclosing.application.node.wiki.WikiLinkComponent;
@@ -45,9 +40,13 @@ import enclosing.awt.YesNoCancelDialog;
 import enclosing.util.NodeUtils;
 
 @Data
+//@EqualsAndHashCode(callSuper=false)
 public class NodeObserver extends Panel implements FlatDialogListener
 {
 
+	public int hashCode(){
+		return 1;
+	}
 	public String getNodefieldName(){
 		final File file = new File(this.getFilename());
 		final String abosulutePath = file.getAbsolutePath();

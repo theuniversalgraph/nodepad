@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import myutil.MainFrame;
 
 import com.theuniversalgraph.application.nodepad.event.NodeFieldKeyEventHandler;
@@ -31,9 +32,14 @@ import com.theuniversalgraph.application.nodepad.event.NodeFieldKeyEventHandler;
 import enclosing.application.node.skin.NodepadSkin;
 import enclosing.application.node.skin.PrintingSkin;
 import enclosing.model.TagHash;
+
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class NodeFieldApplet extends Applet implements KeyListener,ComponentListener
 {
+	public int hashCode(){
+		return 2;
+	}
     Image imgOffscreen;
     Graphics gOffscreen;
     Dimension d;
