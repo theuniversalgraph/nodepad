@@ -8,6 +8,7 @@ package com.theuniversalgraph.application.nodepad;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collections;
 import java.util.Enumeration;
 
 import enclosing.application.node.ncplugins.EnCauseNodesWithRelativeYPosision;
@@ -17,7 +18,7 @@ import enclosing.application.node.suggestion.AutoExpandOneStepForAllWikiLinkComp
 // Referenced classes of package enclosing.application.node:
 //            NodeObserver, NewNodeComponent
 
-public class NodeObserverMouseAdapter extends MouseAdapter
+public class NodeObserverMouseAdapter extends MouseAdapter implements turnNodeSelectionStatus
 {
 
 	/**
@@ -29,27 +30,27 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 	}
 
 
-    public void mouseClicked(MouseEvent me)
-    {
+	public void mouseClicked(MouseEvent me)
+	{
 
-            
+
 		if (me.getClickCount() == 2) {
 			if(!observer.getMode().equals("selected") && !observer.getMode().equals("editing")){
 				NodeComponent nc = this.observer.makeNewNornalNodeAt(me.getX(),me.getY());
 				nc.goEditing();
 			}
 		}
-            
-    }
-    public NodeObserverMouseAdapter(NodeObserver observer)
-    {
-        this.observer = observer;
-    }
 
-    public void setObsever(NodeObserver observer)
-    {
-        this.observer = observer;
-    }
+	}
+	public NodeObserverMouseAdapter(NodeObserver observer)
+	{
+		this.observer = observer;
+	}
+
+	public void setObsever(NodeObserver observer)
+	{
+		this.observer = observer;
+	}
 
 	/**
 	 * 
@@ -62,7 +63,7 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 	/* (�� Javadoc)
 	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
 	 */
-	
+
 
 	/* (�� Javadoc)
 	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
@@ -97,14 +98,14 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 			this.observer.getMode().setSelectingZone(selectingZone);
 			selectingZone.validate();
 			selectingZone.setVisible(true);
-//			this.observer.repaint();
-//			selectingZone.repaint();
+			//			this.observer.repaint();
+			//			selectingZone.repaint();
 			if(me.isAltDown()){
-		        new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
+				new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 			}
 		}
-		
-		
+
+
 
 	}
 
@@ -115,19 +116,16 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 		//for panel move dragging the field 
 		if(me.getButton() == MouseEvent.BUTTON2 || me.getButton()== MouseEvent.BUTTON3){
 			Point startPoint = (Point)this.observer.getMode().getMode_object();
-			for(Enumeration en = this.observer.getNode_components().elements();en.hasMoreElements();){
-				NodeComponent nc = (NodeComponent)en.nextElement();
-				nc.moveLocation(me.getX()-((int)startPoint.getX()),me.getY()-((int)startPoint.getY()));
-			}
-			
+			Collections.list(this.observer.getNode_components().elements()).forEach(n -> n.moveLocation(me.getX()-((int)startPoint.getX()),me.getY()-((int)startPoint.getY())));
+
 			//for indicaters
 			//display indicaters with havingleft,right,up,down flag
-			
+
 			this.observer.getNodeFieldApplet().setHavingDown(false);
 			this.observer.getNodeFieldApplet().setHavingLeft(false);
 			this.observer.getNodeFieldApplet().setHavingRight(false);
 			this.observer.getNodeFieldApplet().setHavingUP(false);
-/*			
+			/*			
 			for(Enumeration en = this.observer.getNode_components().elements();en.hasMoreElements();){
 				NodeComponent nc = (NodeComponent)en.nextElement();
 				if(this.observer.getNodeFieldApplet().getWidth()<nc.getX()){
@@ -138,13 +136,13 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 				}
 				if(nc.getY()<0){
 					this.observer.getNodeFieldApplet().setHavingUP(true);
-					
+
 				}
 				if(this.observer.getNodeFieldApplet().getHeight()<nc.getY()){
 					this.observer.getNodeFieldApplet().setHavingDown(true);
 				}
 			}
-	*/
+			 */
 			this.getObserver().getNodeFieldApplet().repaint();
 
 		}else{
@@ -159,33 +157,22 @@ public class NodeObserverMouseAdapter extends MouseAdapter
 
 			if(selecting){
 				if(this.observer.getMode().getSelected_line()!=null){
-					for(Enumeration en1 = this.observer.getMode().getSelected_line().elements();en1.hasMoreElements();){
-						((Line)en1.nextElement()).disselected();
-					}
+					Collections.list(this.observer.getMode().getSelected_line().elements()).forEach(l -> l.disselected());
 				}
+				Collections.list(this.observer.getNode_components().elements()).forEach(n -> n.turnSelection(selectingZone));
 				this.observer.getMode().setSelectingZone(null);
-				for(Enumeration en = this.observer.getNode_components().elements();en.hasMoreElements();){
-					NodeComponent nc = (NodeComponent)en.nextElement();
-					if(selectingZone.contains(nc.getX()-selectingZone.getX() ,nc.getY()-selectingZone.getY())){
-						if(!nc.isSelected())
-							nc.selected();
-						else{
-							nc.disselected();
-						
-							
-						}
-					}
-				}
 			}
 			if(me.isAltDown() && me.isControlDown() && me.isShiftDown()){
 				AutoExpandOneStepForAllWikiLinkComponent autoExpandOneStepForAllWikiLinkComponent 
-				     = new AutoExpandOneStepForAllWikiLinkComponent(this.getObserver());
+				= new AutoExpandOneStepForAllWikiLinkComponent(this.getObserver());
 			}
 
 			if(me.isAltDown()){
-		        new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
+				new EnCauseNodesWithRelativeYPosision(this.getObserver().getMode().getSelected(),this.getObserver());
 			}
-			
+
 		}
 	}
+
+
 }

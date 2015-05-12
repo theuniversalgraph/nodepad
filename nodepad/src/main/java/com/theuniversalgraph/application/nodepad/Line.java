@@ -9,24 +9,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
 
-// Referenced classes of package enclosing.application.node:
-//            NodeComponent, NodeInterface, NodeObserver, RecycleBox
 
 public class Line extends Component
 {
-
-	/**
-	 * 
-	 * @uml.property name="child"
-	 */
 	public void setChild(NodeComponent str) {
 		child = str;
 	}
 
-	/**
-	 * 
-	 * @uml.property name="child"
-	 */
 	public NodeComponent getChild() {
 		return child;
 	}
@@ -36,7 +25,7 @@ public class Line extends Component
     {
         getParent().remove(this);
         parent_node.getChildren().remove(child.getNodeInterface().getId());
-        parent_node.getChildren_line().remove(child);
+        parent_node.getChildren_line().remove(child.getNodeInterface().getId());
         child.getParents().remove(getParent_node().getNodeInterface().getId());
         if(parent_node.getObserver().getMode().isHardDelete()){
         	RemoveAllLine removeAllLine = new RemoveAllLine();
@@ -119,7 +108,7 @@ public class Line extends Component
         setForeground(Color.red);
         if(parent_node.getObserver().getMode().getSelected_line() == null)
             parent_node.getObserver().getMode().setSelected_line(new Hashtable());
-        parent_node.getObserver().getMode().getSelected_line().put(parent_node, this);
+        parent_node.getObserver().getMode().getSelected_line().put(parent_node.getNodeInterface().getId(), this);
         repaint();
     }
 
@@ -173,18 +162,10 @@ public class Line extends Component
         getParent().remove(this);
     }
 
-	/**
-	 * 
-	 * @uml.property name="parent_node"
-	 */
 	public void setParent_node(NodeComponent str) {
 		parent_node = str;
 	}
 
-	/**
-	 * 
-	 * @uml.property name="parent_node"
-	 */
 	public NodeComponent getParent_node() {
 		return parent_node;
 	}
@@ -192,20 +173,8 @@ public class Line extends Component
 
     private boolean reverse;
 
-	/**
-	 * 
-	 * @uml.property name="parent_node"
-	 * @uml.associationEnd 
-	 * @uml.property name="parent_node" multiplicity="(1 1)"
-	 */
 	private NodeComponent parent_node;
 
-	/**
-	 * 
-	 * @uml.property name="child"
-	 * @uml.associationEnd 
-	 * @uml.property name="child" multiplicity="(1 1)" inverse="children_line:enclosing.application.node.NodeComponent"
-	 */
 	private NodeComponent child;
 
 }

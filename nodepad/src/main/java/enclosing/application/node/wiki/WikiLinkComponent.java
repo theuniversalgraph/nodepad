@@ -22,7 +22,7 @@ public class WikiLinkComponent extends Component{
 	}
 	
 	public void paint(Graphics g)
-	{
+	{ 
 		g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getWikiLinkBackColor());
 		g.fillRect(0,0,this.getWidth(),this.getHeight());
 		g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getWikiLinkLineColor());
@@ -36,7 +36,7 @@ public class WikiLinkComponent extends Component{
     		g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getWikiLinkColor());
         }
 //        g.setFont(new Font("Dialog", Font.BOLD, this.getObserver().getFontManager().getSize()));
-		g.drawString(this.branketContent,0,12);
+		g.drawString(this.branketContent,0,15);
 
 	}
 	public void processMouseEvent(MouseEvent me)

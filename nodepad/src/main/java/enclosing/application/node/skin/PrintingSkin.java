@@ -59,7 +59,7 @@ public class PrintingSkin implements NodepadSkin {
 	private Color ncselectedback  = 	new Color(0,0,0);
 	private Color ncselectedfore= new Color(255,255,255);
 	private Color nctransparentback  = new Color(10,10,10,10);
-	private Color nctransparentfore = new Color(255,255,255,80);
+	private Color nctransparentfore = new Color(255,255,255,60);
 	private Color ncshadow = new Color(5,200,200,0);
 	private Color nctransparentshadow = new Color(200,200,200,0);
 	private Color inletnormal = new Color(255,255,255,100);
@@ -81,7 +81,7 @@ public class PrintingSkin implements NodepadSkin {
 //	private Color lineColor = new Color(0,200,50,70);
 //	pinky line
 //	private Color lineColor = new Color(0,0,0,200);
-	private Color wikiLinkTransparentForColor = new Color(48,48,96,80);
+	private Color wikiLinkTransparentForColor = new Color(255,255,255,60);
 	
 	private Color nodefield = new  Color(30,30,30);
 	private Color 	graduationTopColor = new Color(20,20,20);

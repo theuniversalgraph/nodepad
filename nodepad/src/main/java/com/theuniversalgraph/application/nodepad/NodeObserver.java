@@ -114,7 +114,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	}
 
 
-	Hashtable getNodeHashFromNCHash() {
+	public Hashtable getNodeHashFromNCHash() {
 		Hashtable saved_nodes;
 		NodeComponent nc;
 		saved_nodes = new Hashtable();
@@ -250,8 +250,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 		g.setColor(Color.red);
 		g.fillRect(10, 10, 200, 200);
 		g.drawString(this.mode.getMode(), 100, 100);
-		super.paint(g);
-	}
+		super.paint(g);	}
 
 	/**
 	 * 
@@ -265,15 +264,11 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			this.mode.setMode("connecting");
 		} else if (this.mode.getMode().equals("delete")) {
 			if (this.mode.getSelected() != null) {
-				for (Enumeration en = this.mode.getSelected().elements();
-						en.hasMoreElements();
-						((NodeComponent) en.nextElement()).removed());
+				Collections.list(this.mode.getSelected().elements()).forEach(n -> n.removed());
 				this.mode.setSelected(null);
 			}
 			if (this.mode.getSelected_line() != null) {
-				for (Enumeration en = this.mode.getSelected_line().elements();
-						en.hasMoreElements();
-						((Line) en.nextElement()).removed());
+				Collections.list(this.mode.getSelected_line().elements()).forEach(l -> l.removed());
 				this.mode.setSelected_line(null);
 				this.mode.setHardDelete(false);
 			}
@@ -285,13 +280,8 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			this.mode.setMode_object(null);
 			this.mode.setConnecting(false);
 		} else if (str.equals("selectingZoneEnds")) {
-			for (Enumeration en = this.node_components.elements();
-					en.hasMoreElements();
-					) {
-				NodeComponent nc = (NodeComponent) en.nextElement();
-				//        		((SelectingZone)this.getMode_object());
-
-			}
+			
+			System.err.println("aaaaaaa");
 		} else if (str.equals("WikiClicked")) {
 
 			this.nodepadDao.openFromWikiWileName(
@@ -537,7 +527,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	private NodepadDAO nodepadDao;
 	private NodeFieldApplet nodeFieldApplet;
 	private Container node_container;
-	private Hashtable node_components;
+	private Hashtable<String,NodeComponent> node_components;
 	private CounterInterface counter;
 	private TextField edit;
 	private java.awt.Frame frame;
@@ -548,10 +538,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	private FontManager fontManager = null;
 
 	public boolean getDirty(){
-		for(Enumeration en = this.getNode_components().elements();en.hasMoreElements();){
-			NodeComponent nc = (NodeComponent)en.nextElement();
-			if(nc.isDirty()){ return true; }
-		}
+		Collections.list(this.getNode_components().elements()).forEach(n -> n.isDirty());
 		return false;
 	}
 

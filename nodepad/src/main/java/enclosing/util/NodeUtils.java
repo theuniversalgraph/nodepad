@@ -2,6 +2,8 @@ package enclosing.util;
 
 import java.util.Enumeration;
 
+import com.theuniversalgraph.application.nodepad.NodeComponent;
+
 import enclosing.model.TagHash;
 
 public class NodeUtils {
@@ -11,6 +13,10 @@ public class NodeUtils {
 		returned = returned.replaceAll("\\[", "");
 		returned = returned.replaceAll("\\]", "");
 		return returned;
+	}
+	public static void removeTagStringAndSave(NodeComponent nodeComponent) {
+		String removed=removeTagString(nodeComponent.getNodeInterface().getContent());
+		nodeComponent.setText(removed);
 	}
 	public static String removeTagString(String content) {
 		TagHash tagHash = TagHash.getInstance();

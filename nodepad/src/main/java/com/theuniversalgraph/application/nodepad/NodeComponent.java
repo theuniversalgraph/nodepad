@@ -56,7 +56,9 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 {
 
 
-
+	public static void removeTag(NodeComponent nodeComponent){
+		
+	}
 	public void updateNodeInterface()
 	{
 		this.getNodeInterface().setX(getLocation().x);
@@ -69,6 +71,19 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		Collections.list(getParents().keys()).forEach(s -> this.getNodeInterface().getParents().addElement(s));
 	}
 
+	public void turnSelection(SelectingZone selectingZone){
+		if(!selectingZone.contains(this.getX()-selectingZone.getX() ,this.getY()-selectingZone.getY())){
+			return;
+		}
+		if(!this.isSelected()){
+			this.selected();
+			this.getObserver().getMode().getSelected().put(nodeInterface.getId(), this);
+		}
+		else{
+			this.disselected();
+		}
+
+	}
 
 	public void disselected()
 	{
@@ -240,7 +255,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		if(this.bracketName ==null){
 			try {
 				if(observer.getNodeFieldApplet().isNet()){
-					Vector vec = OpenFileFromServer.process(observer.getNodeFieldApplet().getUser(),"bracketname.txt",observer.getNodeFieldApplet().getServerName());
+					Vector vec = OpenFileFromServer.process("","bracketname.txt","");
 					this.bracketName = (String)vec.elementAt(0);
 
 				}else{
@@ -251,7 +266,6 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				e.printStackTrace();
 			}
 		}
-		System.err.println(this.bracketName);
 		this.re = new RE(this.bracketName);        
 
 		children_line = new Hashtable<String,Line>();
@@ -340,7 +354,6 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				int bvalue = getColorFromHex(colorExpression.substring(5,7));
 
 				g.setColor(new Color(rvalue,gvalue,bvalue));
-				System.err.println("-----------" + rvalue + " -- " + gvalue + " -- -- " + bvalue); 
 			}
 		}
 		if(this.isSpecial()){
@@ -366,7 +379,6 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				String contextBufBufString = contentBufBuf[i].replaceAll("\\*", "");
 				if(isColored())
 					contextBufBufString = contextBufBufString.replaceAll("\\#[0-9a-f]{6}", "");
-				System.err.println(contextBufBufString);
 				this.paintLineWithBracketName(contextBufBufString,g, 11, i*this.getFm().getHeight()+this.getObserver().getFontManager().getMargin());
 			}
 		}
@@ -437,16 +449,11 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		}
 
 		if(command.startsWith("grep")){
-			System.out.println("mark 1----------------------------------");
-			System.err.println("mark 1 this file is modidied");
 			final String keyword = this.contentBuf[0].substring(6).replaceAll("\\[", "").replaceAll("\\]", "");
-			System.err.println(keyword);
 			File ndfile = new File(this.getObserver().getFilename());
-			System.err.println(ndfile.getAbsolutePath());
 
 			File dateDir =  ndfile.getParentFile();
 			String filenames[] = dateDir.list();
-			System.err.println(filenames);
 
 			Arrays.sort(filenames);
 			Vector vector = new Vector();
@@ -539,10 +546,10 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	public void  createWikiLinkComponent(String str,int x, int y){
 		this.re = new RE(this.bracketName);
 		if(this.re.match(str)){
-			int wikix =x+this.fm.stringWidth(str.substring(0,re.getParenStart(0))) + 1;//plus 1 because too much of left 
-			int wikiy = y -2; 
+			int wikix = 10 + x + this.fm.stringWidth(str.substring(0,re.getParenStart(0)));//plus 1 because too much of left 
+			int wikiy = y-3; 
 			int wikiw = +this.fm.stringWidth(re.getParen(1));
-			int wikih = 14;
+			int wikih = 15;
 			WikiLinkComponent wlc = new WikiLinkComponent(re.getParen(1),this.observer);
 			wlc.setLocation(wikix,wikiy);
 			wlc.setSize(wikiw,wikih);
@@ -555,7 +562,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			this.repaint();
 			wlc.repaint();
 			int end0 = re.getParenEnd(0);
-			this.createWikiLinkComponent(str.substring(end0),x+this.fm.stringWidth(str.substring(0,end0)) - 5,y);
+			this.createWikiLinkComponent(str.substring(end0),x + this.fm.stringWidth(str.substring(0,end0))-(int)(this.fm.stringWidth("[")*2),y);
 		}
 	}
 	public void paintLineWithBracketName(String str,Graphics g,int x,int y){
@@ -811,20 +818,16 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 	}
 
 	public void setText(String text){
-		System.err.println(text);
 		if(text.endsWith("\r\n")){
 			text = text.substring(text.lastIndexOf("\r\n"));
-			System.err.println("both");
 		}
 
 		if(text.endsWith("\n")){
 			int lastIndex = text.lastIndexOf("\n");
 			text = text.substring(0,lastIndex);
-			System.err.println(text);
 		}
 		if(text.startsWith("\n")){
 			text = text.substring(1);
-			System.err.println(text);
 		}
 
 
@@ -1247,6 +1250,18 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		int g = Integer.parseInt(gstring,16);
 		int b = Integer.parseInt(bstring,16);
 		return new Color(r,g,b);
+	}
+
+
+	public void tagging(KeyEvent ke) {
+		NodeInterface nodeInterface =this.getNodeInterface();
+		if(nodeInterface.getContent().startsWith(TagHash.getInstance().getTag(ke.getKeyCode()))){
+			nodeInterface.setContent(nodeInterface.getContent().substring(TagHash.getInstance().getTag(ke.getKeyCode()).length() + 1));
+		}else{
+			nodeInterface.setContent(TagHash.getInstance().getTag(ke.getKeyCode()) + " " + nodeInterface.getContent());
+		}
+		this.setText(nodeInterface.getContent());
+		
 	}
 
 

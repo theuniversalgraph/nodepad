@@ -38,7 +38,7 @@ public class NodepadDAO {
 
 		  if (this.nodeObserver.getNodeFieldApplet().isNet()) {
 			  SaveNodeFileToServer fileToServer = new SaveNodeFileToServer(this.nodeObserver);
-			  fileToServer.process(this.nodeObserver.getNodeFieldApplet().getUser(),this.nodeObserver.getNodeFieldApplet().getFilename(),this.nodeObserver.getNodeFieldApplet().getServerName());
+//			  fileToServer.process(this.nodeObserver.getNodeFieldApplet().getUser(),this.nodeObserver.getNodeFieldApplet().getFilename(),this.nodeObserver.getNodeFieldApplet().getServerName());
 		  }else{
 			  try
 			  {
@@ -214,8 +214,8 @@ public class NodepadDAO {
 			  }
 		  }else{
 			  try {
-				  String url = this.nodeObserver.getNodeFieldApplet().getURL()+"?f="+filename+"&u="+this.nodeObserver.getNodeFieldApplet().getUser();
-				  this.nodeObserver.getNodeFieldApplet().getAppletContext().showDocument(new URL(url),"_brank");
+//				  String url = this.nodeObserver.getNodeFieldApplet().getURL()+"?f="+filename+"&u="+this.nodeObserver.getNodeFieldApplet().getUser();
+//				  this.nodeObserver.getNodeFieldApplet().getAppletContext().showDocument(new URL(url),"_brank");
 			  } catch (Exception e) {
 				  e.printStackTrace();
 			  }

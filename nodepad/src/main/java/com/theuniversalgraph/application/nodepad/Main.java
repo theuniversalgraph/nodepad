@@ -4,14 +4,11 @@ import org.apache.commons.lang.StringUtils;
 
 import java.awt.*;
 
-/**
- * @author Administrator
- *
- */
 public class Main {
 	public static void main(String[] args) {
 		NodeFieldApplet applet = new NodeFieldApplet();
 		applet.setNet(false);
+		String file = "top.json";
 		System.err.println(" ----------------- starting nodepad -------------------");
 
 		Frame frame = new MainFrame(applet, 500, 500);
@@ -27,26 +24,20 @@ public class Main {
 		if(PlatformUtils.isMac()){
 			applet.observer.getMode().setMac(true);
 		}
-
 		if(args.length > 0){
 			for (int i = 0; i < args.length; i++) {
-				String string = args[i];
-				string = string.trim();
-				System.err.println(string + " is " + i + " th arg of " + args.length);
-				if(StringUtils.isNotBlank(string)){
-						
-						System.err.println("trying to go...applet");
-//						string = "store_terminals_to_todoist.nd";
-						applet.observer.getNodepadDao().openFromFile(string);
-						frame.setTitle(string);
+				file = args[i];
+				file = file.trim();
+				System.err.println(file + " is " + i + " th arg of " + args.length);
+				if(StringUtils.isNotBlank(file)){
+					applet.observer.getNodepadDao().openFromFile(file);
+					frame.setTitle(file);
 				}
 			}
 		}else{
-			
-		    frame.setTitle("top.json");
-			applet.observer.getNodepadDao().openFromFile("./data/date_plan-20150423.json");
-			System.err.println("nothing maybe");
+			frame.setTitle(file);
+			applet.observer.getNodepadDao().openFromFile("./data/better_findjob.json");
 		}
-	} // end of main (method of HelloJava3D)
-	
+	} 
 }
+

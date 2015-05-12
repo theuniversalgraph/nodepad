@@ -54,7 +54,7 @@ public class ClipBoardManager {
         }
 		if (this.observer.getNodeFieldApplet().isNet()) {
 			SaveNodeFileToServer fileToServer = new SaveNodeFileToServer(this.observer);
-			fileToServer.process(this.observer.getNodeFieldApplet().getUser(),this.observer.getNodeFieldApplet().getFilename(),this.observer.getNodeFieldApplet().getServerName());
+//			fileToServer.process(this.observer.getNodeFieldApplet().getUser(),this.observer.getNodeFieldApplet().getFilename(),this.observer.getNodeFieldApplet().getServerName());
 		}else{
 			try
 			{
