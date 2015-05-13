@@ -49,9 +49,13 @@ public class TagHash {
 		
 		hash1.put(new Integer(KeyEvent.VK_T),"@tao");
 		hash2.put("@tao",new Integer(KeyEvent.VK_T));
+		
 
 		hash1.put(new Integer(KeyEvent.VK_S),"@scheduled");
 		hash2.put("@scheduled",new Integer(KeyEvent.VK_S));
+
+		hash1.put(new Integer(KeyEvent.VK_T),"@validation");
+		hash2.put("@validation",new Integer(KeyEvent.VK_T));
 		
 		hash1.put(new Integer(KeyEvent.VK_W),"@wait");
 		hash2.put("@wait",new Integer(KeyEvent.VK_W));
