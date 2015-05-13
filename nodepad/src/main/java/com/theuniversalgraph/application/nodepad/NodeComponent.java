@@ -168,7 +168,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			this.moveLocation(x,y);
 			hashtable.put(this.getNodeInterface().getId(),this);
 		}
-		Collections.list(children.elements()).forEach(n -> moveLocationOfChildren(x,y,hashtable));
+		Collections.list(children.elements()).forEach(n -> n.moveLocationOfChildren(x,y,hashtable));
 	}
 
 	public void moveLocation(int x, int y)
