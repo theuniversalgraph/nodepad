@@ -211,16 +211,22 @@ public class NodeObserver extends Panel implements FlatDialogListener
 	private void loadNodeFiles() {
 		File ndfile = new File(this.getFilename());
 		File dir = ndfile.getParentFile();
-		String[] files =null;
-		if(dir!=null){
-			files = dir.list();
+		if(dir==null){
+			dir = new File("./data");
+		}
+		final String[] files = dir.list();
+		final File sentencesDir = getSentenceDirOf(dir); 
+		if(sentencesDir.isDirectory()){
+			System.err.println("yy");
 		}else{
-			files = new File("./data").list();
+			System.err.println("no");
 		}
-		for (String string : files) {
-		}
+		final String[] sentenceFiles = sentencesDir.list();
+		
 
-		List l = Arrays.asList(files);
+		List<String> l = new ArrayList<String>(Arrays.asList(files));
+		List<String> sentencesList = new ArrayList<String>(Arrays.asList(sentenceFiles));
+		l.addAll(sentencesList);
 		Collections.sort(l, new LengthComparator());
 
 		List<String> newList = new ArrayList<String>();
@@ -239,6 +245,10 @@ public class NodeObserver extends Panel implements FlatDialogListener
 
 	}
 
+	private File getSentenceDirOf(File dir) {
+		
+		return new File(dir.getAbsolutePath()+"/sentences/");
+	}
 	public NodeObserver(Container node_container,  Hashtable nodes,java.awt.Frame frame,int fontsize){
 		this(node_container,nodes,frame);
 		this.fontManager.setFontSize(fontsize);
