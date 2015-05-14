@@ -44,8 +44,8 @@ public class TagHash {
 		hash1.put(new Integer(KeyEvent.VK_O),"@outsource");
 		hash2.put("@outsource",new Integer(KeyEvent.VK_O));
 
-		hash1.put(new Integer(KeyEvent.VK_P),"@pknk");
-		hash2.put("@pknk",new Integer(KeyEvent.VK_P));
+		hash1.put(new Integer(KeyEvent.VK_P),"@project");
+		hash2.put("@project",new Integer(KeyEvent.VK_P));
 		
 		hash1.put(new Integer(KeyEvent.VK_T),"@tao");
 		hash2.put("@tao",new Integer(KeyEvent.VK_T));
