@@ -52,7 +52,7 @@ public class NodepadDAO {
 				  //		        				this.getNode_container().getBounds().width,
 				  //		        				this.getNode_container().getBounds().height));
 				  //TODO changed to dalse as it was throwing exceptions
-				  if(false){
+				  if(true){
 					  Robot robot = new Robot();
 					  BufferedImage screenShot = 
 							  robot.createScreenCapture(this.nodeObserver.getNodeFieldApplet().getFrame().getBounds());
