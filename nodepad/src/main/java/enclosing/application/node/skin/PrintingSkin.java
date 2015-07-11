@@ -56,7 +56,7 @@ public class PrintingSkin implements NodepadSkin {
 	// xxxxxxxxxxxxxxxx nice link basecamp blue.
 	private Color ncnormalback =new Color(10,10,10);
 	private Color ncnormalfore  = 		new Color(255,255,255,235);
-	private Color ncselectedback  = 	new Color(0,0,0);
+	private Color ncselectedback  = 	new Color(70,70,70);
 	private Color ncselectedfore= new Color(255,255,255);
 	private Color nctransparentback  = new Color(10,10,10,10);
 	private Color nctransparentfore = new Color(255,255,255,60);
@@ -77,7 +77,7 @@ public class PrintingSkin implements NodepadSkin {
 
 	private Color auxLineColor = new  Color(0,0,70,20);
 	
-	private Color lineColor = new Color(200,200,200,125);
+	private Color lineColor = new Color(200,200,200,50);
 //	private Color lineColor = new Color(0,200,50,70);
 //	pinky line
 //	private Color lineColor = new Color(0,0,0,200);

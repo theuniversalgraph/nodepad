@@ -319,7 +319,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNcnormalback());
 		//        g.setColor(getBackground());
 		if(this.getObserver().getNodeFieldApplet().isTaggedHoist() && !this.isHoist()){
-
+			g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNcselectedback());
 		}else{
 			if(this.getObserver().getNodeFieldApplet().isSeekingNext()){
 				if(isDelayed() ) {
@@ -330,7 +330,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			}else{
 				if(this.isTransparent() || this.isHoist()){
 					g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNctransparentback());
-				}else if(this.isSelected()){
+				}else if(this.isSelected()){ 
 					g.setColor(this.getObserver().getNodeFieldApplet().getSkin().getNcselectedback());
 					//                	g2.setPaint(new GradientPaint(
 					//                            0,0, new Color(249,252,255),0 , this.getHeight(),  new Color(232,243,255), false));
@@ -368,6 +368,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		foreColor = this.getObserver().getNodeFieldApplet().isSeekingNext()&&isDelayed()?Color.RED:foreColor;
 		foreColor = this.getObserver().getNodeFieldApplet().isSeekingNext()&&!isDelayed()?this.getObserver().getNodeFieldApplet().getSkin().getNctransparentfore():foreColor;
 		foreColor = !this.getObserver().getNodeFieldApplet().isSeekingNext()&&(this.isHoist() || this.isTransparent())?this.getObserver().getNodeFieldApplet().getSkin().getNctransparentfore():foreColor;
+		foreColor = this.getObserver().getNodeFieldApplet().isTaggedHoist()&&!this.isHoist()?this.getObserver().getNodeFieldApplet().getSkin().getNcselectedfore():foreColor;
 		
 		g.setColor(foreColor);
 		//        if(!this.getNodeInterface().getContent().equals("") &&this.contentBufBuf[0]!=null && (this.contentBufBuf[0].startsWith("@"))  ){
@@ -383,7 +384,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 			}
 		}
 		if(this.isFocusOwner()){
-			g.setColor(Color.BLACK);
+			g.setColor(new Color(255,50,50));
 			g.fillRect(0, 0, 5, 5);
 			//            g.setFont(new Font("Dialog", 0, 5));
 			//            g.drawString("",2,4);
