@@ -22,7 +22,10 @@ public class TagHash {
 		
 		hash1.put(new Integer(KeyEvent.VK_E),"@eclipse");
 		hash2.put("@Eclipse",new Integer(KeyEvent.VK_E));
-		
+
+		hash1.put(new Integer(KeyEvent.VK_F),"@focus");
+		hash2.put("@focus",new Integer(KeyEvent.VK_F));
+
 //		hash1.put(new Integer(KeyEvent.VK_K),"@keyword");
 //		hash2.put("@keyword",new Integer(KeyEvent.VK_K));
 		
