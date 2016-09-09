@@ -75,46 +75,38 @@ public class NodeFieldKeyEventHandler {
 //				    	this.nodeFieldApplet.setSkin(new PrintingSkin());
 //			    	}
 //			    	this.nodeFieldApplet.repaint();
-		}
-		if(ke.getKeyCode() == KeyEvent.VK_U){
+		}else if(ke.getKeyCode() == KeyEvent.VK_U){
 			ProcessNodeCrudRequestByAccessingServer.process(this.nodeFieldApplet.getObserver());
 			this.nodeFieldApplet.repaint();
-		}
-
-		if(ke.getKeyCode()==KeyEvent.VK_T){
+		}else if(ke.getKeyCode()==KeyEvent.VK_T){
 			System.err.println(this.nodeFieldApplet.getObserver().getFilename());
 			System.err.println(this.nodeFieldApplet.getObserver().getNodefieldName());
 			new NodesToTodoistItems(this.nodeFieldApplet.getObserver().getNodefieldName());
-		}
-		if(ke.getKeyCode()==83){
+		}else if(ke.getKeyCode()==KeyEvent.VK_D){
+			this.nodeFieldApplet.getObserver().setMode("delete",this);
+		}else if(ke.getKeyCode()==83){
 			this.nodeFieldApplet.getObserver().setMode("save",this);
-		}
-		if(ke.getKeyCode()== 67)
+		}else if(ke.getKeyCode()== 67){
 			new ClipBoardManager(this.nodeFieldApplet.getObserver()).copy();
-		if(ke.getKeyCode()==86)
+		}else if(ke.getKeyCode()==86){
 			new ClipBoardManager(this.nodeFieldApplet.getObserver()).paste();
-		if(ke.getKeyCode()==88)
+		}else if(ke.getKeyCode()==88){
 			new ClipBoardManager(this.nodeFieldApplet.getObserver()).cut();
-		if(ke.getKeyCode()==65)
+		}else if(ke.getKeyCode()==65){
 			this.nodeFieldApplet.getObserver().selectAllNodes();
-		if(ke.getKeyCode() == KeyEvent.VK_L)
+		}else if(ke.getKeyCode() == KeyEvent.VK_L){
 		    new EnCauseNodesWithRelativeYPosision(this.nodeFieldApplet.getObserver().getMode().getSelected(),this.nodeFieldApplet.getObserver());
-
-		if(ke.getKeyCode()==87){
+		}else if(ke.getKeyCode()==87){
 			if(!this.nodeFieldApplet.getObserver().checkDirtyAndSave()){
 				this.nodeFieldApplet.getObserver().applicationEnds(null);
 			}				
-		}
-		if(ke.getKeyCode()==107 || ke.getKeyCode()==187){
+		}else if(ke.getKeyCode()==107 || ke.getKeyCode()==187){
 			new FieldZoomManager(this.nodeFieldApplet.getObserver()).zoomin();
 			this.nodeFieldApplet.getObserver().getFontManager().setFontSizeBigger();
-		}
-		if(ke.getKeyCode()==109 || ke.getKeyCode()==189){
+		}else if(ke.getKeyCode()==109 || ke.getKeyCode()==189){
 			new FieldZoomManager(this.nodeFieldApplet.getObserver()).zoomout();
 			this.nodeFieldApplet.getObserver().getFontManager().setFontSizeSmaller();
-		}
-
-		if(ke.getKeyCode() == ke.VK_N){
+		}else if(ke.getKeyCode() == ke.VK_N){
 			Enumeration enumeration = this.nodeFieldApplet.getObserver().getNode_components().elements();
 			while (enumeration.hasMoreElements()) {
 				NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();

@@ -586,10 +586,10 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		nc.setText("&museigenbox");
 	}
 	public NodeComponent createNewParent(){
-		int xRandom = ((int)(Math.random() * 250));
-		int yRandom = (int)(Math.random() * 30);
-		int yoffset = 20;
-		int xoffset = 55;
+		int xRandom = ((int)(Math.random() * baseX));
+		int yRandom = (int)(Math.random() * baseY);
+		int yoffset = 30;
+		int xoffset = baseX / 2;;
 
 		int xToBeAdded =     	this.getNodeInterface().getParents().size()==0?0:xRandom-xoffset;
 		NodeComponent nc = this.getObserver().makeNewNornalNodeAt(this.getX()+xToBeAdded,this.getY() - yoffset - yRandom);
@@ -598,6 +598,9 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 		nc.requestFocusInWindow();
 		return nc;
 	}
+	final int baseX = 400;
+	final int baseY = 200;
+
 	public NodeComponent createNewChild(){
 		Enumeration enumeration = this.getChildren().elements();
 		int xRandom  = 0;
@@ -611,14 +614,15 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				break;
 			}
 		}
-		if(hassamexchild){
-			xRandom = (int)(Math.random() * 150);
-			addedx = xRandom-75;
-			yRandom = (int)(Math.random() * 30);
+		if(!hassamexchild){
+			xRandom = (int)(Math.random() * baseX);
+			int offset = baseX / 2;
+			addedx = xRandom-offset;
 		}
-		NodeComponent nc = this.getObserver().makeNewNornalNodeAt(this.getX() + addedx,this.getY() + this.getHeight() + 30 - yRandom);
+		yRandom = (int)(Math.random() * baseY);
+		NodeComponent nc = this.getObserver().makeNewNornalNodeAt(this.getX() + addedx,this.getY() + this.getHeight() - 30 + yRandom);
 		enumeration = this.getChildren().elements();
-		int span = 50;
+		int span = 120;
 		boolean nodesnear = false;
 		while (enumeration.hasMoreElements()) {
 			NodeComponent nodeComponent = (NodeComponent) enumeration.nextElement();
@@ -630,9 +634,9 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				break;
 			}
 		}
-		if(nodesnear){
-			nc.moveLocation(-100 + xRandom * 2, -10 + yRandom * 2);
-		}
+//		if(nodesnear){
+//			nc.moveLocation(-70 + xRandom, -20 + yRandom);
+//		}
 		this.makeConnection(nc);
 		this.getObserver().setMode("normal",null);
 		nc.requestFocusInWindow();
@@ -1119,7 +1123,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				for (Iterator iterator = this.getWikilinks().iterator(); iterator
 						.hasNext();) {
 					WikiLinkComponent wikiLinkComponent = (WikiLinkComponent) iterator.next();
-					new AutoExpandOneStep(wikiLinkComponent.getBranketContent(), this,this.getObserver().getNode_components());
+					new AutoExpandOneStep(wikiLinkComponent.getBranketContent(), this,this.getObserver().getNode_components(),2);
 					//					this.observer.setMode_object(wikiLinkComponent);
 					//					this.observer.setMode("WikiAutoExpand",this);
 				}
@@ -1161,6 +1165,9 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				}
 				if(ke.getKeyCode()==KeyEvent.VK_M){
 					this.createMuseigenChild();
+				}
+				if(ke.getKeyCode()==KeyEvent.VK_D){
+					this.getObserver().setMode("delete",null);
 				}
 				if(ke.getKeyCode() == KeyEvent.VK_G){
 					this.showGoogleResultONBrowser();

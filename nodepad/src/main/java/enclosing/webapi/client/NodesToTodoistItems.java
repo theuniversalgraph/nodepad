@@ -50,16 +50,16 @@ public class NodesToTodoistItems {
 				Item returnedItem = gson.fromJson(addedString, itemType);
 				
 				item.setId(returnedItem.getId());
-				String projectNodeFieldUrl = NODE_WEB_BASEURL + projectNode;
-				item.addNote(projectNode);
-				item.addNote(projectNodeFieldUrl);
-				
+//				String projectNodeFieldUrl = NODE_WEB_BASEURL + projectNode;
+//				item.addNote(projectNode);
+//				item.addNote(projectNodeFieldUrl);
+//				
 				String projectNodeFieldUrlForContext = DescendantsOf.relatedInString(projectNode);
 				if(projectNodeFieldUrlForContext.length()>49){
 					projectNodeFieldUrlForContext = projectNodeFieldUrlForContext.substring(0, 50);
 				}
 
-				item.addNote(NODE_WEB_BASEURL+projectNodeFieldUrlForContext);
+//				item.addNote(NODE_WEB_BASEURL+projectNodeFieldUrlForContext);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

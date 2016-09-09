@@ -316,7 +316,7 @@ public class NodeObserver extends Panel implements FlatDialogListener
 			this.mode.setMode_object(obj);
 		}else if(str.equals("WikiAutoExpand")){
 			WikiLinkComponent wikiLinkComponent = 			((WikiLinkComponent)this.mode.getMode_object());
-			AutoExpandOneStep autoExpandOneStep = new AutoExpandOneStep(wikiLinkComponent.getBranketContent(),(NodeComponent)wikiLinkComponent.getParent(),this.getNode_components());
+			AutoExpandOneStep autoExpandOneStep = new AutoExpandOneStep(wikiLinkComponent.getBranketContent(),(NodeComponent)wikiLinkComponent.getParent(),this.getNode_components(),2);
 		}
 		getNode_container().repaint();
 	}

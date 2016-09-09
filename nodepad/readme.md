@@ -4,9 +4,22 @@ an open source / open data General AI project with webapis, GUI, commercial batc
 ## build
 ### dependencies
 we use maven for the dependency solutions. most of the pom dependencies are public projects,but we have 2 private ones.
-1. todoist
-https://github.com/toukubo/todoist
-2. https://github.com/toukubo/clouddb
+1. [clouddb](https://github.com/toukubo/clouddb)
+2. [todoist](https://github.com/toukubo/todoist)
+
+git clone https://github.com/toukubo/todoist
+cd todoist
+mvn install 
+
+git clone https://github.com/toukubo/clouddb
+cd clouddb
+mvn install
+
+git clone https://github.com/theuniversalgraph/core
+mvn install
+
+
+
 
 ### how to build with those dependencies
 those are all maven java project. you need to run 

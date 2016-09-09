@@ -36,7 +36,7 @@ public class Main {
 			}
 		}else{
 			frame.setTitle(file);
-			applet.observer.getNodepadDao().openFromFile("./data/better_findjob.json");
+			applet.observer.getNodepadDao().openFromFile("./data/build_menu.json");
 		}
 	} 
 }
