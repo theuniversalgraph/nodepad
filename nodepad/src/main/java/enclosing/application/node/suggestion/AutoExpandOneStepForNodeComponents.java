@@ -15,7 +15,7 @@ public class AutoExpandOneStepForNodeComponents {
 			for (Iterator iter = nodeComponent.getWikilinks().iterator(); iter.hasNext();) {
 				WikiLinkComponent	wikiLinkComponent= (WikiLinkComponent) iter.next();
 				AutoExpandOneStep autoExpandOneStep 
-				 = new AutoExpandOneStep(wikiLinkComponent.getBranketContent(),nodeComponent,nodeComponents,2);
+				 = new AutoExpandOneStep(wikiLinkComponent.getBranketContent(),nodeComponent,nodeComponents);
 			}
 		}
 		

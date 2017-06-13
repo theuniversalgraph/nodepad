@@ -116,7 +116,7 @@ public class MakeNodeFilesForExistingNodes {
 			}
 
 			NodeComponent expandedNodeComponent = GetNodeFieldNodeComponent.findExpandedNodeComponent(applet,NodeUtils.removeTagString(NodeUtils.saferStringOf(foundNode.getContent())));
-			AutoExpandOneStep autoExpandOneStep = new AutoExpandOneStep(foundNode, expandedNodeComponent, applet.getObserver().getNode_components(),nodes);
+			AutoExpandOneStep autoExpandOneStep = new AutoExpandOneStep(foundNode, expandedNodeComponent, applet.getObserver().getNode_components(),nodes,1);
 			applet.getObserver().getNodepadDao().saveToFile();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

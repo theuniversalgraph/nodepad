@@ -1123,7 +1123,7 @@ public class NodeComponent extends Container implements Serializable , KeyListen
 				for (Iterator iterator = this.getWikilinks().iterator(); iterator
 						.hasNext();) {
 					WikiLinkComponent wikiLinkComponent = (WikiLinkComponent) iterator.next();
-					new AutoExpandOneStep(wikiLinkComponent.getBranketContent(), this,this.getObserver().getNode_components(),2);
+					new AutoExpandOneStep(wikiLinkComponent.getBranketContent(), this,this.getObserver().getNode_components());
 					//					this.observer.setMode_object(wikiLinkComponent);
 					//					this.observer.setMode("WikiAutoExpand",this);
 				}

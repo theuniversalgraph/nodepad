@@ -72,7 +72,7 @@ public class TextToNodes {
 			applet.getObserver().getNodepadDao().openFromFile(GetFacelessNodeField.getBasedirFile(target).getAbsolutePath()+"/"+NodeUtils.saferStringOf(target)+".json");
 			NodeComponent expandedNodeComponent = GetNodeFieldNodeComponent.findExpandedNodeComponent(applet,NodeUtils.removeTagString(NodeUtils.saferStringOf(target)));
 			if(expandsToChild){
-				AutoExpandOneStep.oneStepForChild(expandedNodeComponent, applet.getObserver().getNode_components(), expanded);
+				AutoExpandOneStep.oneStepForChild(expandedNodeComponent, applet.getObserver().getNode_components(), expanded,1);
 			}else{
 				AutoExpandOneStep.oneStepForParent(expandedNodeComponent, expanded,applet.getObserver().getNode_components().elements());
 			}

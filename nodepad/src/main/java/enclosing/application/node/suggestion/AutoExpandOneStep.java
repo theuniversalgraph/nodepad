@@ -16,8 +16,8 @@ public class AutoExpandOneStep {
 	Enumeration childs = null;
 	Enumeration parents = null;
 	Node theNodeWithTheSameNameAsWikiString = null;
-	public AutoExpandOneStep(String wikistring,NodeComponent  expandedNodeComponent,Hashtable existingNodeComponents,int hopcount){
-        hopcount--;
+	public AutoExpandOneStep(String wikistring,NodeComponent  expandedNodeComponent,Hashtable existingNodeComponents){
+        hopcount++;
 
         wikistring = wikistring.replaceAll("\\s", "_");
         wikistring = NodeUtils.removeTagString(wikistring);
@@ -143,7 +143,7 @@ public class AutoExpandOneStep {
 		   	NodeComponent createdChild = expandedNodeComponent.createNewChild();
 		   	createdChild.setText(childContent);
 		   	if(hopcount > 0){
-				new AutoExpandOneStep(childContent,createdChild,existingNodeComponents,hopcount);
+				new AutoExpandOneStep(childContent,createdChild,existingNodeComponents);
 		   	}
 		}
 	}
