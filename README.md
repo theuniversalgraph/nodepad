@@ -24,4 +24,11 @@ cd core
 mvn install
 
 
+cd $NODEPADDIR
+mvn install
+
+mkdir -p data/sentences
+
 ```
+to take the data 
+git pull....
